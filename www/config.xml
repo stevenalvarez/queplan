@@ -62,7 +62,8 @@
     </gap:plugin>
     
     <!-- inappbrowser -->
-    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <plugin name="InAppBrowser" value="CDVInAppBrowser" />
+    <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     
     <!-- childbrowser -->
     <gap:plugin name="com.phonegap.plugins.childbrowser" />
