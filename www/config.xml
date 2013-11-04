@@ -57,8 +57,8 @@
     
     <!-- facebookconnect -->
     <gap:plugin name="com.phonegap.plugins.facebookconnect">
-        <param name="APP_ID" value="378569528879624" />
-        <param name="APP_NAME" value="Patrocinalos by Mazzel" />
+        <param name="APP_ID" value="582928678420559" />
+        <param name="APP_NAME" value="pruebaConexFv" />
     </gap:plugin>
     
     <!-- inappbrowser -->
