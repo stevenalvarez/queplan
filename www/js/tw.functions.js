@@ -70,27 +70,20 @@ var Twitter = {
                     localStorage.setItem(twitterKey, JSON.stringify(accessData));
                     
                     //mandamos al registro
-                    setTimeout(function(){
-                        TW_LOGIN_SUCCESS = true;
-                        showRegistroSocial('twitter');
-                        showLoadingCustom('Cargando datos...');
-                    }, 0);
+                    TW_LOGIN_SUCCESS = true;
+                    showRegistroSocial('twitter');
                     
                     oauth.get('https://api.twitter.com/1.1/users/show.json?screen_name=' + screen_name,
                     function(data)
                     {
                         var user = jQuery.parseJSON(data.text);
                         var urlamigable = (user.name).split(' ').join('');
-                        $("#form_registro").find("#u_urlamigable").val(urlamigable);
-                        $("#form_registro").find("#pictureImage").attr("src", user.profile_image_url).show();
-                        $("#form_registro").find("#u_img_url_social").val(user.profile_image_url);
-                        
+                        var user_profile_image_url = user.profile_image_url;
                         //ocultamos el loading...
                         $.mobile.loading( 'hide' );
-                    
                     },
                     function(data) { alert('Fail to fetch the info of the authenticated user!'); }
-                    );                        
+                    );
                     
                     // Since everything went well we can close our childBrowser!
                     window.plugins.childBrowser.close();

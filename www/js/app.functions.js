@@ -56,10 +56,7 @@ function loginFacebookConnect() {
                 });
                                 
                 //mandamos a la page
-                setTimeout(function(){
-                    showRegistroSocial('facebook');
-                    showLoadingCustom('Cargando datos...');
-                }, 10);
+                showRegistroSocial('facebook');
                 
     		} else {
                 showAlert("User cancelled login or did not fully authorize.", 'Error Login', 'Aceptar');
