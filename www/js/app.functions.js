@@ -29,7 +29,7 @@ function getLoginStatus() {
 
 //loginFacebookConnect
 function loginFacebookConnect() {
-    if(FB_LOGIN_SUCCESS){
+    if(FB_LOGIN_SUCCESS || getLoginStatus()){
         showRegistroSocial("facebook");
     }else{
     	FB.login(function(response) {
@@ -96,7 +96,7 @@ function loginTwitter() {
 }
 
 function showRegistroSocial(red_social){
-    $.mobile.changePage('#xxx', {transition: "slide"});
+    $.mobile.changePage('#home');
 }
 
 function isLogin(){
@@ -112,7 +112,7 @@ function isLogin(){
 }
 
 function redirectLogin(){
-    $.mobile.changePage('login.html', {transition: "fade", changeHash: false});
+    $.mobile.changePage('#view', {transition: "fade", changeHash: false});
 }
 
 //Abrimos el enlace en un navegador del sistema (IOS|ANDROID)
