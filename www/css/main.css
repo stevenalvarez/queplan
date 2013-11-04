@@ -139,7 +139,7 @@
 .content_puntos .puntos{color: #df086f;line-height: 14px;font-size: 17px;}
 
 /* VIEW */
-#view .ui-header, #home .ui-header,{max-height: 165px;}
+#view .ui-header, #home .ui-header{max-height: 165px;}
 #view .texto {color: #000;text-shadow: 0 0 0;text-align: center;border-bottom: 1px solid #e3e3e3;font-size: 20px;padding: 15px 20px;letter-spacing: -1px;font-family: Century Gothic;line-height: 23px;}
 #view .texto .con_facebook{color: #39599f;}
 #view .texto .con_twitter{color: #45b0e3;}
@@ -256,7 +256,7 @@
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
-    #view .ui-header, #home .ui-header,{
+    #view .ui-header, #home .ui-header{
         max-height: 232px;
     }
     #planes .ui-listview .content_descripcion .ubicacion{
