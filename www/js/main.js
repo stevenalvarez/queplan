@@ -14,7 +14,7 @@ $(document).bind('pageshow', function() {
 $('#planes').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     var categoria_id = getUrlVars()["id"];
-    //inicializamos el carrousel
+    //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id, categoria_id);
     getLocalesById(page_id, categoria_id);
 });
@@ -26,10 +26,9 @@ $('#guia').live('pagebeforeshow', function(event, ui) {
 });
 
 //PLAN DESCRIPCION
-$(document).on('pageinit', "#plan_descripcion", function(){
+$('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    //iniciamos el carrousel
-    $("#"+page_id).find("#carrousel_plan").carousel();
+    getLocalById(page_id, getUrlVars()["id"]);
 });
 
 //RECOMPENSAS
@@ -38,13 +37,19 @@ $('#recompensas').live('pagebeforeshow', function(event, ui) {
     getRecompensas(page_id);
 });
 
-
 //RECOMPENSA DESCRIPCION
 $(document).on('pageinit', "#recompensa_descripcion", function(){
     var page_id = $(this).attr("id");
     //iniciamos el carrousel
     $("#"+page_id).find("#carrousel_recompensa").carousel();
 });
+
+//MAPS
+$('#maps').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    showMap(4564,465465);
+});
+
 
 /************************************ FUNCTIONS *******************************************************/
 
@@ -118,7 +123,7 @@ function getLocalesById(parent_id, categoria_id){
         if(data.items){
             //mostramos loading
             $.mobile.loading( 'show' );
-                    
+            
     		items = data.items;
     		$.each(items, function(index, item) {
     		  
@@ -152,6 +157,78 @@ function getLocalesById(parent_id, categoria_id){
                     container.find("li").show();
                 }
                 
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS EL LOCAL SEGUN EL ID
+function getLocalById(parent_id, local_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find("#carrousel_plan");
+    container.find('.m-item').remove();
+    container.find(".m-carousel-controls > a").remove();
+    
+    parent.find(".ui-content").hide();
+    
+	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocalBy/'+local_id, function(data) {
+        
+        if(data){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+            //fotos de los locales
+            var items = data.items;
+            var local = items.Local;
+            var local_fotos = items.LocalsFoto;
+           	$.each(local_fotos, function(index, local_foto) {
+           	    var mclass = ""; 
+           	    if(index == 0) mclass = "m-active";
+                var html='<div class="m-item '+mclass+'">' +
+                    '<div data-role="navbar" data-corners="false" class="ui-navbar ui-mini" role="navigation">' + 
+                        '<ul class="ui-grid-b">' + 
+                            '<li class="ui-block-a">' + 
+                                '<a href="#" data-slide="prev" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-up-a ui-btn-active">' +
+                                    '<span class="ui-btn-inner"><span class="ui-btn-text">previous</span></span>' +
+                                '</a>' +
+                            '</li>' + 
+                            '<li class="ui-block-b">' +
+                                '<h3>'+local.title+'</h3>' +
+                            '</li>' +
+                            '<li class="ui-block-c">' +
+                                '<a href="#" data-slide="next" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-up-a">' +
+                                    '<span class="ui-btn-inner"><span class="ui-btn-text">next</span></span>' + 
+                                '</a>' +
+                            '</li>' +
+                        '</ul>' +
+                    '</div>' +
+                    '<img src="'+BASE_URL_APP+'img/locales/' + local_foto.imagen + '"/>' +
+                '</div>';
+                
+           	    container.find(".m-carousel-inner").append(html);
+                container.find(".m-carousel-controls").append('<a href="#" data-slide="'+(index+1)+'">'+(index+1)+'</a>');
+            });
+            
+            //llenamoas los datos del local
+            parent.find(".texto_descripcion").html(local.descripcion);
+            parent.find(".llamada span").html(local.telefono);
+            parent.find(".llamar a").attr("href","tel:"+local.telefono);
+            
+            //web
+            if(local.web != null && local.web != "")parent.find(".web a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            //twitter
+            if(local.twitter != null && local.twitter != "")parent.find(".twitter a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            //facebook
+            if(local.facebook != null && local.facebook != "")parent.find(".facebook a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            
+            //iniciamos el carousel
+            container.find(".m-carousel-inner").promise().done(function() {
+                //iniciamos el carrousel
+                container.carousel();
+                
+                //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
             });
@@ -238,4 +315,25 @@ function getRecompensas(parent_id) {
             });
         }
 	});
+}
+
+//getMapa
+function showMap(latitud, longitud) {
+    var map;
+    var marcador;
+    var latlng = new google.maps.LatLng(-17.389718, -66.152679);
+    var myOptions = {
+      zoom: 16,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      zoomControl: true
+    };
+    map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+    	
+    	
+    marcador = new google.maps.Marker( {
+    	position: latlng,
+    	map:map	
+    });
 }
