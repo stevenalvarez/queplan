@@ -10,8 +10,22 @@ $(document).bind('pageshow', function() {
 
 /************************************ EVENTOS *******************************************************/
 
+//GUIA
+$('#guia').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getCategorias(page_id);
+});
+
 //PLANES
 $('#planes').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    //inicializamos el carrousel slider
+    getCategoriasByCarrousel(page_id);
+    getPlanes(page_id);
+});
+
+//LOCALES
+$('#locales').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     var categoria_id = getUrlVars()["id"];
     //inicializamos el carrousel slider
@@ -19,14 +33,8 @@ $('#planes').live('pagebeforeshow', function(event, ui) {
     getLocalesById(page_id, categoria_id);
 });
 
-//GUIA
-$('#guia').live('pagebeforeshow', function(event, ui) {
-    var page_id = $(this).attr("id");
-    getCategorias(page_id);
-});
-
-//PLAN DESCRIPCION
-$('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
+//LOCAL DESCRIPCION
+$('#local_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     getLocalById(page_id, getUrlVars()["id"]);
 });
@@ -44,12 +52,6 @@ $(document).on('pageinit', "#recompensa_descripcion", function(){
     $("#"+page_id).find("#carrousel_recompensa").carousel();
 });
 
-//MAPS
-$('#maps').live('pagebeforeshow', function(event, ui) {
-    var page_id = $(this).attr("id");
-    showMap(getUrlVars()["latitud"],getUrlVars()["longitud"]);
-});
-
 //COMO FUNCIONA
 $('#como_funciona').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
@@ -62,12 +64,57 @@ $('#como_funciona_descripcion').live('pagebeforeshow', function(event, ui) {
     getComoFuncionaById(page_id, getUrlVars()["id"]);
 });
 
+//LOCAL GOOGLE MAP
+$('#local_google_map').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    showGoogleMap(getUrlVars()["latitud"],getUrlVars()["longitud"]);
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
-//OBTENEMOS LAS CATEGORIAS PARA EL CARROUSEL - PLANES
+//OBTENEMOS LAS CATEGORIAS
+function getCategorias(parent_id) {
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-controlgroup-controls");
+    container.find("a.clone").remove();
+    
+    parent.find(".ui-content").hide();
+	
+    $.getJSON(BASE_URL_APP + 'categorias/mobileGetCategorias', function(data) {
+        if(data){
+            
+            //mostramos loading
+            $.mobile.loading('show');
+            
+    		items = data.items;
+    		$.each(items, function(index, item) {
+                var clone = container.find('a:first').clone(true);
+                clone.attr("href", "locales.html?id=" + item.Categoria.id);
+                clone.find(".ui-btn-text").html(item.Categoria.title);
+                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+item.Categoria.imagen+"')  no-repeat scroll top center transparent");
+                clone.find(".ui-icon").css("background-size","35px");
+                clone.find(".ui-icon").css("padding-left","5px");
+                clone.find(".ui-icon").css("margin-top","-18px");
+                clone.css("display","block");
+                clone.addClass("clone");
+                
+                //append container
+                container.append(clone);
+    		});
+            
+            container.promise().done(function() {
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS LAS CATEGORIAS PARA EL CARROUSEL - LOCALES
 function getCategoriasByCarrousel(parent_id, categoria_id){
     var parent = $("#"+parent_id);
-    var container = parent.find("#slider_items");
+    var container = parent.find(".slider_items");
     container.find('li').remove();
     container.hide();
     
@@ -121,7 +168,56 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
 	});
 }
 
-//OBTENEMOS LOS LOCALES SEGUN EL ID QUE NOS PASA - PLANES
+//OBTENEMOS LOS PLANES
+function getPlanes(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-listview");
+    container.find('li').remove();
+    
+    parent.find(".ui-content").hide();
+    
+	$.getJSON(BASE_URL_APP + 'promocions/mobileGetPlanes', function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		items = data.items;
+    		$.each(items, function(index, item) {
+    		  
+            	var html='<li class="'+item.Local.categoria_id+'">' +
+                    '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + item.Promocion.imagen + '"/>' +
+                    '<div class="content_descripcion">' +
+                        '<div class="ubicacion">' +
+                            '<h3 class="ui-li-heading">' +
+                                '<a href="plan_descripcion.html?id='+item.Promocion.id+'">'+item.Promocion.title+'</a>' +
+                            '</h3>' +
+                        '</div>' +
+                        '<div class="km">' +
+                            '<b>1248 km</b>' +
+                        '</div>' +
+                    '</div>' +
+                '</li>';
+    		    
+                container.append(html);
+    		});
+            
+            //refresh
+    		container.listview('refresh');
+            
+            container.find("li:last img").load(function() {
+                //mostramos todos los planes
+                container.find("li").show();
+                
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS LOS LOCALES SEGUN EL ID QUE NOS PASA - LOCAL
 function getLocalesById(parent_id, categoria_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-listview");
@@ -143,7 +239,7 @@ function getLocalesById(parent_id, categoria_id){
                     '<div class="content_descripcion">' +
                         '<div class="ubicacion">' +
                             '<h3 class="ui-li-heading">' +
-                                '<a href="plan_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
+                                '<a href="local_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
                             '</h3>' +
                         '</div>' +
                         '<div class="km">' +
@@ -159,15 +255,10 @@ function getLocalesById(parent_id, categoria_id){
     		container.listview('refresh');
             
             container.find("li:last img").load(function() {
+                //mostramos los locales de esa categoria
+                container.find("li."+categoria_id).show();
+                
                 //ocultamos loading
-                
-                //si viene alguna categoria seleccionda solo mostramos esa
-                if(categoria_id != undefined){
-                    container.find("li."+categoria_id).show();
-                }else{
-                    container.find("li").show();
-                }
-                
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
             });
@@ -178,7 +269,7 @@ function getLocalesById(parent_id, categoria_id){
 //OBTENEMOS EL LOCAL SEGUN EL ID
 function getLocalById(parent_id, local_id){
     var parent = $("#"+parent_id);
-    var container = parent.find("#carrousel_plan");
+    var container = parent.find("#carrousel_local");
     container.find('.m-item').remove();
     container.find(".m-carousel-controls > a").remove();
     
@@ -228,7 +319,7 @@ function getLocalById(parent_id, local_id){
             parent.find(".llamar a").attr("href","tel:"+local.telefono);
             
             //map
-            parent.find(".map a").attr("href","maps.html?latitud="+local.latitud+"&longitud="+local.longitud);
+            parent.find(".map a").attr("href","local_google_map.html?latitud="+local.latitud+"&longitud="+local.longitud);
             
             //web
             if(local.web != null && local.web != "")parent.find(".web a").attr("onclick", "window.open(this.href,'_system'); return false;");
@@ -242,45 +333,6 @@ function getLocalById(parent_id, local_id){
                 //iniciamos el carrousel
                 container.carousel();
                 
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                parent.find(".ui-content").fadeIn("slow");
-            });
-        }
-	});
-}
-
-//OBTENEMOS LAS CATEGORIAS
-function getCategorias(parent_id) {
-    var parent = $("#"+parent_id);
-    var container = parent.find(".ui-controlgroup-controls");
-    container.find("a.clone").remove();
-    
-    parent.find(".ui-content").hide();
-	
-    $.getJSON(BASE_URL_APP + 'categorias/mobileGetCategorias', function(data) {
-        if(data){
-            
-            //mostramos loading
-            $.mobile.loading('show');
-            
-    		items = data.items;
-    		$.each(items, function(index, item) {
-                var clone = container.find('a:first').clone(true);
-                clone.attr("href", "planes.html?id=" + item.Categoria.id);
-                clone.find(".ui-btn-text").html(item.Categoria.title);
-                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+item.Categoria.imagen+"')  no-repeat scroll top center transparent");
-                clone.find(".ui-icon").css("background-size","35px");
-                clone.find(".ui-icon").css("padding-left","5px");
-                clone.find(".ui-icon").css("margin-top","-18px");
-                clone.css("display","block");
-                clone.addClass("clone");
-                
-                //append container
-                container.append(clone);
-    		});
-            
-            container.promise().done(function() {
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
@@ -394,8 +446,8 @@ function getComoFuncionaById(parent_id, como_funcion_id){
 	});
 }
 
-//showMap
-function showMap(latitud, longitud) {
+//MOSTRAMOS EL GOOGLE MAP DEL LOCAL
+function showGoogleMap(latitud, longitud) {
     var map;
     var marcador;
     if(latitud != "" && longitud != ""){

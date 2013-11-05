@@ -87,7 +87,7 @@
 
 .logo.ui-title{margin: .6em 18% .8em;white-space: normal;}
 .logo.ui-title img{width: 100%;height: auto;}
-#view .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content, #mi_perfil .ui-content, #maps .ui-content, #como_funciona_descripcion .ui-content{background: #eeeeee;margin: 0 15px 25px 15px;border-radius: 5px;border: 1px solid #d1d1d1;padding: 0;min-height: 190px;}
+#view .ui-content, #local_descripcion .ui-content, #recompensa_descripcion .ui-content, #mi_perfil .ui-content, #local_google_map .ui-content, #como_funciona_descripcion .ui-content, #plan_descripcion .ui-content{background: #eeeeee;margin: 0 15px 25px 15px;border-radius: 5px;border: 1px solid #d1d1d1;padding: 0;min-height: 190px;}
 
 /* NAVIGATION HEADER */
 .ui-header ul{padding: 0 10px;background: url("../img/bg_top_footer.png") repeat-x scroll bottom left #51555e;height: 63px;}
@@ -163,53 +163,53 @@
 #guia .guia_otros .ui-icon{background: url("../img/guias/icon_otros.png") no-repeat scroll top center transparent;padding-left: 3px;background-size: 35px;margin-top: -18px;}
 #guia .ui-footer, #recompensas .ui-footer{background-color: #3d3b3b;}
 
-/* PLANES */
-#planes .content_top{background: #e2e2e2;width: 100%;}
-#planes .guia_items{overflow: hidden;height: 48px;}
-#planes .guia_items .owl-item{height: 48px;}
-#planes .guia_items .owl-item.active{background: #df086f;}
-#planes .guia_items li{float: left;}
-#planes .guia_items .recuadro{text-align: center;height: 25px;margin-top: 8px;padding-left: 25px;padding-right: 25px;width: 30px;}
-#planes .guia_items .recuadro a{display: inline-block;}
-#planes .guia_items .recuadro img{width: 100%;}
-#planes .guia_items p{font-size: 9px;color: #595858;text-shadow: none;text-align: center;font-family: Century Gothic;}
-#planes .guia_items .owl-item.active p{color: #fff;}
-#planes .ui-listview{margin: 15px;margin-bottom: 8px;}
-#planes .ui-listview li{background: #f2f2f2;}
-#planes .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 80px;max-width: 102px;}
-#planes .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 112px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 44px;margin-bottom: 5px;overflow: hidden;display: none;}
-#planes .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 13px;text-shadow: none;margin-bottom: 0;}
-#planes .ui-listview .ui-li-heading a{color: #838383;font-family: Century Gothic;}
-#planes .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;}
-#planes .ui-listview .content_descripcion .ubicacion{width: 60%;float: left;}
-#planes .ui-listview .content_descripcion .km{width: 38%;padding: 8px 0;float: right;text-shadow: none;color: #df086f;font-family: Century Gothic;}
-#planes .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 65px;display: block;text-align: right;}
+/* LOCALES - PLANES*/
+#locales .content_top, #planes .content_top{background: #e2e2e2;width: 100%;}
+#locales .guia_items, #planes .guia_items{overflow: hidden;height: 48px;}
+#locales .guia_items .owl-item, #planes .guia_items .owl-item{height: 48px;}
+#locales .guia_items .owl-item.active, #planes .guia_items .owl-item.active{background: #df086f;}
+#locales .guia_items li, #planes .guia_items li{float: left;}
+#locales .guia_items .recuadro, #planes .guia_items .recuadro{text-align: center;height: 25px;margin-top: 8px;padding-left: 25px;padding-right: 25px;width: 30px;}
+#locales .guia_items .recuadro a, #planes .guia_items .recuadro a{display: inline-block;}
+#locales .guia_items .recuadro img, #planes .guia_items .recuadro img{width: 100%;}
+#locales .guia_items p, #planes .guia_items p{font-size: 9px;color: #595858;text-shadow: none;text-align: center;font-family: Century Gothic;}
+#locales .guia_items .owl-item.active p, #planes .guia_items .owl-item.active p{color: #fff;}
+#locales .ui-listview, #planes .ui-listview{margin: 15px;margin-bottom: 8px;}
+#locales .ui-listview li, #planes .ui-listview li{background: #f2f2f2;}
+#locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 80px;min-height: 52px;max-width: 102px;}
+#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 112px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 44px;margin-bottom: 5px;overflow: hidden;display: none;}
+#locales .ui-listview .ui-li-heading, #planes .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 13px;text-shadow: none;margin-bottom: 0;}
+#locales .ui-listview .ui-li-heading a, #planes .ui-listview .ui-li-heading a{color: #838383;font-family: Century Gothic;}
+#locales .ui-listview .content_descripcion, #planes .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;}
+#locales .ui-listview .content_descripcion .ubicacion, #planes .ui-listview .content_descripcion .ubicacion{width: 60%;float: left;}
+#locales .ui-listview .content_descripcion .km, #planes .ui-listview .content_descripcion .km{width: 38%;padding: 8px 0;float: right;text-shadow: none;color: #df086f;font-family: Century Gothic;}
+#locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 65px;display: block;text-align: right;}
 
-/* PLAN DESCRIPCION */
-#plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin-top: 18px;min-height: 380px;margin-bottom: 15px;}
-#plan_descripcion .nav-opciones li{text-align: center;}
-#plan_descripcion .nav-opciones a{background: transparent;border: none;display: inline-block;width: 38px;height: 35px;}
-#plan_descripcion .nav-opciones .ui-icon{border: none;margin: 0;padding: 0;box-shadow: 0 0 0;border-radius: 0;width: 35px;height: 35px;}
-#plan_descripcion .nav-opciones .ui-btn-inner{border: none;padding-top: 0;padding-bottom: 0;}
-#plan_descripcion .nav-opciones{padding-bottom: 10px;border-bottom: 1px solid #e3e3e3;}
-#plan_descripcion .item_1 .ui-icon{background: url("../img/items/img1.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
-#plan_descripcion .item_2 .ui-icon{background: url("../img/items/img2.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
-#plan_descripcion .item_3 .ui-icon{background: url("../img/items/img3.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
-#plan_descripcion .item_4 .ui-icon{background: url("../img/items/img4.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
-#plan_descripcion .item_5 .ui-icon{background: url("../img/items/img5.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
-#plan_descripcion .content_middle, #recompensa_descripcion .content_middle{margin-top: -18px;overflow: hidden;}
-#plan_descripcion .content_middle .ui-navbar{border-bottom: 1px solid #fff;}
-#plan_descripcion .content_bottom, #recompensa_descripcion .content_bottom{text-shadow: 0 0 0;font-family: Century Gothic;}
-#plan_descripcion .content_bottom div.texto_descripcion, #recompensa_descripcion .content_bottom div.texto_descripcion{margin: 3px 12px;font-size: 10px;color: #838383;line-height: 12px;max-height: 72px;min-height: 72px;overflow: hidden;}
-#plan_descripcion .content_bottom .informacion{overflow: hidden;font-size: 12px;color: #000;margin: 0 12px;padding-top: 15px;margin-bottom: 12px;margin-top: -12px;}
-#plan_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
-#plan_descripcion .content_bottom .informacion li{float: left;}
-#plan_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 85px;}
-#plan_descripcion .content_bottom .informacion li.planes_hoy{position: relative;margin-right: 5px;}
-#plan_descripcion .content_bottom .informacion li.planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;margin-left: 5px;text-shadow: 0 1px 1px #6c6f77;}
-#plan_descripcion .content_bottom .informacion li.planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
-#plan_descripcion .content_bottom .informacion li.home{float: left;}
-#plan_descripcion .content_bottom .informacion li.home a{background: url("../img/bg_home.png") no-repeat scroll center top transparent;background-size: 32px 26px;border: none;height: 26px;width: 34px;display: block;text-indent: -9999px;}
+/* LOCAL DESCRIPCION  -  PLAN DESCRIPCION */
+#local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin-top: 18px;min-height: 380px;margin-bottom: 15px;}
+#local_descripcion .nav-opciones li, #plan_descripcion .nav-opciones li{text-align: center;}
+#local_descripcion .nav-opciones a, #plan_descripcion .nav-opciones a{background: transparent;border: none;display: inline-block;width: 38px;height: 35px;}
+#local_descripcion .nav-opciones .ui-icon, #plan_descripcion .nav-opciones .ui-icon{border: none;margin: 0;padding: 0;box-shadow: 0 0 0;border-radius: 0;width: 35px;height: 35px;}
+#local_descripcion .nav-opciones .ui-btn-inner, #plan_descripcion .nav-opciones .ui-btn-inner{border: none;padding-top: 0;padding-bottom: 0;}
+#local_descripcion .nav-opciones, #plan_descripcion .nav-opciones{padding-bottom: 10px;border-bottom: 1px solid #e3e3e3;}
+#local_descripcion .item_1 .ui-icon, #plan_descripcion .item_1 .ui-icon{background: url("../img/items/img1.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
+#local_descripcion .item_2 .ui-icon, #plan_descripcion .item_2 .ui-icon{background: url("../img/items/img2.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
+#local_descripcion .item_3 .ui-icon, #plan_descripcion .item_3 .ui-icon{background: url("../img/items/img3.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
+#local_descripcion .item_4 .ui-icon, #plan_descripcion .item_4 .ui-icon{background: url("../img/items/img4.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
+#local_descripcion .item_5 .ui-icon, #plan_descripcion .item_5 .ui-icon{background: url("../img/items/img5.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
+#local_descripcion .content_middle, #plan_descripcion .content_middle, #recompensa_descripcion .content_middle{margin-top: -18px;overflow: hidden;}
+#local_descripcion .content_middle .ui-navbar, #plan_descripcion .content_middle .ui-navbar{border-bottom: 1px solid #fff;}
+#local_descripcion .content_bottom, #plan_descripcion .content_bottom, #recompensa_descripcion .content_bottom{text-shadow: 0 0 0;font-family: Century Gothic;}
+#local_descripcion .content_bottom div.texto_descripcion, #plan_descripcion .content_bottom div.texto_descripcion, #recompensa_descripcion .content_bottom div.texto_descripcion{margin: 3px 12px;font-size: 10px;color: #838383;line-height: 12px;max-height: 72px;min-height: 72px;overflow: hidden;}
+#local_descripcion .content_bottom .informacion, #plan_descripcion .content_bottom .informacion{overflow: hidden;font-size: 12px;color: #000;margin: 0 12px;padding-top: 15px;margin-bottom: 12px;margin-top: -12px;}
+#local_descripcion .content_bottom .informacion label, #plan_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
+#local_descripcion .content_bottom .informacion li, #plan_descripcion .content_bottom .informacion li{float: left;}
+#local_descripcion .content_bottom .informacion li.llamada, #plan_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 85px;}
+#local_descripcion .content_bottom .informacion li.planes_hoy, #plan_descripcion .content_bottom .informacion li.planes_hoy{position: relative;margin-right: 5px;}
+#local_descripcion .content_bottom .informacion li.planes_hoy p, #plan_descripcion .content_bottom .informacion li.planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;margin-left: 5px;text-shadow: 0 1px 1px #6c6f77;}
+#local_descripcion .content_bottom .informacion li.planes_hoy span, #plan_descripcion .content_bottom .informacion li.planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
+#local_descripcion .content_bottom .informacion li.home, #plan_descripcion .content_bottom .informacion li.home{float: left;}
+#local_descripcion .content_bottom .informacion li.home a, #plan_descripcion .content_bottom .informacion li.home a{background: url("../img/bg_home.png") no-repeat scroll center top transparent;background-size: 32px 26px;border: none;height: 26px;width: 34px;display: block;text-indent: -9999px;}
 
 /* RECOMPENSAS */
 #recompensas .ui-content{background: url("../img/bg_guia.png") repeat scroll 0 0 transparent;overflow: hidden;}
@@ -255,10 +255,10 @@
 .m-carousel-bulleted a{margin: 0 2px !important;}
 .m-carousel-photos .m-item > img{max-height: 123px;}
 
-/* MAPS */
-#maps { height: 100% }
-#maps .ui-content { height: 80%; padding: 0; margin-top: 18px;margin-bottom: 15px;}
-#maps #map_canvas { height: 100% }
+/* LOCAL GOOGLE MAP */
+#local_google_map { height: 100% }
+#local_google_map .ui-content { height: 80%; padding: 0; margin-top: 18px;margin-bottom: 15px;}
+#local_google_map #map_canvas { height: 100% }
 
 /* HOME IPAD AND MOBILE*/
 /* #Mobile (Landscape)
@@ -268,14 +268,20 @@
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
+    #locales .ui-listview .content_descripcion .ubicacion, 
     #planes .ui-listview .content_descripcion .ubicacion{
         width: 78%;
     }
+    #locales .ui-listview .content_descripcion .km,
     #planes .ui-listview .content_descripcion .km{
         width: 20%;
     }
-    .m-carousel-photos .m-item > img{max-height: 192px;}
-    #maps .ui-content{ height: 70% }
+    .m-carousel-photos .m-item > img{
+        max-height: 192px;
+    }
+    #local_google_map .ui-content{ 
+        height: 70% 
+    }
 }
 
 /* Tablet (Portrait)
