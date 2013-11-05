@@ -87,7 +87,7 @@
 
 .logo.ui-title{margin: .6em 18% .8em;white-space: normal;}
 .logo.ui-title img{width: 100%;height: auto;}
-#view .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content, #mi_perfil .ui-content, #maps .ui-content{background: #eeeeee;margin: 0 15px 25px 15px;border-radius: 5px;border: 1px solid #d1d1d1;padding: 0;min-height: 190px;}
+#view .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content, #mi_perfil .ui-content, #maps .ui-content, #como_funciona_descripcion .ui-content{background: #eeeeee;margin: 0 15px 25px 15px;border-radius: 5px;border: 1px solid #d1d1d1;padding: 0;min-height: 190px;}
 
 /* NAVIGATION HEADER */
 .ui-header ul{padding: 0 10px;background: url("../img/bg_top_footer.png") repeat-x scroll bottom left #51555e;height: 63px;}
@@ -154,7 +154,7 @@
 #guia .ui-controlgroup a .ui-btn-inner, #como_funciona .ui-controlgroup a .ui-btn-inner {border-radius: 0 0 0 0;background: url("../img/arrow_sprite.png") no-repeat scroll center right transparent;border-top: 0px;padding-left: 52px;text-align: left;background-position: 100% -18%;background-size: 13px;font-weight: normal;font-family: Century Gothic;font-size: 18px;padding-top: 20px;padding-bottom: 19px;}
 #guia .ui-controlgroup a .ui-btn-inner:hover, #como_funciona .ui-controlgroup a .ui-btn-inner:hover{background-position: 100% 131%;}
 #guia .ui-controlgroup a .ui-btn-inner:hover, #como_funciona .ui-controlgroup a .ui-btn-inner:hover{color: #d9096d;text-shadow: none;}
-#guia .ui-controlgroup a .ui-icon, #como_funciona .ui-controlgroup a .ui-icon{box-shadow: none;width: 30px;height: 30px;background-color: transparent;margin-top: -20px;border-radius: 0;}
+#guia .ui-controlgroup a .ui-icon, #como_funciona .ui-controlgroup a .ui-icon{box-shadow: none;width: 32px;height: 32px;background-color: transparent;margin-top: -20px;border-radius: 0;}
 #guia .guia_restaurante .ui-icon{background: url("../img/guias/icon_restaurante.png") no-repeat scroll top center transparent;padding-left: 2px;background-size: 35px;}
 #guia .guia_salud_bienestar .ui-icon{background: url("../img/guias/icon_salud_belleza.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;}
 #guia .guia_shopping .ui-icon{background: url("../img/guias/icon_shopping.png") no-repeat scroll top center transparent;padding-left: 4px;background-size: 35px;margin-top: -17px;}
@@ -234,10 +234,10 @@
 #recompensa_descripcion .content_bottom div.texto_descripcion{max-height: 85px;}
 
 /* MI PERFIL */
-#mi_perfil .ui-content{margin-top: 34px;min-height: 282px;}
-#mi_perfil .content_details{margin: 0 8px;}
-#mi_perfil h2.ui-li-heading{text-align: center;color: #5a5a5a;font-family: Century Gothic;border-bottom: 1px solid #e3e3e3;padding-bottom: 10px;font-weight: normal;}
-#mi_perfil p{margin-top: 18px;color: #5a5a5a;font-size: 12px;text-shadow: none;margin-bottom: 26px;}
+#mi_perfil .ui-content, #como_funciona_descripcion .ui-content{margin-top: 34px;min-height: 282px;}
+#mi_perfil .content_details, #como_funciona_descripcion .content_details{margin: 0 8px;}
+#mi_perfil h2.ui-li-heading, #como_funciona_descripcion h2.ui-li-heading{text-align: center;color: #5a5a5a;font-family: Century Gothic;border-bottom: 1px solid #e3e3e3;padding-bottom: 10px;font-weight: normal;}
+#mi_perfil p, #como_funciona_descripcion p{margin-top: 18px;color: #5a5a5a;font-size: 12px;text-shadow: none;margin-bottom: 26px;}
 #mi_perfil .content_puntos{margin: 0 0 32px 0;}
 
 /* COMO FUNCIONA */
@@ -246,6 +246,10 @@
 #como_funciona .quiero_anunciarme .ui-icon{background: url("../img/quiero_anunciarme.png") no-repeat scroll top center transparent;background-size: 28px;margin-top: -13px !important;}
 #como_funciona .como_resevar_un_plan .ui-icon{background: url("../img/como_resevar_un_plan.png") no-repeat scroll top center transparent;background-size: 28px;margin-top: -8px !important;}
 #como_funciona .dejar_recibir_alertas .ui-icon{background: url("../img/dejar_recibir_alertas.png") no-repeat scroll top center transparent;background-size: 28px;margin-top: -13px !important;height: 32px !important;}
+
+/* COMO FUNCIONA DESCRIPCION */
+#como_funciona_descripcion .content_details{color: #5a5a5a;font-size: 12px;text-shadow: none;}
+#como_funciona_descripcion p{margin-top: 5px;margin-bottom: 5px;}
 
 /* CARROUSEL */
 .m-carousel-bulleted a{margin: 0 2px !important;}

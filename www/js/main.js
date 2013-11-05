@@ -50,6 +50,18 @@ $('#maps').live('pagebeforeshow', function(event, ui) {
     showMap(getUrlVars()["latitud"],getUrlVars()["longitud"]);
 });
 
+//COMO FUNCIONA
+$('#como_funciona').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getComoFunciona(page_id);
+});
+
+//COMO FUNCIONA DESCRIPCION
+$('#como_funciona_descripcion').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getComoFuncionaById(page_id, getUrlVars()["id"]);
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
 //OBTENEMOS LAS CATEGORIAS PARA EL CARROUSEL - PLANES
@@ -127,7 +139,7 @@ function getLocalesById(parent_id, categoria_id){
     		$.each(items, function(index, item) {
     		  
             	var html='<li class="'+item.Local.categoria_id+'">' +
-                    '<img src="'+BASE_URL_APP+'img/locales/' + item.Local.imagen + '"/>' +
+                    '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
                     '<div class="content_descripcion">' +
                         '<div class="ubicacion">' +
                             '<h3 class="ui-li-heading">' +
@@ -203,7 +215,7 @@ function getLocalById(parent_id, local_id){
                             '</li>' +
                         '</ul>' +
                     '</div>' +
-                    '<img src="'+BASE_URL_APP+'img/locales/' + local_foto.imagen + '"/>' +
+                    '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + local_foto.imagen + '"/>' +
                 '</div>';
                 
            	    container.find(".m-carousel-inner").append(html);
@@ -311,6 +323,69 @@ function getRecompensas(parent_id) {
     		container.listview('refresh');
             
             container.find("li:last img").load(function() {
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS LA LISTA DE COMO FUNCIONA
+function getComoFunciona(parent_id) {
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-controlgroup-controls");
+    container.find("a.clone").remove();
+    
+    parent.find(".ui-content").hide();
+	
+    $.getJSON(BASE_URL_APP + 'como_funcionas/mobileGetComoFunciona', function(data) {
+        if(data){
+            
+            //mostramos loading
+            $.mobile.loading('show');
+            
+    		items = data.items;
+    		$.each(items, function(index, item) {
+                var clone = container.find('a:first').clone(true);
+                clone.attr("href", "como_funciona_descripcion.html?id=" + item.ComoFunciona.id);
+                clone.find(".ui-btn-text").html(item.ComoFunciona.title);
+                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/"+item.ComoFunciona.imagen+"')  no-repeat scroll top center transparent");
+                clone.find(".ui-icon").css("background-size","28px");
+                clone.find(".ui-icon").css("margin-top","-13px");
+                clone.css("display","block");
+                clone.addClass("clone");
+                
+                //append container
+                container.append(clone);
+    		});
+            
+            container.promise().done(function() {
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS COMO FUNCIONA POR SU ID
+function getComoFuncionaById(parent_id, como_funcion_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_details");
+    parent.find(".ui-content").hide();
+    
+    $.getJSON(BASE_URL_APP + 'como_funcionas/mobileGetComoFuncionaById/'+como_funcion_id, function(data) {
+        if(data){
+            
+            //mostramos loading
+            $.mobile.loading('show');
+    		item = data.item;
+            
+            parent.find(".ui-li-heading").html(item.ComoFunciona.title);
+            container.append(item.ComoFunciona.descripcion);
+            
+            container.promise().done(function() {
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
