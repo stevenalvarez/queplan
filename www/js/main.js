@@ -47,9 +47,8 @@ $(document).on('pageinit', "#recompensa_descripcion", function(){
 //MAPS
 $('#maps').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    showMap(4564,465465);
+    showMap(getUrlVars()["latitud"],getUrlVars()["longitud"]);
 });
-
 
 /************************************ FUNCTIONS *******************************************************/
 
@@ -216,6 +215,9 @@ function getLocalById(parent_id, local_id){
             parent.find(".llamada span").html(local.telefono);
             parent.find(".llamar a").attr("href","tel:"+local.telefono);
             
+            //map
+            parent.find(".map a").attr("href","maps.html?latitud="+local.latitud+"&longitud="+local.longitud);
+            
             //web
             if(local.web != null && local.web != "")parent.find(".web a").attr("onclick", "window.open(this.href,'_system'); return false;");
             //twitter
@@ -317,23 +319,19 @@ function getRecompensas(parent_id) {
 	});
 }
 
-//getMapa
+//showMap
 function showMap(latitud, longitud) {
     var map;
     var marcador;
-    var latlng = new google.maps.LatLng(-17.389718, -66.152679);
-    var myOptions = {
-      zoom: 16,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoomControl: true
-    };
-    map = new google.maps.Map(document.getElementById("map_canvas"),
-        myOptions);
-    	
-    	
-    marcador = new google.maps.Marker( {
-    	position: latlng,
-    	map:map	
-    });
+    if(latitud != "" && longitud != ""){
+        var latlng = new google.maps.LatLng(latitud, longitud);
+        var myOptions = {
+          zoom: 16,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          zoomControl: true
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+        marcador = new google.maps.Marker({position: latlng, map: map});
+    }
 }
