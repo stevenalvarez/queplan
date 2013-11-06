@@ -52,10 +52,9 @@ $('#recompensas').live('pagebeforeshow', function(event, ui) {
 });
 
 //RECOMPENSA DESCRIPCION
-$(document).on('pageinit', "#recompensa_descripcion", function(){
+$('#recompensa_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    //iniciamos el carrousel
-    $("#"+page_id).find("#carrousel_recompensa").carousel();
+    getRecompensaById(page_id, getUrlVars()["id"]);
 });
 
 //COMO FUNCIONA
@@ -456,6 +455,69 @@ function getRecompensas(parent_id) {
     		container.listview('refresh');
             
             container.find("li:last img").load(function() {
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS LA RECOMPENSA SEGUN EL ID
+function getRecompensaById(parent_id, recompensa_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find("#carrousel_recompensa");
+    container.find('.m-item').remove();
+    container.find(".m-carousel-controls > a").remove();
+    
+    parent.find(".ui-content").hide();
+    
+	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensaById/'+recompensa_id, function(data) {
+        
+        if(data){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+            var recompensa = data.item.Recompensa;
+            var recompensa_fotos = data.item.RecompensasFoto;
+           	$.each(recompensa_fotos, function(index, recompensa_foto) {
+           	    var mclass = ""; 
+           	    if(index == 0) mclass = "m-active";
+                var html='<div class="m-item '+mclass+'">' +
+                    '<div data-role="navbar" data-corners="false" class="ui-navbar ui-mini" role="navigation">' + 
+                        '<ul class="ui-grid-b">' + 
+                            '<li class="ui-block-a">' + 
+                                '<a href="#" data-slide="prev" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-up-a ui-btn-active">' +
+                                    '<span class="ui-btn-inner"><span class="ui-btn-text">previous</span></span>' +
+                                '</a>' +
+                            '</li>' + 
+                            '<li class="ui-block-b">' +
+                                '<h3>'+recompensa.title+'</h3>' +
+                            '</li>' +
+                            '<li class="ui-block-c">' +
+                                '<a href="#" data-slide="next" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-up-a">' +
+                                    '<span class="ui-btn-inner"><span class="ui-btn-text">next</span></span>' + 
+                                '</a>' +
+                            '</li>' +
+                        '</ul>' +
+                    '</div>' +
+                    '<img src="'+BASE_URL_APP+'img/recompensas/' + recompensa_foto.imagen + '"/>' +
+                '</div>';
+                
+           	    container.find(".m-carousel-inner").append(html);
+                container.find(".m-carousel-controls").append('<a href="#" data-slide="'+(index+1)+'">'+(index+1)+'</a>');
+            });
+            
+            //llenamoas los datos del plan
+            parent.find(".texto_descripcion").html(recompensa.descripcion);
+            parent.find(".ir_al_local a").attr("href","local_descripcion.html?id="+recompensa.local_id);
+            parent.find("#recompensa_condiciones").find(".container_descripcion").html(recompensa.condicion);
+            
+            //iniciamos el carousel
+            container.find(".m-carousel-inner").promise().done(function() {
+                //iniciamos el carrousel
+                container.carousel();
+                
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
