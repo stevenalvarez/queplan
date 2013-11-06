@@ -24,6 +24,12 @@ $('#planes').live('pagebeforeshow', function(event, ui) {
     getPlanes(page_id);
 });
 
+//PLAN DESCRIPCION
+$('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getPlanById(page_id, getUrlVars()["id"]);
+});
+
 //LOCALES
 $('#locales').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
@@ -183,31 +189,103 @@ function getPlanes(parent_id){
             $.mobile.loading( 'show' );
             
     		items = data.items;
-    		$.each(items, function(index, item) {
-    		  
-            	var html='<li class="'+item.Local.categoria_id+'">' +
-                    '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + item.Promocion.imagen + '"/>' +
-                    '<div class="content_descripcion">' +
-                        '<div class="ubicacion">' +
-                            '<h3 class="ui-li-heading">' +
-                                '<a href="plan_descripcion.html?id='+item.Promocion.id+'">'+item.Promocion.title+'</a>' +
-                            '</h3>' +
+            if(items.length){
+        		$.each(items, function(index, item) {
+        		  
+                	var html='<li class="'+item.Local.categoria_id+'">' +
+                        '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + item.Promocion.imagen + '"/>' +
+                        '<div class="content_descripcion">' +
+                            '<div class="ubicacion">' +
+                                '<h3 class="ui-li-heading">' +
+                                    '<a href="plan_descripcion.html?id='+item.Promocion.id+'">'+item.Promocion.title+'</a>' +
+                                '</h3>' +
+                            '</div>' +
+                            '<div class="km">' +
+                                '<b>1248 km</b>' +
+                            '</div>' +
                         '</div>' +
-                        '<div class="km">' +
-                            '<b>1248 km</b>' +
-                        '</div>' +
+                    '</li>';
+        		    
+                    container.append(html);
+        		});
+                
+                //refresh
+        		container.listview('refresh');
+                
+                container.find("li:last img").load(function() {
+                    //mostramos todos los planes
+                    container.find("li").show();
+                    
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
+
+//OBTENEMOS EL PLAN SEGUN EL ID
+function getPlanById(parent_id, plan_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find("#carrousel_plan");
+    container.find('.m-item').remove();
+    container.find(".m-carousel-controls > a").remove();
+    
+    parent.find(".ui-content").hide();
+    
+	$.getJSON(BASE_URL_APP + 'promocions/mobileGetPlanById/'+plan_id, function(data) {
+        
+        if(data){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+            var promocion = data.item.Promocion;
+            var promocion_fotos = data.item.PromocionsFoto;
+           	$.each(promocion_fotos, function(index, promocion_foto) {
+           	    var mclass = ""; 
+           	    if(index == 0) mclass = "m-active";
+                var html='<div class="m-item '+mclass+'">' +
+                    '<div data-role="navbar" data-corners="false" class="ui-navbar ui-mini" role="navigation">' + 
+                        '<ul class="ui-grid-b">' + 
+                            '<li class="ui-block-a">' + 
+                                '<a href="#" data-slide="prev" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-up-a ui-btn-active">' +
+                                    '<span class="ui-btn-inner"><span class="ui-btn-text">previous</span></span>' +
+                                '</a>' +
+                            '</li>' + 
+                            '<li class="ui-block-b">' +
+                                '<h3>'+promocion.title+'</h3>' +
+                            '</li>' +
+                            '<li class="ui-block-c">' +
+                                '<a href="#" data-slide="next" data-corners="false" data-shadow="false" data-iconshadow="true" data-wrapperels="span" data-theme="a" data-inline="true" class="ui-btn ui-btn-inline ui-btn-up-a">' +
+                                    '<span class="ui-btn-inner"><span class="ui-btn-text">next</span></span>' + 
+                                '</a>' +
+                            '</li>' +
+                        '</ul>' +
                     '</div>' +
-                '</li>';
-    		    
-                container.append(html);
-    		});
+                    '<img src="'+BASE_URL_APP+'img/promociones/' + promocion_foto.imagen + '"/>' +
+                '</div>';
+                
+           	    container.find(".m-carousel-inner").append(html);
+                container.find(".m-carousel-controls").append('<a href="#" data-slide="'+(index+1)+'">'+(index+1)+'</a>');
+            });
             
-            //refresh
-    		container.listview('refresh');
+            //llenamoas los datos del plan
+            parent.find(".texto_descripcion").html(promocion.descripcion);
+            parent.find(".informacion").find(".from").html(promocion.fecha_ini_virtual);
+            parent.find(".informacion").find(".to").html(promocion.fecha_fin_virtual);
+            parent.find(".ir_al_local a").attr("href","local_descripcion.html?id="+promocion.local_id);
+            parent.find("#plan_condiciones").find(".container_descripcion").html(promocion.condicion);
+            parent.find("#plan_como_reservar").find(".container_descripcion").html(promocion.como_reservar);
             
-            container.find("li:last img").load(function() {
-                //mostramos todos los planes
-                container.find("li").show();
+            //iniciamos el carousel
+            container.find(".m-carousel-inner").promise().done(function() {
+                //iniciamos el carrousel
+                container.carousel();
                 
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
@@ -232,36 +310,42 @@ function getLocalesById(parent_id, categoria_id){
             $.mobile.loading( 'show' );
             
     		items = data.items;
-    		$.each(items, function(index, item) {
-    		  
-            	var html='<li class="'+item.Local.categoria_id+'">' +
-                    '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
-                    '<div class="content_descripcion">' +
-                        '<div class="ubicacion">' +
-                            '<h3 class="ui-li-heading">' +
-                                '<a href="local_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
-                            '</h3>' +
+            if(items.length){            
+        		$.each(items, function(index, item) {
+        		  
+                	var html='<li class="'+item.Local.categoria_id+'">' +
+                        '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
+                        '<div class="content_descripcion">' +
+                            '<div class="ubicacion">' +
+                                '<h3 class="ui-li-heading">' +
+                                    '<a href="local_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
+                                '</h3>' +
+                            '</div>' +
+                            '<div class="km">' +
+                                '<b>1248 km</b>' +
+                            '</div>' +
                         '</div>' +
-                        '<div class="km">' +
-                            '<b>1248 km</b>' +
-                        '</div>' +
-                    '</div>' +
-                '</li>';
-    		    
-                container.append(html);
-    		});
-            
-            //refresh
-    		container.listview('refresh');
-            
-            container.find("li:last img").load(function() {
-                //mostramos los locales de esa categoria
-                container.find("li."+categoria_id).show();
+                    '</li>';
+        		    
+                    container.append(html);
+        		});
                 
+                //refresh
+        		container.listview('refresh');
+                
+                container.find("li:last img").load(function() {
+                    //mostramos los locales de esa categoria
+                    container.find("li."+categoria_id).show();
+                    
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
-            });
+            }
         }
 	});
 }
@@ -275,16 +359,14 @@ function getLocalById(parent_id, local_id){
     
     parent.find(".ui-content").hide();
     
-	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocalBy/'+local_id, function(data) {
+	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocalById/'+local_id, function(data) {
         
         if(data){
             //mostramos loading
             $.mobile.loading( 'show' );
             
-            //fotos de los locales
-            var items = data.items;
-            var local = items.Local;
-            var local_fotos = items.LocalsFoto;
+            var local = data.item.Local;
+            var local_fotos = data.item.LocalsFoto;
            	$.each(local_fotos, function(index, local_foto) {
            	    var mclass = ""; 
            	    if(index == 0) mclass = "m-active";
@@ -306,7 +388,7 @@ function getLocalById(parent_id, local_id){
                             '</li>' +
                         '</ul>' +
                     '</div>' +
-                    '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + local_foto.imagen + '"/>' +
+                    '<img src="'+BASE_URL_APP+'img/locales/' + local_foto.imagen + '"/>' +
                 '</div>';
                 
            	    container.find(".m-carousel-inner").append(html);
@@ -320,7 +402,6 @@ function getLocalById(parent_id, local_id){
             
             //map
             parent.find(".map a").attr("href","local_google_map.html?latitud="+local.latitud+"&longitud="+local.longitud);
-            
             //web
             if(local.web != null && local.web != "")parent.find(".web a").attr("onclick", "window.open(this.href,'_system'); return false;");
             //twitter

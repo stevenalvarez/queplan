@@ -87,6 +87,7 @@
 
 .logo.ui-title{margin: .6em 18% .8em;white-space: normal;}
 .logo.ui-title img{width: 100%;height: auto;}
+.ui-popup .ui-btn-corner-all{border-radius: 1em;}
 #view .ui-content, #local_descripcion .ui-content, #recompensa_descripcion .ui-content, #mi_perfil .ui-content, #local_google_map .ui-content, #como_funciona_descripcion .ui-content, #plan_descripcion .ui-content{background: #eeeeee;margin: 0 15px 25px 15px;border-radius: 5px;border: 1px solid #d1d1d1;padding: 0;min-height: 190px;}
 
 /* NAVIGATION HEADER */
@@ -130,6 +131,12 @@
 .nav-enlaces .icon_web .ui-icon{background: url("../img/icon_web_black.png") no-repeat scroll center top transparent;height: 30px;width: 25px;background-size: 25px;margin-left: -10px;margin-top: 1px;}
 .nav-enlaces .icon_twitter .ui-icon{background: url("../img/icon_twitter_black.png") no-repeat scroll center top transparent;height: 30px;width: 28px;background-size: 26px;margin-left: -14px;margin-top: 3px;}
 .nav-enlaces .icon_facebook .ui-icon{background: url("../img/icon_facebook_black.png") no-repeat scroll center top transparent;height: 30px;width: 28px;background-size: 26px;margin-left: -14px;margin-top: 3px;}
+
+/* NAVIGATION INFORMACION */
+.nav-informacion .ui-btn-inner{border-top: none;padding-left: 8px;padding-right: 8px;}
+.nav-informacion .ui-btn-text{font-size: 11px;text-shadow: none;font-family: Century Gothic;color: #df086f;}
+.nav-informacion a{background: none;border: 1px solid #cacaca;}
+.nav-informacion a.ui-btn-active{border: 1px solid #d9a8bf;}
 
 /* PUNTOS OBTENIDOS */
 .content_puntos{text-shadow: none;color: #a8a8a8;font-family: Century Gothic;margin: 0 5px;padding-top: 2px;padding-bottom: 5px;}
@@ -202,14 +209,14 @@
 #local_descripcion .content_bottom, #plan_descripcion .content_bottom, #recompensa_descripcion .content_bottom{text-shadow: 0 0 0;font-family: Century Gothic;}
 #local_descripcion .content_bottom div.texto_descripcion, #plan_descripcion .content_bottom div.texto_descripcion, #recompensa_descripcion .content_bottom div.texto_descripcion{margin: 3px 12px;font-size: 10px;color: #838383;line-height: 12px;max-height: 72px;min-height: 72px;overflow: hidden;}
 #local_descripcion .content_bottom .informacion, #plan_descripcion .content_bottom .informacion{overflow: hidden;font-size: 12px;color: #000;margin: 0 12px;padding-top: 15px;margin-bottom: 12px;margin-top: -12px;}
-#local_descripcion .content_bottom .informacion label, #plan_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
-#local_descripcion .content_bottom .informacion li, #plan_descripcion .content_bottom .informacion li{float: left;}
-#local_descripcion .content_bottom .informacion li.llamada, #plan_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 85px;}
-#local_descripcion .content_bottom .informacion li.planes_hoy, #plan_descripcion .content_bottom .informacion li.planes_hoy{position: relative;margin-right: 5px;}
-#local_descripcion .content_bottom .informacion li.planes_hoy p, #plan_descripcion .content_bottom .informacion li.planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;margin-left: 5px;text-shadow: 0 1px 1px #6c6f77;}
-#local_descripcion .content_bottom .informacion li.planes_hoy span, #plan_descripcion .content_bottom .informacion li.planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
-#local_descripcion .content_bottom .informacion li.home, #plan_descripcion .content_bottom .informacion li.home{float: left;}
-#local_descripcion .content_bottom .informacion li.home a, #plan_descripcion .content_bottom .informacion li.home a{background: url("../img/bg_home.png") no-repeat scroll center top transparent;background-size: 32px 26px;border: none;height: 26px;width: 34px;display: block;text-indent: -9999px;}
+#local_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
+#local_descripcion .content_bottom .informacion li{float: left;}
+#local_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 85px;}
+#local_descripcion .content_bottom .informacion li.planes_hoy{position: relative;margin-right: 5px;}
+#local_descripcion .content_bottom .informacion li.planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;margin-left: 5px;text-shadow: 0 1px 1px #6c6f77;}
+#local_descripcion .content_bottom .informacion li.planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
+#local_descripcion .content_bottom .informacion li.home{float: left;}
+#local_descripcion .content_bottom .informacion li.home a{background: url("../img/bg_home.png") no-repeat scroll center top transparent;background-size: 32px 26px;border: none;height: 26px;width: 34px;display: block;text-indent: -9999px;}
 
 /* RECOMPENSAS */
 #recompensas .ui-content{background: url("../img/bg_guia.png") repeat scroll 0 0 transparent;overflow: hidden;}
@@ -236,7 +243,7 @@
 /* MI PERFIL */
 #mi_perfil .ui-content, #como_funciona_descripcion .ui-content{margin-top: 34px;min-height: 282px;}
 #mi_perfil .content_details, #como_funciona_descripcion .content_details{margin: 0 8px;}
-#mi_perfil h2.ui-li-heading, #como_funciona_descripcion h2.ui-li-heading{text-align: center;color: #5a5a5a;font-family: Century Gothic;border-bottom: 1px solid #e3e3e3;padding-bottom: 10px;font-weight: normal;}
+#mi_perfil h2.ui-li-heading, #como_funciona_descripcion h2.ui-li-heading, #plan_condiciones h2.ui-li-heading, #plan_como_reservar h2.ui-li-heading{text-align: center;color: #5a5a5a;font-family: Century Gothic;border-bottom: 1px solid #e3e3e3;padding-bottom: 10px;font-weight: normal;}
 #mi_perfil p, #como_funciona_descripcion p{margin-top: 18px;color: #5a5a5a;font-size: 12px;text-shadow: none;margin-bottom: 26px;}
 #mi_perfil .content_puntos{margin: 0 0 32px 0;}
 
@@ -248,17 +255,27 @@
 #como_funciona .dejar_recibir_alertas .ui-icon{background: url("../img/dejar_recibir_alertas.png") no-repeat scroll top center transparent;background-size: 28px;margin-top: -13px !important;height: 32px !important;}
 
 /* COMO FUNCIONA DESCRIPCION */
-#como_funciona_descripcion .content_details{color: #5a5a5a;font-size: 12px;text-shadow: none;}
-#como_funciona_descripcion p{margin-top: 5px;margin-bottom: 5px;}
+#como_funciona_descripcion .content_details, #plan_condiciones .container_descripcion, #plan_como_reservar .container_descripcion{color: #5a5a5a;font-size: 12px;text-shadow: none;}
+#como_funciona_descripcion p, #plan_condiciones .container_descripcion, #plan_como_reservar .container_descripcion{margin-top: 5px;margin-bottom: 5px;}
 
 /* CARROUSEL */
 .m-carousel-bulleted a{margin: 0 2px !important;}
-.m-carousel-photos .m-item > img{max-height: 123px;}
+.m-carousel-photos .m-item > img{max-height: 123px;min-height: 123px;}
 
 /* LOCAL GOOGLE MAP */
 #local_google_map { height: 100% }
 #local_google_map .ui-content { height: 80%; padding: 0; margin-top: 18px;margin-bottom: 15px;}
 #local_google_map #map_canvas { height: 100% }
+
+/* PLAN DESCRIPCION */
+#plan_descripcion .content_bottom .informacion{padding-top: 0px;margin-top: 0px;font-style: italic;color: #838383;}
+#plan_descripcion .content_bottom div.texto_descripcion{max-height: 102px;min-height: 102px;}
+#plan_descripcion .content_bottom .informacion label, #plan_descripcion .content_bottom .informacion span{font-family: Century Gothic; color: #df086f;}
+#plan_descripcion .content_bottom .informacion span{font-weight: bold;}
+
+/* PLAN DESCRIPCON - POPUP */
+.container_popup{border-radius: 5px;overflow: hidden;margin: 10px;min-width: 90%;}
+#plan_condiciones h2.ui-li-heading, #plan_como_reservar h2.ui-li-heading{font-weight: bold;font-family: Helvetica, Arial, sans-serif;padding-bottom: 5px;margin-top: 0;}
 
 /* HOME IPAD AND MOBILE*/
 /* #Mobile (Landscape)
@@ -278,9 +295,13 @@
     }
     .m-carousel-photos .m-item > img{
         max-height: 192px;
+        min-height: 192px;
     }
     #local_google_map .ui-content{ 
-        height: 70% 
+        height: 70%; 
+    }
+    #plan_descripcion .content_bottom .informacion .right{
+        float: left;
     }
 }
 
