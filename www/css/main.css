@@ -183,7 +183,7 @@
 #locales .guia_items .owl-item.active p, #planes .guia_items .owl-item.active p{color: #fff;}
 #locales .ui-listview, #planes .ui-listview{margin: 15px;margin-bottom: 8px;}
 #locales .ui-listview li, #planes .ui-listview li{background: #f2f2f2;}
-#locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 80px;min-height: 52px;max-width: 102px;}
+#locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 80px;min-height: 59px;max-width: 102px;}
 #locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 112px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 44px;margin-bottom: 5px;overflow: hidden;display: none;}
 #locales .ui-listview .ui-li-heading, #planes .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 13px;text-shadow: none;margin-bottom: 0;}
 #locales .ui-listview .ui-li-heading a, #planes .ui-listview .ui-li-heading a{color: #838383;font-family: Century Gothic;}
@@ -207,11 +207,11 @@
 #local_descripcion .content_middle, #plan_descripcion .content_middle, #recompensa_descripcion .content_middle{margin-top: -18px;overflow: hidden;}
 #local_descripcion .content_middle .ui-navbar, #plan_descripcion .content_middle .ui-navbar{border-bottom: 1px solid #fff;}
 #local_descripcion .content_bottom, #plan_descripcion .content_bottom, #recompensa_descripcion .content_bottom{text-shadow: 0 0 0;font-family: Century Gothic;}
-#local_descripcion .content_bottom div.texto_descripcion, #plan_descripcion .content_bottom div.texto_descripcion, #recompensa_descripcion .content_bottom div.texto_descripcion{margin: 3px 12px;font-size: 10px;color: #838383;line-height: 12px;max-height: 72px;min-height: 72px;overflow: hidden;}
+#local_descripcion .content_bottom div.texto_descripcion, #plan_descripcion .content_bottom div.texto_descripcion, #recompensa_descripcion .content_bottom div.texto_descripcion{margin: 3px 12px;font-size: 10px;color: #838383;line-height: 12px;/*max-height: 72px;*/min-height: 72px;overflow: hidden;}
 #local_descripcion .content_bottom .informacion, #plan_descripcion .content_bottom .informacion{overflow: hidden;font-size: 12px;color: #000;margin: 0 12px;padding-top: 15px;margin-bottom: 12px;margin-top: -12px;}
-#local_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
+#local_descripcion .content_bottom .informacion label{color: #df086f;}
 #local_descripcion .content_bottom .informacion li{float: left;}
-#local_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 85px;}
+#local_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 95px;}
 #local_descripcion .content_bottom .informacion li.planes_hoy{position: relative;margin-right: 5px;}
 #local_descripcion .content_bottom .informacion li.planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;margin-left: 5px;text-shadow: 0 1px 1px #6c6f77;}
 #local_descripcion .content_bottom .informacion li.planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
@@ -268,7 +268,7 @@
 #local_google_map #map_canvas { height: 100% }
 
 /* PLAN DESCRIPCION */
-#plan_descripcion .content_bottom .informacion{padding-top: 0px;margin-top: 0px;font-style: italic;color: #838383;}
+#plan_descripcion .content_bottom .informacion{padding-top: 0px;margin-top: 0px;font-style: italic;color: #838383;letter-spacing: -1px;}
 #plan_descripcion .content_bottom div.texto_descripcion{max-height: 102px;min-height: 102px;}
 #plan_descripcion .content_bottom .informacion label, #plan_descripcion .content_bottom .informacion span{font-family: Century Gothic; color: #df086f;}
 #plan_descripcion .content_bottom .informacion span{font-weight: bold;}
@@ -282,6 +282,9 @@
 ================================================== */
 
 @media only screen and  (max-width: 479px) {
+    #local_descripcion .content_bottom .informacion li.llamada{
+        max-width: 95px;
+    }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
@@ -302,6 +305,9 @@
     }
     #plan_descripcion .content_bottom .informacion .right{
         float: left;
+    }
+    #local_descripcion .content_bottom .informacion label{
+        display: block;
     }
 }
 

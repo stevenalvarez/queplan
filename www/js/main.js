@@ -366,6 +366,7 @@ function getLocalById(parent_id, local_id){
             
             var local = data.item.Local;
             var local_fotos = data.item.LocalsFoto;
+            var promocion = data.item.Promocion;
            	$.each(local_fotos, function(index, local_foto) {
            	    var mclass = ""; 
            	    if(index == 0) mclass = "m-active";
@@ -396,17 +397,28 @@ function getLocalById(parent_id, local_id){
             
             //llenamoas los datos del local
             parent.find(".texto_descripcion").html(local.descripcion);
+            var telefonos = (local.telefono).split("-");
             parent.find(".llamada span").html(local.telefono);
-            parent.find(".llamar a").attr("href","tel:"+local.telefono);
+            parent.find(".llamar a").attr("href","tel:"+$.trim(telefonos[0]));
+            parent.find(".planes_hoy span").html(promocion.length);
             
             //map
             parent.find(".map a").attr("href","local_google_map.html?latitud="+local.latitud+"&longitud="+local.longitud);
             //web
-            if(local.web != null && local.web != "")parent.find(".web a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            if(local.web != null && local.web != ""){
+                parent.find(".web a").attr("href",local.web);
+                parent.find(".web a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            }
             //twitter
-            if(local.twitter != null && local.twitter != "")parent.find(".twitter a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            if(local.twitter != null && local.twitter != ""){
+                parent.find(".twitter a").attr("href",local.twitter);
+                parent.find(".twitter a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            }
             //facebook
-            if(local.facebook != null && local.facebook != "")parent.find(".facebook a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            if(local.facebook != null && local.facebook != ""){
+                parent.find(".facebook a").attr("href",local.facebook);
+                parent.find(".facebook a").attr("onclick", "window.open(this.href,'_system'); return false;");
+            }
             
             //iniciamos el carousel
             container.find(".m-carousel-inner").promise().done(function() {
