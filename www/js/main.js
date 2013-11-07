@@ -6,6 +6,22 @@ $(document).bind('pageinit', function(){
 
 $(document).bind('pageshow', function() {
     var page_id = $("#" + $.mobile.activePage.attr('id'));
+    page_id.find(".zonas").find("a").bind("touchstart click", function(){
+        $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
+        $(this).addClass("ui-btn-active-a");
+        var zona_id = $(this).attr("href");
+        zona_id = zona_id.substring(1,zona_id.length);
+        
+        //mostramos u ocultamos los items segun su zona
+        var container_ul = page_id.find(".ui-listview");
+        container_ul.css("opacity","0.5");
+        container_ul.find("li").hide();
+        container_ul.find("li.zona_"+zona_id).show();
+        container_ul.animate({opacity: 1}, 500 );
+        
+        //borramos la clase de la categoria seleccionada
+        page_id.find(".owl-item").removeClass("active");
+    });
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -153,15 +169,18 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
                 container.find("a").bind("touchstart click", function(){
                     container.find(".owl-item").removeClass("active");
                     $(this).parent().parent().parent().addClass("active");
-                    var id = $(this).attr("href");
-                    id = id.substring(1,id.length);
+                    var categoria_id = $(this).attr("href");
+                    categoria_id = categoria_id.substring(1,categoria_id.length);
                     
-                    //mostramos u ocultamos los items
+                    //mostramos u ocultamos los items segun a su categoria
                     var container_ul = parent.find(".ui-listview");
                     container_ul.css("opacity","0.5");
                     container_ul.find("li").hide();
-                    container_ul.find("li."+id).show();
+                    container_ul.find("li.categoria_"+categoria_id).show();
                     container_ul.animate({opacity: 1}, 500 );
+                    
+                    //borramos la clase de la zona seleccionada
+                    parent.find(".zonas").find("a").removeClass("ui-btn-active-a");
                 });
                 
                 //si viene alguna categoria seleccionda marcamos esa
@@ -190,8 +209,11 @@ function getPlanes(parent_id){
     		items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
-        		  
-                	var html='<li class="'+item.Local.categoria_id+'">' +
+                	
+                    var class_categoria = 'categoria_'+item.Local.categoria_id;
+                    var class_zona = 'zona_'+item.Local.zona_id;
+                    
+                    var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + item.Promocion.imagen + '"/>' +
                         '<div class="content_descripcion">' +
                             '<div class="ubicacion">' +
@@ -311,8 +333,11 @@ function getLocalesById(parent_id, categoria_id){
     		items = data.items;
             if(items.length){            
         		$.each(items, function(index, item) {
-        		  
-                	var html='<li class="'+item.Local.categoria_id+'">' +
+                    
+                    var class_categoria = 'categoria_'+item.Local.categoria_id;
+                    var class_zona = 'zona_'+item.Local.zona_id;
+                    
+                    var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
                         '<div class="content_descripcion">' +
                             '<div class="ubicacion">' +
@@ -334,7 +359,7 @@ function getLocalesById(parent_id, categoria_id){
                 
                 container.find("li:last img").load(function() {
                     //mostramos los locales de esa categoria
-                    container.find("li."+categoria_id).show();
+                    container.find("li.categoria_"+categoria_id).show();
                     
                     //ocultamos loading
                     $.mobile.loading( 'hide' );
