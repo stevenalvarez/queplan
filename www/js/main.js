@@ -399,6 +399,9 @@ function getLocalById(parent_id, local_id){
             parent.find(".texto_descripcion").html(local.descripcion);
             var telefonos = (local.telefono).split("-");
             parent.find(".llamada span").html(local.telefono);
+            if(telefonos.length == 1){
+                parent.find(".llamada label").css("display","block");
+            }
             parent.find(".llamar a").attr("href","tel:"+$.trim(telefonos[0]));
             parent.find(".planes_hoy span").html(promocion.length);
             

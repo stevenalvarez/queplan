@@ -261,7 +261,7 @@
 
 .m-carousel-photos .carrousel_shadow{
     position: relative;
-    top: -22px;
+    top: -25px;
 }
 .m-carousel-photos .carrousel_shadow img{
     width: 100%;
@@ -316,6 +316,6 @@
         bottom: 48px !important;
     }
     .m-carousel-photos .carrousel_shadow{
-        top: -34px !important;
+        top: -37px !important;
     }
 }

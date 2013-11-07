@@ -181,10 +181,10 @@
 #locales .guia_items .recuadro img, #planes .guia_items .recuadro img{width: 100%;}
 #locales .guia_items p, #planes .guia_items p{font-size: 9px;color: #595858;text-shadow: none;text-align: center;font-family: Century Gothic;}
 #locales .guia_items .owl-item.active p, #planes .guia_items .owl-item.active p{color: #fff;}
-#locales .ui-listview, #planes .ui-listview{margin: 15px;margin-bottom: 8px;}
+#locales .ui-listview, #planes .ui-listview{margin: 0px;margin-bottom: 8px;}
 #locales .ui-listview li, #planes .ui-listview li{background: #f2f2f2;}
 #locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 80px;min-height: 59px;max-width: 102px;}
-#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 112px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 44px;margin-bottom: 5px;overflow: hidden;display: none;}
+#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 112px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 44px;margin-top: 2px; margin-bottom: 2px;overflow: hidden;display: none;}
 #locales .ui-listview .ui-li-heading, #planes .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 13px;text-shadow: none;margin-bottom: 0;}
 #locales .ui-listview .ui-li-heading a, #planes .ui-listview .ui-li-heading a{color: #838383;font-family: Century Gothic;}
 #locales .ui-listview .content_descripcion, #planes .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;}
@@ -193,7 +193,7 @@
 #locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 65px;display: block;text-align: right;}
 
 /* LOCAL DESCRIPCION  -  PLAN DESCRIPCION */
-#local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin-top: 18px;min-height: 380px;margin-bottom: 15px;}
+#local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin: 0px;min-height: 415px;border-radius: 0;border: none;}
 #local_descripcion .nav-opciones li, #plan_descripcion .nav-opciones li{text-align: center;}
 #local_descripcion .nav-opciones a, #plan_descripcion .nav-opciones a{background: transparent;border: none;display: inline-block;width: 38px;height: 35px;}
 #local_descripcion .nav-opciones .ui-icon, #plan_descripcion .nav-opciones .ui-icon{border: none;margin: 0;padding: 0;box-shadow: 0 0 0;border-radius: 0;width: 35px;height: 35px;}
@@ -241,7 +241,7 @@
 #recompensa_descripcion .content_bottom div.texto_descripcion{max-height: 145px;min-height: 145px;}
 
 /* MI PERFIL */
-#mi_perfil .ui-content, #como_funciona_descripcion .ui-content{margin-top: 34px;min-height: 282px;}
+#mi_perfil .ui-content, #como_funciona_descripcion .ui-content{margin-top: 34px;min-height: 345px;}
 #mi_perfil .content_details, #como_funciona_descripcion .content_details{margin: 0 8px;}
 #mi_perfil h2.ui-li-heading, #como_funciona_descripcion h2.ui-li-heading, #plan_condiciones h2.ui-li-heading, #plan_como_reservar h2.ui-li-heading, #recompensa_condiciones h2.ui-li-heading{text-align: center;color: #5a5a5a;font-family: Century Gothic;border-bottom: 1px solid #e3e3e3;padding-bottom: 10px;font-weight: normal;}
 #mi_perfil p, #como_funciona_descripcion p{margin-top: 18px;color: #5a5a5a;font-size: 12px;text-shadow: none;margin-bottom: 26px;}
@@ -260,7 +260,7 @@
 
 /* CARROUSEL */
 .m-carousel-bulleted a{margin: 0 2px !important;}
-.m-carousel-photos .m-item > img{max-height: 123px;min-height: 123px;}
+.m-carousel-photos .m-item > img{max-height: 156px;min-height: 156px;}
 
 /* LOCAL GOOGLE MAP */
 #local_google_map { height: 100% }
@@ -268,7 +268,7 @@
 #local_google_map #map_canvas { height: 100% }
 
 /* PLAN DESCRIPCION */
-#plan_descripcion .content_bottom .informacion{padding-top: 0px;margin-top: 0px;font-style: italic;color: #838383;letter-spacing: -1px;}
+#plan_descripcion .content_bottom .informacion{padding-top: 0px;margin-top: 0px;font-style: italic;color: #838383;font-size: 11px;}
 #plan_descripcion .content_bottom div.texto_descripcion{max-height: 102px;min-height: 102px;}
 #plan_descripcion .content_bottom .informacion label, #plan_descripcion .content_bottom .informacion span{font-family: Century Gothic; color: #df086f;}
 #plan_descripcion .content_bottom .informacion span{font-weight: bold;}
@@ -283,7 +283,8 @@
 
 @media only screen and  (max-width: 479px) {
     #local_descripcion .content_bottom .informacion li.llamada{
-        max-width: 95px;
+        max-width: 125px;
+        min-width: 125px;
     }
 }
 
@@ -297,8 +298,8 @@
         width: 20%;
     }
     .m-carousel-photos .m-item > img{
-        max-height: 192px;
-        min-height: 192px;
+        max-height: 225px;
+        min-height: 225px;
     }
     #local_google_map .ui-content{ 
         height: 70%; 
