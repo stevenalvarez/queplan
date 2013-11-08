@@ -3,6 +3,8 @@ var FB_LOGIN_SUCCESS = false;
 var TW_LOGIN_SUCCESS = false;
 var COOKIE = '';
 var REDIREC_TO = '';
+var LATITUDE = 0;
+var LONGITUDE = 0;
 
 //Twitter
 var oauth; // Holds out oAuth request

@@ -35,6 +35,8 @@ $('#guia').live('pagebeforeshow', function(event, ui) {
 //PLANES
 $('#planes').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
+    //obtenemos la ubicacion en el cual se encuentra el usuario 
+    getLocationGPS();
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id);
     getPlanes(page_id);
@@ -50,6 +52,8 @@ $('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
 $('#locales').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     var categoria_id = getUrlVars()["id"];
+    //obtenemos la ubicacion en el cual se encuentra el usuario 
+    getLocationGPS();
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id, categoria_id);
     getLocalesById(page_id, categoria_id);
@@ -218,6 +222,7 @@ function getPlanes(parent_id){
                 	
                     var class_categoria = 'categoria_'+item.Local.categoria_id;
                     var class_zona = 'zona_'+item.Local.zona_id;
+                    var kilomentros = distance(LATITUDE,LONGITUDE,item.Local.latitud,item.Local.longitud,'K');
                     
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + item.Promocion.imagen + '"/>' +
@@ -228,7 +233,7 @@ function getPlanes(parent_id){
                                 '</h3>' +
                             '</div>' +
                             '<div class="km">' +
-                                '<b>1248 km</b>' +
+                                '<b>'+parseFloat(kilomentros).toFixed(0)+' km</b>' +
                             '</div>' +
                         '</div>' +
                     '</li>';
@@ -342,6 +347,7 @@ function getLocalesById(parent_id, categoria_id){
                     
                     var class_categoria = 'categoria_'+item.Local.categoria_id;
                     var class_zona = 'zona_'+item.Local.zona_id;
+                    var kilomentros = distance(LATITUDE,LONGITUDE,item.Local.latitud,item.Local.longitud,'K');
                     
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
@@ -352,7 +358,7 @@ function getLocalesById(parent_id, categoria_id){
                                 '</h3>' +
                             '</div>' +
                             '<div class="km">' +
-                                '<b>1248 km</b>' +
+                                '<b>'+parseFloat(kilomentros).toFixed(0)+' km</b>' +
                             '</div>' +
                         '</div>' +
                     '</li>';
