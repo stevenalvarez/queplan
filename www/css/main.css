@@ -291,12 +291,16 @@
 @media only screen and (min-width: 480px) and (max-width: 768px) {
     #locales .ui-listview .content_descripcion .ubicacion, 
     #planes .ui-listview .content_descripcion .ubicacion{
-        width: 78%;
+        width: 75%;
     }
     #locales .ui-listview .content_descripcion .km,
     #planes .ui-listview .content_descripcion .km{
-        width: 20%;
+        width: 23%;
     }
+    #locales .ui-listview .content_descripcion .km b, 
+    #planes .ui-listview .content_descripcion .km b{
+        width: 75px;
+    }    
     .m-carousel-photos .m-item > img{
         max-height: 225px;
         min-height: 225px;
