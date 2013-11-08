@@ -91,6 +91,12 @@ $('#local_google_map').live('pagebeforeshow', function(event, ui) {
     showGoogleMap(getUrlVars()["latitud"],getUrlVars()["longitud"]);
 });
 
+//QUIERO PARTICIPAR DESCRIPCION
+$('#quiero_participar_descripcion').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getQuieroParticiparById(page_id, getUrlVars()["id"]);
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
 //OBTENEMOS LAS CATEGORIAS
@@ -605,12 +611,12 @@ function getComoFunciona(parent_id) {
 }
 
 //OBTENEMOS COMO FUNCIONA POR SU ID
-function getComoFuncionaById(parent_id, como_funcion_id){
+function getComoFuncionaById(parent_id, como_funciona_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".content_details");
     parent.find(".ui-content").hide();
     
-    $.getJSON(BASE_URL_APP + 'como_funcionas/mobileGetComoFuncionaById/'+como_funcion_id, function(data) {
+    $.getJSON(BASE_URL_APP + 'como_funcionas/mobileGetComoFuncionaById/'+como_funciona_id, function(data) {
         if(data){
             
             //mostramos loading
@@ -619,6 +625,31 @@ function getComoFuncionaById(parent_id, como_funcion_id){
             
             parent.find(".ui-li-heading").html(item.ComoFunciona.title);
             container.append(item.ComoFunciona.descripcion);
+            
+            container.promise().done(function() {
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            });
+        }
+	});
+}
+
+//OBTENEMOS QUIERO PARTICIPAR POR SU ID
+function getQuieroParticiparById(parent_id, quiero_participar_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_details");
+    parent.find(".ui-content").hide();
+    
+    $.getJSON(BASE_URL_APP + 'sistemas/mobileGetQuieroParticiparById/'+quiero_participar_id, function(data) {
+        if(data){
+            
+            //mostramos loading
+            $.mobile.loading('show');
+    		item = data.item;
+            
+            parent.find(".ui-li-heading").html(item.Sistema.title);
+            container.append(item.Sistema.descripcion_quiero_participar);
             
             container.promise().done(function() {
                 //ocultamos loading
