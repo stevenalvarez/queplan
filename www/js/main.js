@@ -1,26 +1,36 @@
 
 /************************************ BIND EVENT *******************************************************/
 
-$(document).bind('pageinit', function(){
+$(document).bind('pagebeforecreate', function(event){
+    var page_id = event.target.id;
 });
 
-$(document).bind('pageshow', function() {
-    var page_id = $("#" + $.mobile.activePage.attr('id'));
-    page_id.find(".zonas").find("a").bind("touchstart click", function(){
+$(document).bind('pagecreate', function(event){
+    var page_id = event.target.id;
+});
+
+$(document).bind('pageinit', function(event){
+    var page_id = event.target.id;
+});
+
+$(document).bind('pageshow', function(event, ui) {
+    var page_id = event.target.id;
+    var page = $("#" + $.mobile.activePage.attr('id'));
+    page.find(".zonas").find("a").bind("touchstart click", function(){
         $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
         $(this).addClass("ui-btn-active-a");
         var zona_id = $(this).attr("href");
         zona_id = zona_id.substring(1,zona_id.length);
         
         //mostramos u ocultamos los items segun su zona
-        var container_ul = page_id.find(".ui-listview");
+        var container_ul = page.find(".ui-listview");
         container_ul.css("opacity","0.5");
         container_ul.find("li").hide();
         container_ul.find("li.zona_"+zona_id).show();
         container_ul.animate({opacity: 1}, 500 );
         
         //borramos la clase de la categoria seleccionada
-        page_id.find(".owl-item").removeClass("active");
+        page.find(".owl-item").removeClass("active");
     });
     
     //inicializamos la ubicacion 
@@ -28,6 +38,13 @@ $(document).bind('pageshow', function() {
 });
 
 /************************************ EVENTOS *******************************************************/
+
+//VIEW
+$(document).on('pagebeforecreate', "#view", function(){
+    //verificamos si el uuid del dispositivo ya esta registrado en la db
+    var device_uuid = device.uuid;
+    //TODO
+});
 
 //GUIA
 $('#guia').live('pagebeforeshow', function(event, ui) {
