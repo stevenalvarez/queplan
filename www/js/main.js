@@ -22,6 +22,9 @@ $(document).bind('pageshow', function() {
         //borramos la clase de la categoria seleccionada
         page_id.find(".owl-item").removeClass("active");
     });
+    
+    //inicializamos la ubicacion 
+    getLocationGPS();
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -35,8 +38,6 @@ $('#guia').live('pagebeforeshow', function(event, ui) {
 //PLANES
 $('#planes').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    //obtenemos la ubicacion en el cual se encuentra el usuario 
-    getLocationGPS();
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id);
     getPlanes(page_id);
@@ -52,8 +53,6 @@ $('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
 $('#locales').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     var categoria_id = getUrlVars()["id"];
-    //obtenemos la ubicacion en el cual se encuentra el usuario 
-    getLocationGPS();
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id, categoria_id);
     getLocalesById(page_id, categoria_id);
@@ -75,6 +74,14 @@ $('#recompensas').live('pagebeforeshow', function(event, ui) {
 $('#recompensa_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     getRecompensaById(page_id, getUrlVars()["id"]);
+});
+
+//ESTOY AQUI
+$('#estoy_aqui').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    //inicializamos el carrousel slider
+    getCategoriasByCarrousel(page_id);
+    getLocalesByDistance(page_id);
 });
 
 //COMO FUNCIONA
@@ -342,7 +349,7 @@ function getLocalesById(parent_id, categoria_id){
             $.mobile.loading( 'show' );
             
     		items = data.items;
-            if(items.length){            
+            if(items.length){
         		$.each(items, function(index, item) {
                     
                     var class_categoria = 'categoria_'+item.Local.categoria_id;
@@ -469,6 +476,71 @@ function getLocalById(parent_id, local_id){
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
             });
+        }
+	});
+}
+
+//OBTENEMOS LOS LOCALES SEGUN A LA DISTACIA EN LA QUE SE ENCUENTRA EL USUARIO - ESTOY AQUI
+function getLocalesByDistance(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-listview");
+    container.find('li').remove();
+    
+    parent.find(".ui-content").hide();
+    
+	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocalesEstoyAqui/'+LATITUDE+"/"+LONGITUDE, function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var class_categoria = 'categoria_'+item.Local.categoria_id;
+                    var class_zona = 'zona_'+item.Local.zona_id;
+                    
+                    var html='<li class="'+class_categoria+' '+class_zona+'">' +
+                        '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
+                        '<div class="content_descripcion">' +
+                            '<div class="ubicacion">' +
+                                '<h3 class="ui-li-heading">' +
+                                    '<a href="javascript:checkIn('+item.Local.id+')">'+item.Local.title+'</a>' +
+                                '</h3>' +
+                            '</div>' +
+                            '<div class="km">';
+                            
+                            //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
+                            if(parseInt(item.Local.kilomentros) < 1){
+                                html+='<b>'+parseFloat(item.Local.metros).toFixed(0)+' m</b>';
+                            }else{
+                                html+='<b>'+parseFloat(item.Local.kilomentros).toFixed(0)+' km</b>';
+                            }
+                                
+                            html+='</div>' +
+                        '</div>' +
+                    '</li>';
+        		    
+                    container.append(html);
+        		});
+                
+                //refresh
+        		container.listview('refresh');
+                
+                container.find("li:last img").load(function() {
+                    //mostramos todos los locales
+                    container.find("li").show();
+                    
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            }
         }
 	});
 }
@@ -681,4 +753,26 @@ function showGoogleMap(latitud, longitud) {
         map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
         marcador = new google.maps.Marker({position: latlng, map: map});
     }
+}
+
+//REALIZAMOS EL CHECK-IN
+function checkIn(local_id){
+    //volvemos a recalcular la ubicacion 
+    getLocationGPS();
+    
+    showLoadingCustom('Check In, en progreso...');
+    
+	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
+        
+        if(data){
+            //ocultamos loading
+            $.mobile.loading( 'hide' );
+            
+            if(data.success){
+                showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
+            }else{
+                showAlert(data.mensaje, "Check In no disponible", "Aceptar");
+            }
+        }
+	});
 }

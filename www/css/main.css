@@ -170,27 +170,27 @@
 #guia .guia_otros .ui-icon{background: url("../img/guias/icon_otros.png") no-repeat scroll top center transparent;padding-left: 3px;background-size: 35px;margin-top: -18px;}
 #guia .ui-footer, #recompensas .ui-footer{background-color: #3d3b3b;}
 
-/* LOCALES - PLANES*/
-#locales .content_top, #planes .content_top{background: #e2e2e2;width: 100%;}
-#locales .guia_items, #planes .guia_items{overflow: hidden;height: 48px;}
-#locales .guia_items .owl-item, #planes .guia_items .owl-item{height: 48px;}
-#locales .guia_items .owl-item.active, #planes .guia_items .owl-item.active{background: #df086f;}
-#locales .guia_items li, #planes .guia_items li{float: left;}
-#locales .guia_items .recuadro, #planes .guia_items .recuadro{text-align: center;height: 25px;margin-top: 8px;padding-left: 25px;padding-right: 25px;width: 30px;}
-#locales .guia_items .recuadro a, #planes .guia_items .recuadro a{display: inline-block;}
-#locales .guia_items .recuadro img, #planes .guia_items .recuadro img{width: 100%;}
-#locales .guia_items p, #planes .guia_items p{font-size: 9px;color: #595858;text-shadow: none;text-align: center;font-family: Century Gothic;}
-#locales .guia_items .owl-item.active p, #planes .guia_items .owl-item.active p{color: #fff;}
-#locales .ui-listview, #planes .ui-listview{margin: 0px;margin-bottom: 8px;}
-#locales .ui-listview li, #planes .ui-listview li{background: #f2f2f2;}
-#locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 60px;min-height: 60px;max-width: 122px;width: 122px;}
-#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 132px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 52px;margin-top: 2px; margin-bottom: 2px;overflow: hidden;display: none;}
-#locales .ui-listview .ui-li-heading, #planes .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 13px;text-shadow: none;margin-bottom: 0;line-height: 14px;}
-#locales .ui-listview .ui-li-heading a, #planes .ui-listview .ui-li-heading a{color: #838383;font-family: Century Gothic;}
-#locales .ui-listview .content_descripcion, #planes .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;min-height: 45px;max-height: 45px;}
-#locales .ui-listview .content_descripcion .ubicacion, #planes .ui-listview .content_descripcion .ubicacion{width: 60%;float: left;}
-#locales .ui-listview .content_descripcion .km, #planes .ui-listview .content_descripcion .km{width: 38%;padding: 8px 0;float: right;text-shadow: none;color: #df086f;font-family: Century Gothic;}
-#locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 65px;display: block;text-align: right;}
+/* LOCALES - PLANES - ESTOY AQUI*/
+#locales .content_top, #planes .content_top, #estoy_aqui .content_top{background: #e2e2e2;width: 100%;}
+#locales .guia_items, #planes .guia_items, #estoy_aqui .guia_items{overflow: hidden;height: 48px;}
+#locales .guia_items .owl-item, #planes .guia_items .owl-item, #estoy_aqui .guia_items .owl-item{height: 48px;}
+#locales .guia_items .owl-item.active, #planes .guia_items .owl-item.active, #estoy_aqui .guia_items .owl-item.active{background: #df086f;}
+#locales .guia_items li, #planes .guia_items li, #estoy_aqui .guia_items li{float: left;}
+#locales .guia_items .recuadro, #planes .guia_items .recuadro, #estoy_aqui .guia_items .recuadro{text-align: center;height: 25px;margin-top: 8px;padding-left: 25px;padding-right: 25px;width: 30px;}
+#locales .guia_items .recuadro a, #planes .guia_items .recuadro a, #estoy_aqui .guia_items .recuadro a{display: inline-block;}
+#locales .guia_items .recuadro img, #planes .guia_items .recuadro img, #estoy_aqui .guia_items .recuadro img{width: 100%;}
+#locales .guia_items p, #planes .guia_items p, #estoy_aqui .guia_items p{font-size: 9px;color: #595858;text-shadow: none;text-align: center;font-family: Century Gothic;}
+#locales .guia_items .owl-item.active p, #planes .guia_items .owl-item.active p, #estoy_aqui .guia_items .owl-item.active p{color: #fff;}
+#locales .ui-listview, #planes .ui-listview, #estoy_aqui .ui-listview{margin: 0px;margin-bottom: 8px;}
+#locales .ui-listview li, #planes .ui-listview li, #estoy_aqui .ui-listview li{background: #f2f2f2;}
+#locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb, #estoy_aqui .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 60px;min-height: 60px;max-width: 122px;width: 122px;}
+#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb, #estoy_aqui .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 132px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 52px;margin-top: 2px; margin-bottom: 2px;overflow: hidden;display: none;}
+#locales .ui-listview .ui-li-heading, #planes .ui-listview .ui-li-heading, #estoy_aqui .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 13px;text-shadow: none;margin-bottom: 0;line-height: 14px;}
+#locales .ui-listview .ui-li-heading a, #planes .ui-listview .ui-li-heading a, #estoy_aqui .ui-listview .ui-li-heading a{color: #838383;font-family: Century Gothic;}
+#locales .ui-listview .content_descripcion, #planes .ui-listview .content_descripcion, #estoy_aqui .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;min-height: 45px;max-height: 45px;}
+#locales .ui-listview .content_descripcion .ubicacion, #planes .ui-listview .content_descripcion .ubicacion, #estoy_aqui .ui-listview .content_descripcion .ubicacion{width: 60%;float: left;}
+#locales .ui-listview .content_descripcion .km, #planes .ui-listview .content_descripcion .km, #estoy_aqui .ui-listview .content_descripcion .km{width: 38%;padding: 8px 0;float: right;text-shadow: none;color: #df086f;font-family: Century Gothic;}
+#locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b, #estoy_aqui .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 65px;display: block;text-align: right;}
 
 /* LOCAL DESCRIPCION  -  PLAN DESCRIPCION */
 #local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin: 0px;min-height: 415px;border-radius: 0;border: none;}
@@ -290,15 +290,18 @@
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
     #locales .ui-listview .content_descripcion .ubicacion, 
-    #planes .ui-listview .content_descripcion .ubicacion{
+    #planes .ui-listview .content_descripcion .ubicacion,
+    #estoy_aqui .ui-listview .content_descripcion .ubicacion{
         width: 75%;
     }
     #locales .ui-listview .content_descripcion .km,
-    #planes .ui-listview .content_descripcion .km{
+    #planes .ui-listview .content_descripcion .km,
+    #estoy_aqui .ui-listview .content_descripcion .km{
         width: 23%;
     }
     #locales .ui-listview .content_descripcion .km b, 
-    #planes .ui-listview .content_descripcion .km b{
+    #planes .ui-listview .content_descripcion .km b,
+    #estoy_aqui .ui-listview .content_descripcion .km b{
         width: 75px;
     }    
     .m-carousel-photos .m-item > img{
