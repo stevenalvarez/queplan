@@ -1,19 +1,5 @@
 /************************************ FUNCTIONS APP *******************************************************/
 
-// REGISTRO SUCCESS
-//
-function success_registro(){
-    $.mobile.changePage('#xxx', {transition: "slide"});
-    $.mobile.loading( 'hide' );
-}
-
-// REGISTRO ERROR
-//
-function error_registro(msg){
-    $.mobile.loading( 'hide' );
-    showAlert(msg, 'Aviso', 'Aceptar');
-}
-
 /* REGISTRO FACEBOOK FUNCTION */
 //getLoginStatus
 function getLoginStatus() {
@@ -39,7 +25,7 @@ function loginFacebookConnect() {
                 
                 //llenamos los datos
                 FB.api('/me', {
-                    fields: 'id, name, first_name, last_name, username, email, picture'
+                    fields: 'id, name, first_name, last_name, username, email, picture, gender'
                 },function(response) {
                     if (response.error) { 
                        showAlert('get user datas failed ' + JSON.stringify(response.error));
@@ -48,15 +34,16 @@ function loginFacebookConnect() {
                         var first_name = user.first_name;
                         var last_name = user.last_name;
                         var username = user.username;
+                        var nombre = user.name;
                         var email = user.email;
+                        var genero = user.gender;
+                        var imagen = user.picture.data.url);
                         
-                        //ocultamos el loading...
-                        $.mobile.loading( 'hide' );
+                        //registramos los datos
+                        registrar_datos(email,'facebook',username,nombre,imagen,genero);
+                        //registrar_datos("steven.alvarez.v@gmail.com",'facebook',"johsteven","Jhonny Esteban Alvarez Villazante","http://profile.ak.fbcdn.net/hprofile-ak-ash2/371352_100000614903708_518504752_q.jpg","male");
                     }
                 });
-                                
-                //mandamos a la page
-                showRegistroSocial('facebook');
                 
     		} else {
                 showAlert("User cancelled login or did not fully authorize.", 'Error Login', 'Aceptar');

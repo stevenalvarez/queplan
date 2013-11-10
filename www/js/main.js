@@ -40,10 +40,11 @@ $(document).bind('pageshow', function(event, ui) {
 /************************************ EVENTOS *******************************************************/
 
 //VIEW
-$(document).on('pagebeforecreate', "#view", function(){
+$(document).on('pagebeforecreate', "#view", function(event){
     //verificamos si el uuid del dispositivo ya esta registrado en la db
     var device_uuid = device.uuid;
-    //TODO
+    var page_id = event.target.id;
+    getValidarDeviceUuid(page_id, device_uuid);
 });
 
 //GUIA
@@ -792,4 +793,57 @@ function checkIn(local_id){
             }
         }
 	});
+}
+
+//VERIFICAMOS SI EL DISPOSITIVO YA FUE REGISTRADO, SI LO ESTA MANDAMOS DIRECTO A LA HOME
+function getValidarDeviceUuid(parent_id, device_uuid){
+    var parent = $("#"+parent_id);
+        
+	$.getJSON(BASE_URL_APP + 'usuarios/mobileValidarDeviceUuid/'+device_uuid, function(data) {
+	    //mostramos loading
+        $.mobile.loading('show');
+       	   
+	    if(data.success){
+            //si ya esta registrado le mandamos directo al home
+            $.mobile.changePage('#home');
+        }else{
+            //ocultamos loading
+            $.mobile.loading( 'hide' );
+            parent.find(".ui-header").fadeIn("slow");
+            parent.find(".ui-content").fadeIn("slow");
+        }
+	});
+}
+
+//REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL LOGIN CON FB O TW
+function registrar_datos(email, registrado_mediante, username, nombre, imagen, genero){
+    $.ajax({
+        data: {u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name},
+        type: "POST",
+        url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
+        dataType: "html",
+        success: function(data){
+            //ocultamos el loading
+            $.mobile.loading( 'hide' );
+            data = $.parseJSON(data);
+            
+            var success = data.success;
+            if(success){
+                var usuario = data.usuario.Usuario;
+                var usuario_id = usuario.id;
+                
+                //una vez creado guardamos en cookies su datos importantes
+                createCookie("userRegistered", JSON.stringify(usuario), 1);
+                
+                //una vez registrado los datos, mandamos a la home
+                $.mobile.changePage('#home', {transition: "fade"});
+            }else{
+                showAlert('Ha ocurrido un error al momento de registrarse!, por favor intente de nuevo', 'Error', 'Aceptar');
+            }
+        },
+        beforeSend : function(){
+            //mostramos loading
+            showLoadingCustom('Guardando datos...');
+        }
+    });
 }

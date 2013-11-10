@@ -150,6 +150,7 @@
 #view .texto .con_facebook{color: #39599f;}
 #view .texto .con_twitter{color: #45b0e3;}
 #view .content_options{padding: 5px 10px;}
+#view .ui-header,#view .ui-content{display: none;}
 
 /* HOME */
 #home .ui-content{padding: 0 24px;}
