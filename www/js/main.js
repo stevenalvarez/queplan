@@ -126,6 +126,12 @@ $('#quiero_participar_descripcion').live('pagebeforeshow', function(event, ui) {
     getQuieroParticiparById(page_id, getUrlVars()["id"]);
 });
 
+//MI PERFIL
+$('#mi_perfil').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getMiPerfil(page_id);
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
 //OBTENEMOS LAS CATEGORIAS
@@ -571,6 +577,23 @@ function getRecompensas(parent_id) {
     
     parent.find(".ui-content").hide();
     
+    //obtemos los puntos que tiene el usuario
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
+    	
+        $.getJSON(BASE_URL_APP + 'puntos/mobileGetMisPuntos/'+me, function(data) {
+    		var item = data.item;
+            if(item.Punto != undefined){
+                var total_puntos = item.Punto.total_puntos; 
+                parent.find(".puntos").html(total_puntos);
+            }else{
+                //si no hay datos
+            }
+    	});
+    }
+    
+    //obtenemos todas las recompensas
 	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas', function(data) {
         
         if(data.items){
@@ -778,21 +801,30 @@ function checkIn(local_id){
     //volvemos a recalcular la ubicacion 
     getLocationGPS();
     
-    showLoadingCustom('Check In, en progreso...');
-    
-	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
+    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga check-ing
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
         
-        if(data){
-            //ocultamos loading
-            $.mobile.loading( 'hide' );
+        showLoadingCustom('Check In, en progreso...');
+        
+    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
             
-            if(data.success){
-                showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
-            }else{
-                showAlert(data.mensaje, "Check In no disponible", "Aceptar");
+            if(data){
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                
+                if(data.success){
+                    showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
+                }else{
+                    showAlert(data.mensaje, "Check In no disponible", "Aceptar");
+                }
             }
-        }
-	});
+    	});
+    
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar el check-in","Error","Aceptar");
+    }
 }
 
 //VERIFICAMOS SI EL DISPOSITIVO YA FUE REGISTRADO, SI LO ESTA MANDAMOS DIRECTO A LA HOME
@@ -804,8 +836,19 @@ function getValidarDeviceUuid(parent_id, device_uuid){
         $.mobile.loading('show');
        	   
 	    if(data.success){
-            //si ya esta registrado le mandamos directo al home
-            $.mobile.changePage('#home');
+	        var usuario = data.usuario.Usuario;
+            //guardamos los datos en la COOKIE
+	        createCookie("user", JSON.stringify(usuario), 365);
+            //mandamos directo al home si es que la cookie se creo correctamente
+            //sino le pedimos que se logee con fb o tw
+            if(isLogin()){
+                $.mobile.changePage('#home');
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-header").fadeIn("slow");
+                parent.find(".ui-content").fadeIn("slow");
+            }
         }else{
             //ocultamos loading
             $.mobile.loading( 'hide' );
@@ -833,7 +876,7 @@ function registrar_datos(email, registrado_mediante, username, nombre, imagen, g
                 var usuario_id = usuario.id;
                 
                 //una vez creado guardamos en cookies su datos importantes
-                createCookie("userRegistered", JSON.stringify(usuario), 1);
+                createCookie("user", JSON.stringify(usuario), 365);
                 
                 //una vez registrado los datos, mandamos a la home
                 $.mobile.changePage('#home', {transition: "fade"});
@@ -846,4 +889,41 @@ function registrar_datos(email, registrado_mediante, username, nombre, imagen, g
             showLoadingCustom('Guardando datos...');
         }
     });
+}
+
+//Obtemos los puntos que tiene acumulado el usuario
+function getMiPerfil(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_details");
+    parent.find(".ui-content").hide();
+    
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
+    	
+        $.getJSON(BASE_URL_APP + 'puntos/mobileGetMisPuntos/'+me, function(data) {
+            //mostramos loading
+            $.mobile.loading( 'show' );
+           
+            if(data.item){
+        		var item = data.item;
+                if(item.Punto != undefined){
+                    var total_puntos = item.Punto.total_puntos; 
+                    container.find(".puntos b").html(total_puntos);
+                    var numero_items = total_puntos/10;
+                    container.find(".content_puntos span").each(function(index){
+                        if(index < numero_items){
+                            $(this).addClass("active");
+                        }
+                    });
+                }else{
+                    //si no hay datos
+                }
+            }
+            
+            //ocultamos loading
+            $.mobile.loading( 'hide' );
+            parent.find(".ui-content").fadeIn("slow");
+    	});
+    }
 }

@@ -167,18 +167,32 @@ function createCookie(name,value,days) {
 		var expires = "; expires="+date.toGMTString();
 	}
 	else var expires = "";
-	document.cookie = name+"="+value+expires+"; path=/";
+    window.cookie = name+"="+value+expires+";path=/";
 }
 
 function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
+        var nameEQ = name + "=";
+    var ca=0;
+    if(window.cookie)
+        var ca = window.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+}
+
+function reWriteCookie(name,attr,value) {
+    var cookie_name = readCookie(name);
+    var parseData = $.parseJSON(cookie_name);
+    parseData[attr] = value;
+    var stringify = JSON.stringify(parseData)
+    window.cookie = name+"="+stringify;
+}
+
+function eraseCookie(name) {
+        createCookie(name,"",-1);
 }
 
 function formatDate(date){

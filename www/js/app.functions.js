@@ -37,7 +37,7 @@ function loginFacebookConnect() {
                         var nombre = user.name;
                         var email = user.email;
                         var genero = user.gender;
-                        var imagen = user.picture.data.url);
+                        var imagen = user.picture.data.url;
                         
                         //registramos los datos
                         registrar_datos(email,'facebook',username,nombre,imagen,genero);
