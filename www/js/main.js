@@ -33,10 +33,8 @@ $(document).bind('pageshow', function(event, ui) {
         page.find(".owl-item").removeClass("active");
     });
     
-    //inicializamos la ubicacion
-    if(LATITUDE == 0 || LONGITUDE == 0){
-        getLocationGPS();
-    }
+    //inicializamos la ubicacion 
+    getLocationGPS();
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -801,7 +799,7 @@ function showGoogleMap(latitud, longitud) {
 //REALIZAMOS EL CHECK-IN
 function checkIn(local_id){
     //volvemos a recalcular la ubicacion 
-    //getLocationGPS();
+    getLocationGPS();
     
     //verficamos que este logeado porque solo si lo esta podemos dejarle que haga check-ing
     if(isLogin()){

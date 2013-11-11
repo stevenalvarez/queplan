@@ -251,7 +251,7 @@ function getLocationGPS(){
             LONGITUDE = location.coords.longitude;
         }, 
         function(){
-            showAlert("No se puede obtener la localizacion", "Error", "Aceptar");
+            //showAlert("No se puede obtener la localizacion", "Error", "Aceptar");
         }, {enableHighAccuracy:true} );
 }
 
