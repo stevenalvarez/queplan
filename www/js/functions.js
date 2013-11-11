@@ -171,7 +171,7 @@ function createCookie(name,value,days) {
 }
 
 function readCookie(name) {
-        var nameEQ = name + "=";
+    var nameEQ = name + "=";
     var ca=0;
     if(window.cookie)
         var ca = window.cookie.split(';');
