@@ -577,20 +577,11 @@ function getRecompensas(parent_id) {
     
     parent.find(".ui-content").hide();
     
-    //obtemos los puntos que tiene el usuario
+    //ponemos los puntos acumulados que tiene hasta el momento
     if(isLogin()){
         var user = COOKIE;
-        var me = user.id;
-    	
-        $.getJSON(BASE_URL_APP + 'puntos/mobileGetMisPuntos/'+me, function(data) {
-    		var item = data.item;
-            if(item.Punto != undefined){
-                var total_puntos = item.Punto.total_puntos; 
-                parent.find(".puntos").html(total_puntos);
-            }else{
-                //si no hay datos
-            }
-    	});
+        var puntos_acumulados = user.puntos_acumulados;
+        parent.find(".puntos").html(puntos_acumulados);
     }
     
     //obtenemos todas las recompensas
@@ -673,10 +664,23 @@ function getRecompensaById(parent_id, recompensa_id){
                 container.find(".m-carousel-controls").append('<a href="#" data-slide="'+(index+1)+'">'+(index+1)+'</a>');
             });
             
-            //llenamoas los datos del plan
+            //establecemos los puntos que cuesta la recompensa
+            var punto_costo = recompensa.punto_costo; 
+            parent.find(".puntos b").html(punto_costo);
+            var numero_items = punto_costo/10;
+            parent.find(".content_puntos span").each(function(index){
+                if(index < numero_items){
+                    $(this).addClass("active");
+                }
+            });
+            
+            //llenamos los datos de la recompensa
             parent.find(".texto_descripcion").html(recompensa.descripcion);
             parent.find(".ir_al_local a").attr("href","local_descripcion.html?id="+recompensa.local_id);
             parent.find("#recompensa_condiciones").find(".container_descripcion").html(recompensa.condicion);
+            parent.find(".comprar_recompensa a").bind("touchstart click", function(){
+                comprarRecompensa(recompensa.local_id, recompensa.id);
+            });
             
             //iniciamos el carousel
             container.find(".m-carousel-inner").promise().done(function() {
@@ -816,6 +820,9 @@ function checkIn(local_id){
                 
                 if(data.success){
                     showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
+                    
+                    //re-escribimos la cookie con los puntos totales
+                    reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
                 }else{
                     showAlert(data.mensaje, "Check In no disponible", "Aceptar");
                 }
@@ -891,39 +898,51 @@ function registrar_datos(email, registrado_mediante, username, nombre, imagen, g
     });
 }
 
+//Comprar recompensa
+function comprarRecompensa(local_id, recompensa_id){
+    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga la compra de la recompensa
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
+        
+        showLoadingCustom('Compra de recompensa, en progreso...');
+        
+    	$.getJSON(BASE_URL_APP + 'recompensas/mobileComprarRecompensa/'+me+'/'+local_id+'/'+recompensa_id, function(data) {
+            
+            if(data){
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                
+                if(data.success){
+                    showAlert(data.mensaje, "Compra Realizada!", "Aceptar");
+                    
+                    //re-escribimos la cookie con los puntos restantes
+                    reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
+                }else{
+                    showAlert(data.mensaje, "Compra no disponible", "Aceptar");
+                }
+            }
+    	});
+    
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar la compra.","Error","Aceptar");
+    }
+}
+
 //Obtemos los puntos que tiene acumulado el usuario
 function getMiPerfil(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".content_details");
-    parent.find(".ui-content").hide();
     
     if(isLogin()){
         var user = COOKIE;
-        var me = user.id;
-    	
-        $.getJSON(BASE_URL_APP + 'puntos/mobileGetMisPuntos/'+me, function(data) {
-            //mostramos loading
-            $.mobile.loading( 'show' );
-           
-            if(data.item){
-        		var item = data.item;
-                if(item.Punto != undefined){
-                    var total_puntos = item.Punto.total_puntos; 
-                    container.find(".puntos b").html(total_puntos);
-                    var numero_items = total_puntos/10;
-                    container.find(".content_puntos span").each(function(index){
-                        if(index < numero_items){
-                            $(this).addClass("active");
-                        }
-                    });
-                }else{
-                    //si no hay datos
-                }
+        var puntos_acumulados = user.puntos_acumulados; 
+        container.find(".puntos b").html(puntos_acumulados);
+        var numero_items = puntos_acumulados/10;
+        container.find(".content_puntos span").each(function(index){
+            if(index < numero_items){
+                $(this).addClass("active");
             }
-            
-            //ocultamos loading
-            $.mobile.loading( 'hide' );
-            parent.find(".ui-content").fadeIn("slow");
-    	});
+        });
     }
 }
