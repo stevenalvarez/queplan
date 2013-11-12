@@ -96,7 +96,7 @@ function isLogin(){
 }
 
 function redirectLogin(){
-    $.mobile.changePage('#view', {transition: "fade", changeHash: false});
+    $.mobile.changePage('#view', {data : { 'logout' : 'true' }, transition: "fade", changeHash: false});
 }
 
 //Abrimos el enlace en un navegador del sistema (IOS|ANDROID)
@@ -137,6 +137,18 @@ function callbackOrientationChange(orientation, page_id){
 
 /*borramos los datos de la cookie*/
 function logout(){
-    createCookie("user", "", 0);
-    redirectLogin();
+    if(isLogin()){
+        navigator.notification.alert(
+            "Estas seguro que quieres salir?", // message
+            function(buttonIndex){
+                if(buttonIndex == "Aceptar"){
+                    var user = COOKIE;
+                    eraseCookie("user");
+                    redirectLogin();
+                }
+            },            // callback to invoke with index of button pressed
+        'Logout',           // title
+        'Aceptar,Cancelar'         // buttonLabels
+        );
+    }
 }

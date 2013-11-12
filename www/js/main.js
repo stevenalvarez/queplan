@@ -41,10 +41,23 @@ $(document).bind('pageshow', function(event, ui) {
 
 //VIEW
 $(document).on('pagebeforecreate', "#view", function(event){
-    //verificamos si el uuid del dispositivo ya esta registrado en la db
-    var device_uuid = device.uuid;
     var page_id = event.target.id;
-    getValidarDeviceUuid(page_id, device_uuid);
+    
+    //unicamente si viene con parametro logout mostramos las opciones
+    var parameters = $(this).data("url").split("?")[1];
+    if(parameters != undefined){
+        parameter = parameters.replace("logout=","");
+        if(parameter == 'true'){
+            $(this).on('pageshow', function(event){
+                $("#"+page_id+" .ui-header").fadeIn("slow");
+                $("#"+page_id+" .ui-content").fadeIn("slow");
+            });
+        }
+    }else{
+        //verificamos si el uuid del dispositivo ya esta registrado en la db
+        var device_uuid = device.uuid;
+        getValidarDeviceUuid(page_id, device_uuid);
+    }
 });
 
 //GUIA
@@ -944,5 +957,8 @@ function getMiPerfil(parent_id){
                 $(this).addClass("active");
             }
         });
+        
+        //mostramos solo el boton para deslogearse el cual puede ser facebook o twitter
+        container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
     }
 }
