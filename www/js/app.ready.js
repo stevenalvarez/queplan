@@ -46,7 +46,7 @@ var app = {
         try {
 			//console.log('Device is ready!	Make sure you set your app_id below this alert.');
 			FB.init({
-				appId : "582928678420559",
+				appId : "537875786305519",
 				nativeInterface : CDV.FB,
 				useCachedDialogs : false
 			});
