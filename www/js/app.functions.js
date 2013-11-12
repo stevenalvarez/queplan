@@ -141,16 +141,30 @@ function logout(){
         navigator.notification.confirm(
             "Estas seguro que quieres salir?", // message
             function(buttonIndex){
-                if(buttonIndex == "Aceptar"){
+                //1:aceptar,2:cancelar
+                if(buttonIndex == 1){
+                    showLoadingCustom('Espere por favor...');
+                    
                     var user = COOKIE;
-                    alert(user.id);
-                    //eraseCookie("user");
-                    //redirectLogin();
-                }else{
-                    alert(buttonIndex);
+                    var me = user.id;
+                    
+                	$.getJSON(BASE_URL_APP + 'usuarios/mobileLogout/'+me, function(data) {
+                        
+                        if(data){
+                            //ocultamos loading
+                            $.mobile.loading( 'hide' );
+                            
+                            if(data.success){
+                                eraseCookie("user");
+                                redirectLogin();
+                            }else{
+                                showAlert(data.mensaje, "Error", "Aceptar");
+                            }
+                        }
+                	});
                 }
             },            // callback to invoke with index of button pressed
-        'Logout',           // title
+        'Salir',           // title
         'Aceptar,Cancelar'         // buttonLabels
         );
     }
