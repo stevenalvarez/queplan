@@ -247,8 +247,9 @@
     text-shadow: none;
     text-align: center;
     color: #5a5a5a;
-    font-size: 15px;
-    margin: 6px 0;   
+    font-size: 14px;
+    margin: 5px 0;
+    font-family:'century_gothicregular';
 }
 .m-carousel-photos .m-item  > img {
     margin: 0;
