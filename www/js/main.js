@@ -163,10 +163,11 @@ function getCategorias(parent_id) {
             
     		items = data.items;
     		$.each(items, function(index, item) {
+    		    var imagen = item.Categoria.imagen!=""?item.Categoria.imagen:"default.png";
                 var clone = container.find('a:first').clone(true);
                 clone.attr("href", "locales.html?id=" + item.Categoria.id);
                 clone.find(".ui-btn-text").html(item.Categoria.title);
-                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+item.Categoria.imagen+"')  no-repeat scroll top center transparent");
+                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+imagen+"')  no-repeat scroll top center transparent");
                 clone.find(".ui-icon").css("background-size","35px");
                 clone.find(".ui-icon").css("padding-left","5px");
                 clone.find(".ui-icon").css("margin-top","-18px");
@@ -198,11 +199,11 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
             
     		items = data.items;
     		$.each(items, function(index, item) {
-    		  
+    		    var imagen = item.Categoria.imagen!=""?item.Categoria.imagen:"default.png";
             	var html='<li>'+
                         '<div class="recuadro">' +
                             '<a href="#'+item.Categoria.id+'" id="'+item.Categoria.id+'">' +
-                                '<img src="'+BASE_URL_APP+'img/categorias/' + item.Categoria.imagen + '" />' +
+                                '<img src="'+BASE_URL_APP+'img/categorias/' + imagen + '" />' +
                             '</a>' +
                         '</div>' +
                         '<p>'+item.Categoria.title+'</p>' +
@@ -267,9 +268,10 @@ function getPlanes(parent_id){
                     var class_categoria = 'categoria_'+item.Local.categoria_id;
                     var class_zona = 'zona_'+item.Local.zona_id;
                     var kilomentros = distance(LATITUDE,LONGITUDE,item.Local.latitud,item.Local.longitud,'K');
+                    var imagen = item.Promocion.imagen!=""?item.Promocion.imagen:"default.png";
                     
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
-                        '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + item.Promocion.imagen + '"/>' +
+                        '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + imagen + '"/>' +
                         '<div class="content_descripcion">' +
                             '<div class="ubicacion">' +
                                 '<h3 class="ui-li-heading">' +
@@ -323,6 +325,7 @@ function getPlanById(parent_id, plan_id){
             var promocion = data.item.Promocion;
             var promocion_fotos = data.item.PromocionsFoto;
            	$.each(promocion_fotos, function(index, promocion_foto) {
+           	    var imagen = promocion_foto.imagen!=""?promocion_foto.imagen:"default.png";
            	    var mclass = ""; 
            	    if(index == 0) mclass = "m-active";
                 var html='<div class="m-item '+mclass+'">' +
@@ -343,7 +346,7 @@ function getPlanById(parent_id, plan_id){
                             '</li>' +
                         '</ul>' +
                     '</div>' +
-                    '<img src="'+BASE_URL_APP+'img/promociones/' + promocion_foto.imagen + '"/>' +
+                    '<img src="'+BASE_URL_APP+'img/promociones/' + imagen + '"/>' +
                 '</div>';
                 
            	    container.find(".m-carousel-inner").append(html);
@@ -393,8 +396,9 @@ function getLocalesById(parent_id, categoria_id){
                     var class_zona = 'zona_'+item.Local.zona_id;
                     var kilomentros = distance(LATITUDE,LONGITUDE,item.Local.latitud,item.Local.longitud,'K');
                     
+                    var imagen = item.Local.imagen!=""?item.Local.imagen : "default.png";
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
-                        '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
+                        '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + imagen + '"/>' +
                         '<div class="content_descripcion">' +
                             '<div class="ubicacion">' +
                                 '<h3 class="ui-li-heading">' +
@@ -449,6 +453,7 @@ function getLocalById(parent_id, local_id){
             var local_fotos = data.item.LocalsFoto;
             var promocion = data.item.Promocion;
            	$.each(local_fotos, function(index, local_foto) {
+           	    var imagen = local_foto.imagen!=""?local_foto.imagen:"default.png";
            	    var mclass = ""; 
            	    if(index == 0) mclass = "m-active";
                 var html='<div class="m-item '+mclass+'">' +
@@ -469,7 +474,7 @@ function getLocalById(parent_id, local_id){
                             '</li>' +
                         '</ul>' +
                     '</div>' +
-                    '<img src="'+BASE_URL_APP+'img/locales/' + local_foto.imagen + '"/>' +
+                    '<img src="'+BASE_URL_APP+'img/locales/' + imagen + '"/>' +
                 '</div>';
                 
            	    container.find(".m-carousel-inner").append(html);
@@ -537,9 +542,10 @@ function getLocalesByDistance(parent_id){
                     
                     var class_categoria = 'categoria_'+item.Local.categoria_id;
                     var class_zona = 'zona_'+item.Local.zona_id;
+                    var imagen = item.Local.imagen!=""?item.Local.imagen:"default.png";
                     
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
-                        '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + item.Local.imagen + '"/>' +
+                        '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + imagen + '"/>' +
                         '<div class="content_descripcion">' +
                             '<div class="ubicacion">' +
                                 '<h3 class="ui-li-heading">' +
@@ -606,10 +612,10 @@ function getRecompensas(parent_id) {
                     
     		items = data.items;
     		$.each(items, function(index, item) {
-    		  
+    		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
             	var html='<li>'+
                     '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
-                        '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + item.Recompensa.imagen + '"/>'+
+                        '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
                         '<div class="content_descripcion">'+
                             '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
                             '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
@@ -650,6 +656,7 @@ function getRecompensaById(parent_id, recompensa_id){
             var recompensa = data.item.Recompensa;
             var recompensa_fotos = data.item.RecompensasFoto;
            	$.each(recompensa_fotos, function(index, recompensa_foto) {
+           	    var imagen = recompensa_foto.imagen!=""?recompensa_foto.imagen:"default.png";
            	    var mclass = ""; 
            	    if(index == 0) mclass = "m-active";
                 var html='<div class="m-item '+mclass+'">' +
@@ -670,7 +677,7 @@ function getRecompensaById(parent_id, recompensa_id){
                             '</li>' +
                         '</ul>' +
                     '</div>' +
-                    '<img src="'+BASE_URL_APP+'img/recompensas/' + recompensa_foto.imagen + '"/>' +
+                    '<img src="'+BASE_URL_APP+'img/recompensas/' + imagen + '"/>' +
                 '</div>';
                 
            	    container.find(".m-carousel-inner").append(html);
@@ -724,10 +731,11 @@ function getComoFunciona(parent_id) {
             
     		items = data.items;
     		$.each(items, function(index, item) {
+    		    var imagen = item.ComoFunciona.imagen!=""?item.ComoFunciona.imagen:"default.png";
                 var clone = container.find('a:first').clone(true);
                 clone.attr("href", "como_funciona_descripcion.html?id=" + item.ComoFunciona.id);
                 clone.find(".ui-btn-text").html(item.ComoFunciona.title);
-                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/"+item.ComoFunciona.imagen+"')  no-repeat scroll top center transparent");
+                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/"+imagen+"')  no-repeat scroll top center transparent");
                 clone.find(".ui-icon").css("background-size","28px");
                 clone.find(".ui-icon").css("margin-top","-13px");
                 clone.css("display","block");
@@ -879,9 +887,9 @@ function getValidarDeviceUuid(parent_id, device_uuid){
 }
 
 //REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL LOGIN CON FB O TW
-function registrar_datos(email, registrado_mediante, username, nombre, imagen, genero){
+function registrar_datos(app_id, email, registrado_mediante, username, nombre, imagen, genero){
     $.ajax({
-        data: {u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name},
+        data: {u_app_id:app_id, u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name},
         type: "POST",
         url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
         dataType: "html",
