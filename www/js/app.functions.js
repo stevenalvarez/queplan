@@ -54,8 +54,8 @@ function loginFacebookConnect() {
     }
 }
 
-//logouFacebookConnect
-function logouFacebookConnect() {
+//logoutFacebookConnect
+function logoutFacebookConnect() {
     FB.logout(function(response) {
         //alert('logged out');
     });
@@ -163,7 +163,7 @@ function logout(){
                             
                             if(data.success){
                                 //logout de fb y tw
-                                logouFacebookConnect();
+                                logoutFacebookConnect();
                                 
                                 eraseCookie("user");
                                 redirectLogin();
