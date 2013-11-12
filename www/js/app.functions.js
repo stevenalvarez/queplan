@@ -54,6 +54,13 @@ function loginFacebookConnect() {
     }
 }
 
+//logouFacebookConnect
+function logouFacebookConnect() {
+    FB.logout(function(response) {
+        //alert('logged out');
+    });
+}
+
 //compartiFacebookWallPost
 //comparte en facebook el proyecto del deportista
 function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_actividad_patrocinio, proyecto_imagen, enlace_proyecto) {
@@ -155,6 +162,9 @@ function logout(){
                             $.mobile.loading( 'hide' );
                             
                             if(data.success){
+                                //logout de fb y tw
+                                logouFacebookConnect();
+                                
                                 eraseCookie("user");
                                 redirectLogin();
                             }else{
