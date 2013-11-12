@@ -123,7 +123,7 @@ function alertDismissed() {
 // Show a custom confirmation dialog
 //
 function showConfirm(message, title) {
-    navigator.notification.alert(
+    navigator.notification.confirm(
          message, // message
          onConfirm,            // callback to invoke with index of button pressed
          title,           // title
@@ -192,7 +192,7 @@ function reWriteCookie(name,attr,value) {
 }
 
 function eraseCookie(name) {
-        createCookie(name,"",-1);
+    createCookie(name,"",-1);
 }
 
 function formatDate(date){

@@ -138,13 +138,16 @@ function callbackOrientationChange(orientation, page_id){
 /*borramos los datos de la cookie*/
 function logout(){
     if(isLogin()){
-        navigator.notification.alert(
+        navigator.notification.confirm(
             "Estas seguro que quieres salir?", // message
             function(buttonIndex){
                 if(buttonIndex == "Aceptar"){
                     var user = COOKIE;
-                    eraseCookie("user");
-                    redirectLogin();
+                    alert(user.id);
+                    //eraseCookie("user");
+                    //redirectLogin();
+                }else{
+                    alert(buttonIndex);
                 }
             },            // callback to invoke with index of button pressed
         'Logout',           // title
