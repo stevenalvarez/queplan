@@ -3,6 +3,10 @@
 
 $(document).bind('pagebeforecreate', function(event){
     var page_id = event.target.id;
+    if(page_id == "view"){
+        //verificamos si el device_uuid ya esta registrado en la db
+        getValidarDeviceUuid(page_id, device.uuid);
+    }
 });
 
 $(document).bind('pagecreate', function(event){
@@ -38,27 +42,6 @@ $(document).bind('pageshow', function(event, ui) {
 });
 
 /************************************ EVENTOS *******************************************************/
-
-//VIEW
-$(document).on('pagebeforecreate', "#view", function(event){
-    var page_id = event.target.id;
-    
-    //unicamente si viene con parametro logout mostramos las opciones
-    var parameters = $(this).data("url").split("?")[1];
-    if(parameters != undefined){
-        parameter = parameters.replace("logout=","");
-        if(parameter == 'true'){
-            $(this).on('pageshow', function(event){
-                $("#"+page_id+" .ui-header").fadeIn("slow");
-                $("#"+page_id+" .ui-content").fadeIn("slow");
-            });
-        }
-    }else{
-        //verificamos si el uuid del dispositivo ya esta registrado en la db
-        var device_uuid = device.uuid;
-        getValidarDeviceUuid(page_id, device_uuid);
-    }
-});
 
 //GUIA
 $('#guia').live('pagebeforeshow', function(event, ui) {
@@ -871,11 +854,6 @@ function getValidarDeviceUuid(parent_id, device_uuid){
             //sino le pedimos que se logee con fb o tw
             if(isLogin()){
                 $.mobile.changePage('#home');
-            }else{
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                parent.find(".ui-header").fadeIn("slow");
-                parent.find(".ui-content").fadeIn("slow");
             }
         }else{
             //ocultamos loading

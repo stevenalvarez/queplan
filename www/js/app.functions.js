@@ -44,18 +44,18 @@ function loginFacebookConnect() {
                 	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid, function(data) {
                 	   
                        
-                       console.log("aqui");
+                       console.log("nuevo aqui");
                 	   
                         //ocultamos el loading
                         $.mobile.loading( 'hide' );
                 	    if(data.success){
-                	       console.log("aqui2");
+                           console.log("nuevo aqui2");
                 	        var usuario = data.usuario.Usuario;
                             //guardamos los datos en la COOKIE
                 	        createCookie("user", JSON.stringify(usuario), 365);
                             //mandamos directo al home si es que la cookie se creo correctamente
                             if(isLogin()){
-                                console.log("aqui3");
+                                console.log("redirect");
                                 $.mobile.changePage('#home');
                             }
                         }else{
@@ -125,7 +125,9 @@ function isLogin(){
 }
 
 function redirectLogin(){
-    $.mobile.changePage('#view', {data : { 'logout' : 'true' }, transition: "fade", changeHash: false});
+    $("#view").find(".ui-header").fadeIn("slow");
+    $("#view").find(".ui-content").fadeIn("slow");
+    $.mobile.changePage('#view', {transition: "fade", changeHash: false});
 }
 
 //Abrimos el enlace en un navegador del sistema (IOS|ANDROID)
@@ -164,7 +166,7 @@ function callbackOrientationChange(orientation, page_id){
     }
 }
 
-/*borramos los datos de la cookie*/
+/*logout*/
 function logout(){
     if(isLogin()){
         navigator.notification.confirm(
