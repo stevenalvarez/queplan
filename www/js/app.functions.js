@@ -40,7 +40,7 @@ function loginFacebookConnect() {
             	    //mostramos loading
                     showLoadingCustom('Validando datos...');
                     
-                    //verificamos si este usuario no se logeo con anterioridad, si lo hizo, lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
+                    //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
                 	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid, function(data) {
                 	   
                        

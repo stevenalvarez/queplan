@@ -20,7 +20,7 @@ $(document).bind('pageinit', function(event){
 $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
     var page = $("#" + $.mobile.activePage.attr('id'));
-    page.find(".zonas").find("a").bind("touchstart click", function(){
+    page.find(".zonas").find("a").bind("touchstart", function(){
         $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
         $(this).addClass("ui-btn-active-a");
         var zona_id = $(this).attr("href");
@@ -204,7 +204,7 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
                     itemsMobile : [479,4],
                     responsive: false,
                 });
-                container.find("a").bind("touchstart click", function(){
+                container.find("a").bind("touchstart", function(){
                     container.find(".owl-item").removeClass("active");
                     $(this).parent().parent().parent().addClass("active");
                     var categoria_id = $(this).attr("href");
@@ -681,7 +681,7 @@ function getRecompensaById(parent_id, recompensa_id){
             parent.find(".texto_descripcion").html(recompensa.descripcion);
             parent.find(".ir_al_local a").attr("href","local_descripcion.html?id="+recompensa.local_id);
             parent.find("#recompensa_condiciones").find(".container_descripcion").html(recompensa.condicion);
-            parent.find(".comprar_recompensa a").bind("touchstart click", function(){
+            parent.find(".comprar_recompensa a").bind("touchstart", function(){
                 comprarRecompensa(recompensa.local_id, recompensa.id);
             });
             
@@ -944,9 +944,31 @@ function getMiPerfil(parent_id){
             }
         });
         
+        //establecemos los datos y evento para el form
+        var form = container.find("form#form_change_email");
+        
+        form.find(".user_id").val(user.id);
+        form.find(".user_email").val(user.email);
+        
+        form.find(".cambiar_email").bind("touchstart", function(){
+            var email = $.trim(form.find(".user_email").val()); 
+            if(valEmail(email)){
+                showLoadingCustom('Guardando datos...');
+                $.post(BASE_URL_APP + 'usuarios/mobileChangeEmail', form.serialize()).done(function(data) {
+                    data = $.parseJSON(data);
+                    $.mobile.loading( 'hide' );
+                    if(data.success){
+                        showAlert(data.mensaje, "Aviso", "Aceptar");
+                    }else{
+                        showAlert(data.mensaje, "Error", "Aceptar");
+                    }
+                });
+            }else{
+                showAlert("Por favor ingrese un email valido!.");
+            }
+        });
+        
         //mostramos solo el boton para deslogearse el cual puede ser facebook o twitter
         container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
-        //establecemos su email
-        container.find("#user_email").val(user.email);
     }
 }
