@@ -968,5 +968,7 @@ function getMiPerfil(parent_id){
         
         //mostramos solo el boton para deslogearse el cual puede ser facebook o twitter
         container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
+        //establecemos su email
+        container.find("#user_email").val(user.email);
     }
 }

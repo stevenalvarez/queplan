@@ -263,6 +263,7 @@
 #mi_perfil .ui-btn-submit.ui-btn-facebook, #mi_perfil .ui-btn-submit.ui-btn-twitter{display: none;}
 #mi_perfil .ui-btn-submit.ui-btn-facebook .ui-btn-text{background-position: 92%;}
 #mi_perfil .ui-btn-submit.ui-btn-twitter .ui-btn-text, #mi_perfil .ui-btn-submit.ui-btn-purple .ui-btn-text{background-position: 80%;}
+#mi_perfil .ui-field-contain{padding-top: 0;}
 
 /* COMO FUNCIONA */
 #como_funciona .que_plan .ui-icon{background: url("../img/que_plan.png") no-repeat scroll top center transparent;background-size: 28px;margin-top: -13px !important;}
