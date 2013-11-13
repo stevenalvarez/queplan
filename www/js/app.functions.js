@@ -41,16 +41,21 @@ function loginFacebookConnect() {
                     showLoadingCustom('Validando datos...');
                     
                     //verificamos si este usuario no se logeo con anterioridad, si lo hizo, lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
-                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id, function(data) {
+                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid, function(data) {
+                	   
+                       
+                       console.log("aqui");
                 	   
                         //ocultamos el loading
                         $.mobile.loading( 'hide' );
                 	    if(data.success){
+                	       console.log("aqui2");
                 	        var usuario = data.usuario.Usuario;
                             //guardamos los datos en la COOKIE
                 	        createCookie("user", JSON.stringify(usuario), 365);
                             //mandamos directo al home si es que la cookie se creo correctamente
                             if(isLogin()){
+                                console.log("aqui3");
                                 $.mobile.changePage('#home');
                             }
                         }else{
