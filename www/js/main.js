@@ -18,6 +18,15 @@ $(document).bind('pageinit', function(event){
 });
 
 $(document).bind('pageshow', function(event, ui) {
+    //verificamos que el usuario tenga email, sino tiene le obligamos a que si o si coloque
+    if(isLogin()){
+        var user = COOKIE;
+        if($.trim(user.email) == ""){
+            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta, para poder seguir debes llenar tu email!.","Aviso","Aceptar");
+            $.mobile.changePage('#mi_perfil', {transition: "fade"});
+        }
+    }
+    
     var page_id = event.target.id;
     var page = $("#" + $.mobile.activePage.attr('id'));
     page.find(".zonas").find("a").bind("touchstart", function(){
