@@ -6,20 +6,11 @@ var REDIREC_TO = '';
 var LATITUDE = 0;
 var LONGITUDE = 0;
 
-//Twitter
-var oauth; // Holds out oAuth request
-var requestParams; // Specific request params
+//Twitter Codebird
+var cb = new Codebird; // we will require this everywhere
 
 var consumer_key = '5MbWg9ZfT2W2wcDzyT8Q'; //YOUR Twitter CONSUMER_KEY
 var consumer_secret = 'PRpVXyyaDmMiIGBX5Q2dUntNaLSyBWwQuoh78G9H6I'; //// YOUR Twitter CONSUMER_SECRET
-var callback = 'http://www.patrocinalos.com/registro/deportistas';  //// YOUR CALLBACK URL
-
-var options = { 
-            consumerKey: consumer_key, // REPLACE WITH YOUR CONSUMER_KEY
-            consumerSecret: consumer_secret, // REPLACE WITH YOUR CONSUMER_SECRET
-            callbackUrl: callback }; // YOUR URL 
-            
-var twitterKey = "twttrKey"; // what we will store our twitter user information in
 
 var app = {
     // Application Constructor
@@ -54,5 +45,8 @@ var app = {
 		} catch (e) {
 		      console.log("Error al inicializar con facebook");
 		}
+        
+        //Inicializamos el api de twitter
+        cb.setConsumerKey(consumer_key, consumer_secret);
     }
 };

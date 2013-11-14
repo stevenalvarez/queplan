@@ -32,14 +32,16 @@
         <script src="cdv-plugin-fb-connect.js"></script>
         <script src="facebook-js-sdk.js"></script>
         <script src="childbrowser.js"></script>
-        <script src="js/jsOAuth-1.3.6.min.js"></script>
+        
+        <!-- codebird -->
+        <script src="js/sha1.js"></script>
+        <script src="js/codebird.js"></script>        
         
         <!-- include googleapis-->
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBvLnXtnEnR1tea2mEXAYGhOXUgFEfm_Ig&sensor=true"></script>
         
         <script src="js/functions.js"></script>
         <script src="js/app.functions.js"></script>
-        <script src="js/tw.functions.js"></script>
         <script src="js/config.js"></script>
         <script src="js/main.js"></script>
 		
@@ -68,7 +70,7 @@
             <div class="content_options">
                 <div id="data_loading_fb" style="display: none;">loading fb...</div>
                 <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
-                <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitter()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
+                <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
             </div>
     	</div><!-- /content -->
     

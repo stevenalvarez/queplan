@@ -1,8 +1,8 @@
 /************************************ FUNCTIONS APP *******************************************************/
 
 /* REGISTRO FACEBOOK FUNCTION */
-//getLoginStatus
-function getLoginStatus() {
+//getLoginStatusFacebook
+function getLoginStatusFacebook() {
     var connected = false;
     FB.getLoginStatus(function(response) {
         if (response.status == 'connected') {
@@ -42,20 +42,14 @@ function loginFacebookConnect() {
                     
                     //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
                 	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid, function(data) {
-                	   
-                       
-                       console.log("nuevo aqui");
-                	   
                         //ocultamos el loading
                         $.mobile.loading( 'hide' );
                 	    if(data.success){
-                           console.log("nuevo aqui2");
                 	        var usuario = data.usuario.Usuario;
                             //guardamos los datos en la COOKIE
                 	        createCookie("user", JSON.stringify(usuario), 365);
                             //mandamos directo al home si es que la cookie se creo correctamente
                             if(isLogin()){
-                                console.log("redirect");
                                 $.mobile.changePage('#home');
                             }
                         }else{
@@ -79,12 +73,10 @@ function loginFacebookConnect() {
 function logoutFacebookConnect() {
     FB.logout(function(response) {
         FB_LOGIN_SUCCESS = false;
-        //alert('logged out');
     });
 }
 
 //compartiFacebookWallPost
-//comparte en facebook el proyecto del deportista
 function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_actividad_patrocinio, proyecto_imagen, enlace_proyecto) {
     var params = {
         method: 'feed',
@@ -99,19 +91,53 @@ function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_activi
     });
 }
 
-//loginTwitter
-function loginTwitter() {
-    if(TW_LOGIN_SUCCESS){
-        showRegistroSocial("twitter");
-    }else{
-        Twitter.init();
-    }
+/* REGISTRO TWITTER FUNCTION */
+//loginTwitterConnect
+function loginTwitterConnect() {
+    cb.__call(
+    	"oauth_requestToken",
+    		{oauth_callback: "http://localhost/"},
+    		function (reply) {
+    			// nailed it!
+       			cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+       			cb.__call(
+    			"oauth_authorize",	{},
+    			function (auth_url) {
+    			    var ingreso_correcto = true;
+    				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
+    				window.plugins.childBrowser.onLocationChange = function(loc){
+    					if (loc.indexOf("http://localhost/?") >= 0 && ingreso_correcto) {
+    					    ingreso_correcto = false;
+                			// Parse the returned URL
+                            var params = loc.toString().split("&");
+                            var verifier = params[1].toString();
+                            var parameter = verifier.split("="); //oauth_verifier
+                            
+                        	cb.__call(
+                               	"oauth_accessToken", {oauth_verifier: parameter[1]},
+                               	function (reply) {
+                            	   	cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                                    //obtenemos el nombre y el id del usuario de su twitter
+                                    var user_id = reply.user_id;
+                                    var user_screen_name = reply.screen_name;
+                                    
+                                    alert(user_id);
+                                    $.mobile.changePage('#home');
+                                    
+                                    //close childBrowser
+                                    window.plugins.childBrowser.close();
+                                }
+                            );
+    					}
+    				}; // When the ChildBrowser URL changes we need to track that                         
+       			}
+    		);
+    	}
+    );
 }
 
-function showRegistroSocial(red_social){
-    $.mobile.changePage('#home');
-}
-
+/* FUNCTION GENERALES DE LA APP */
+//isLogin
 function isLogin(){
     var res = false;
     var cookie_user = $.parseJSON(readCookie("user"));
@@ -124,6 +150,7 @@ function isLogin(){
     return res;
 }
 
+//redirectLogin
 function redirectLogin(){
     $("#view").find(".ui-header").fadeIn("slow");
     $("#view").find(".ui-content").fadeIn("slow");
@@ -166,7 +193,7 @@ function callbackOrientationChange(orientation, page_id){
     }
 }
 
-/*logout*/
+//logout
 function logout(){
     if(isLogin()){
         navigator.notification.confirm(
