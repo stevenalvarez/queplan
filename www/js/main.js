@@ -22,7 +22,6 @@ $(document).bind('pageshow', function(event, ui) {
     if(isLogin()){
         var user = COOKIE;
         if($.trim(user.email) == ""){
-            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta, para poder seguir debes llenar tu email!.","Aviso","Aceptar");
             $.mobile.changePage('#mi_perfil', {transition: "fade"});
         }
     }
@@ -944,6 +943,11 @@ function getMiPerfil(parent_id){
     
     if(isLogin()){
         var user = COOKIE;
+        
+        if($.trim(user.email) == ""){
+            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta, para poder seguir por favor debes llenar tu email.","Aviso","Aceptar");
+        }
+        
         var puntos_acumulados = user.puntos_acumulados; 
         container.find(".puntos b").html(puntos_acumulados);
         var numero_items = puntos_acumulados/10;
