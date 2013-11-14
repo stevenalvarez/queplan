@@ -144,7 +144,7 @@ function loginTwitterConnect() {
                                             }
                                         }else{
                                             //registramos los datos
-                                            registrar_datos(app_id,email,'twitter',user_screen_name,"","","");
+                                            registrar_datos(user_id,"",'twitter',user_screen_name,"","","");
                                         }
                                 	});
                                 }
