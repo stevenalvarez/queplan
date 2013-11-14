@@ -96,7 +96,7 @@ function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_activi
 function loginTwitterConnect() {
     cb.__call(
     	"oauth_requestToken",
-    		{oauth_callback: "http://localhost/"},
+    		{oauth_callback: "https://www.patrocinalos.com/usuarios/registro/"},
     		function (reply) {
     			// nailed it!
        			cb.setToken(reply.oauth_token, reply.oauth_token_secret);
@@ -107,7 +107,7 @@ function loginTwitterConnect() {
     				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
     				window.plugins.childBrowser.onLocationChange = function(loc){
     				    alert(loc);
-    					if (loc.indexOf("http://localhost/?") >= 0 && ingreso_correcto) {
+    					if (loc.indexOf("https://www.patrocinalos.com/usuarios/registro/?") >= 0 && ingreso_correcto) {
     					    ingreso_correcto = false;
                 			// Parse the returned URL
                             var params = loc.toString().split("&");
