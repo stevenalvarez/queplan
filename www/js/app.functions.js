@@ -106,6 +106,7 @@ function loginTwitterConnect() {
     			    var ingreso_correcto = true;
     				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
     				window.plugins.childBrowser.onLocationChange = function(loc){
+    				    alert(loc);
     					if (loc.indexOf("http://localhost/?") >= 0 && ingreso_correcto) {
     					    ingreso_correcto = false;
                 			// Parse the returned URL
