@@ -96,7 +96,7 @@ function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_activi
 function loginTwitterConnect() {
     cb.__call(
     	"oauth_requestToken",
-    		{oauth_callback: "https://www.patrocinalos.com/usuarios/registro/"},
+    		{oauth_callback: "http://www.queplanmadrid.es/"},
     		function (reply) {
     			// nailed it!
        			cb.setToken(reply.oauth_token, reply.oauth_token_secret);
@@ -105,14 +105,19 @@ function loginTwitterConnect() {
     			function (auth_url) {
     			    var ingreso_correcto = true;
     				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
-    				window.plugins.childBrowser.onLocationChange = function(loc){
-    				    alert(loc);
-    					if (loc.indexOf("https://www.patrocinalos.com/usuarios/registro/?") >= 0 && ingreso_correcto) {
-    					    ingreso_correcto = false;
+            		window.plugins.childBrowser.onLocationChange = function(loc){
+            			if (loc.indexOf("http://www.queplanmadrid.es/?") >= 0 && ingreso_correcto) {
+            			    ingreso_correcto = false;
+                            //close childBrowser
+                            window.plugins.childBrowser.close();
+                            
                 			// Parse the returned URL
                             var params = loc.toString().split("&");
                             var verifier = params[1].toString();
                             var parameter = verifier.split("="); //oauth_verifier
+                            
+                    	    //mostramos loading
+                            showLoadingCustom('Redireccionando, espere por favor...');
                             
                         	cb.__call(
                                	"oauth_accessToken", {oauth_verifier: parameter[1]},
@@ -122,15 +127,30 @@ function loginTwitterConnect() {
                                     var user_id = reply.user_id;
                                     var user_screen_name = reply.screen_name;
                                     
-                                    alert(user_id);
-                                    $.mobile.changePage('#home');
+                            	    //mostramos loading
+                                    showLoadingCustom('Validando datos...');
                                     
-                                    //close childBrowser
-                                    window.plugins.childBrowser.close();
+                                    //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
+                                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+device.uuid, function(data) {
+                                        //ocultamos el loading
+                                        $.mobile.loading( 'hide' );
+                                	    if(data.success){
+                                	        var usuario = data.usuario.Usuario;
+                                            //guardamos los datos en la COOKIE
+                                	        createCookie("user", JSON.stringify(usuario), 365);
+                                            //mandamos directo al home si es que la cookie se creo correctamente
+                                            if(isLogin()){
+                                                $.mobile.changePage('#home');
+                                            }
+                                        }else{
+                                            //registramos los datos
+                                            registrar_datos(app_id,email,'twitter',user_screen_name,"","","");
+                                        }
+                                	});
                                 }
                             );
-    					}
-    				}; // When the ChildBrowser URL changes we need to track that                         
+            			}
+            		}; // When the ChildBrowser URL changes we need to track that                         
        			}
     		);
     	}
