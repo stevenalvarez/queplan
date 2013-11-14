@@ -96,7 +96,7 @@ function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_activi
 function loginTwitterConnect() {
     cb.__call(
     	"oauth_requestToken",
-    		{oauth_callback: "http://www.queplanmadrid.es/"},
+    		{oauth_callback: "http://www.terrazas.arrobacreativa.com/"},
     		function (reply) {
     			// nailed it!
        			cb.setToken(reply.oauth_token, reply.oauth_token_secret);
@@ -106,7 +106,7 @@ function loginTwitterConnect() {
     			    var ingreso_correcto = true;
     				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
             		window.plugins.childBrowser.onLocationChange = function(loc){
-            			if (loc.indexOf("http://www.queplanmadrid.es/?") >= 0 && ingreso_correcto) {
+            			if (loc.indexOf("http://www.terrazas.arrobacreativa.com/?") >= 0 && ingreso_correcto) {
             			    ingreso_correcto = false;
                             //close childBrowser
                             window.plugins.childBrowser.close();
