@@ -28,7 +28,7 @@ $(document).bind('pageshow', function(event, ui) {
     
     var page_id = event.target.id;
     var page = $("#" + $.mobile.activePage.attr('id'));
-    page.find(".zonas").find("a").bind("touchstart", function(){
+    page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
         $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
         $(this).addClass("ui-btn-active-a");
         var zona_id = $(this).attr("href");
@@ -212,7 +212,7 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
                     itemsMobile : [479,4],
                     responsive: false,
                 });
-                container.find("a").bind("touchstart", function(){
+                container.find("a").unbind("touchstart").bind("touchstart", function(){
                     container.find(".owl-item").removeClass("active");
                     $(this).parent().parent().parent().addClass("active");
                     var categoria_id = $(this).attr("href");
@@ -689,7 +689,7 @@ function getRecompensaById(parent_id, recompensa_id){
             parent.find(".texto_descripcion").html(recompensa.descripcion);
             parent.find(".ir_al_local a").attr("href","local_descripcion.html?id="+recompensa.local_id);
             parent.find("#recompensa_condiciones").find(".container_descripcion").html(recompensa.condicion);
-            parent.find(".comprar_recompensa a").bind("touchstart", function(){
+            parent.find(".comprar_recompensa a").unbind("touchstart").bind("touchstart", function(){
                 comprarRecompensa(recompensa.local_id, recompensa.id);
             });
             
@@ -795,57 +795,6 @@ function getQuieroParticiparById(parent_id, quiero_participar_id){
 	});
 }
 
-//MOSTRAMOS EL GOOGLE MAP DEL LOCAL
-function showGoogleMap(latitud, longitud) {
-    var map;
-    var marcador;
-    if(latitud != "" && longitud != ""){
-        var latlng = new google.maps.LatLng(latitud, longitud);
-        var myOptions = {
-          zoom: 16,
-          center: latlng,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          zoomControl: true
-        };
-        map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
-        marcador = new google.maps.Marker({position: latlng, map: map});
-    }
-}
-
-//REALIZAMOS EL CHECK-IN
-function checkIn(local_id){
-    //volvemos a recalcular la ubicacion 
-    getLocationGPS();
-    
-    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga check-ing
-    if(isLogin()){
-        var user = COOKIE;
-        var me = user.id;
-        
-        showLoadingCustom('Check In, en progreso...');
-        
-    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
-            
-            if(data){
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                
-                if(data.success){
-                    showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
-                    
-                    //re-escribimos la cookie con los puntos totales
-                    reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
-                }else{
-                    showAlert(data.mensaje, "Check In no disponible", "Aceptar");
-                }
-            }
-    	});
-    
-    }else{
-        showAlert("Debes de conectarte con facebook o twitter para realizar el check-in","Error","Aceptar");
-    }
-}
-
 //VERIFICAMOS SI EL DISPOSITIVO YA FUE REGISTRADO, SI LO ESTA MANDAMOS DIRECTO A LA HOME
 function getValidarDeviceUuid(parent_id, device_uuid){
     var parent = $("#"+parent_id);
@@ -870,70 +819,6 @@ function getValidarDeviceUuid(parent_id, device_uuid){
             parent.find(".ui-content").fadeIn("slow");
         }
 	});
-}
-
-//REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL LOGIN CON FB O TW
-function registrar_datos(app_id, email, registrado_mediante, username, nombre, imagen, genero){
-    $.ajax({
-        data: {u_app_id:app_id, u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name},
-        type: "POST",
-        url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
-        dataType: "html",
-        success: function(data){
-            //ocultamos el loading
-            $.mobile.loading( 'hide' );
-            data = $.parseJSON(data);
-            
-            var success = data.success;
-            if(success){
-                var usuario = data.usuario.Usuario;
-                var usuario_id = usuario.id;
-                
-                //una vez creado guardamos en cookies su datos importantes
-                createCookie("user", JSON.stringify(usuario), 365);
-                
-                //una vez registrado los datos, mandamos a la home
-                $.mobile.changePage('#home', {transition: "fade"});
-            }else{
-                showAlert('Ha ocurrido un error al momento de registrarse!, por favor intente de nuevo', 'Error', 'Aceptar');
-            }
-        },
-        beforeSend : function(){
-            //mostramos loading
-            showLoadingCustom('Guardando datos...');
-        }
-    });
-}
-
-//Comprar recompensa
-function comprarRecompensa(local_id, recompensa_id){
-    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga la compra de la recompensa
-    if(isLogin()){
-        var user = COOKIE;
-        var me = user.id;
-        
-        showLoadingCustom('Compra de recompensa, en progreso...');
-        
-    	$.getJSON(BASE_URL_APP + 'recompensas/mobileComprarRecompensa/'+me+'/'+local_id+'/'+recompensa_id, function(data) {
-            
-            if(data){
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                
-                if(data.success){
-                    showAlert(data.mensaje, "Compra Realizada!", "Aceptar");
-                    
-                    //re-escribimos la cookie con los puntos restantes
-                    reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
-                }else{
-                    showAlert(data.mensaje, "Compra no disponible", "Aceptar");
-                }
-            }
-    	});
-    
-    }else{
-        showAlert("Debes de conectarte con facebook o twitter para realizar la compra.","Error","Aceptar");
-    }
 }
 
 //Obtemos los puntos que tiene acumulado el usuario
@@ -963,7 +848,7 @@ function getMiPerfil(parent_id){
         form.find(".user_id").val(user.id);
         form.find(".user_email").val(user.email);
         
-        form.find(".cambiar_email").bind("touchstart", function(){
+        form.find(".cambiar_email").unbind("touchstart").bind("touchstart", function(){
             var email = $.trim(form.find(".user_email").val()); 
             if(valEmail(email)){
                 showLoadingCustom('Guardando datos...');
@@ -972,6 +857,9 @@ function getMiPerfil(parent_id){
                     $.mobile.loading( 'hide' );
                     if(data.success){
                         showAlert(data.mensaje, "Aviso", "Aceptar");
+                        
+                        //re-escribimos la cookie con el nuevo email
+                        reWriteCookie("user","email",data.new_email);
                     }else{
                         showAlert(data.mensaje, "Error", "Aceptar");
                     }
