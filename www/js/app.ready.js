@@ -9,8 +9,8 @@ var LONGITUDE = 0;
 //Twitter Codebird
 var cb = new Codebird; // we will require this everywhere
 
-var consumer_key = '5MbWg9ZfT2W2wcDzyT8Q'; //YOUR Twitter CONSUMER_KEY
-var consumer_secret = 'PRpVXyyaDmMiIGBX5Q2dUntNaLSyBWwQuoh78G9H6I'; //// YOUR Twitter CONSUMER_SECRET
+var consumer_key = 'pPrzITObRT4z0VoBAtag'; //YOUR Twitter CONSUMER_KEY
+var consumer_secret = '1L8V3qJwdDocLD653uYhgxU5TtIm45pdAhyE022EBLw'; //// YOUR Twitter CONSUMER_SECRET
 
 var app = {
     // Application Constructor
