@@ -214,6 +214,121 @@ function callbackOrientationChange(orientation, page_id){
     }
 }
 
+//MOSTRAMOS EL GOOGLE MAP DEL LOCAL
+function showGoogleMap(latitud, longitud) {
+    var map;
+    var marcador;
+    if(latitud != "" && longitud != ""){
+        var latlng = new google.maps.LatLng(latitud, longitud);
+        var myOptions = {
+          zoom: 16,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          zoomControl: true
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"),myOptions);
+        marcador = new google.maps.Marker({position: latlng, map: map});
+    }
+}
+
+//REALIZAMOS EL CHECK-IN
+function checkIn(local_id){
+    //volvemos a recalcular la ubicacion 
+    getLocationGPS();
+    
+    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga check-ing
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
+        
+        showLoadingCustom('Check In, en progreso...');
+        
+    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
+            
+            if(data){
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                
+                if(data.success){
+                    showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
+                    
+                    //re-escribimos la cookie con los puntos totales
+                    reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
+                }else{
+                    showAlert(data.mensaje, "Check In no disponible", "Aceptar");
+                }
+            }
+    	});
+    
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar el check-in","Error","Aceptar");
+    }
+}
+
+//REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL LOGIN CON FB O TW
+function registrar_datos(app_id, email, registrado_mediante, username, nombre, imagen, genero){
+    $.ajax({
+        data: {u_app_id:app_id, u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name},
+        type: "POST",
+        url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
+        dataType: "html",
+        success: function(data){
+            //ocultamos el loading
+            $.mobile.loading( 'hide' );
+            data = $.parseJSON(data);
+            
+            var success = data.success;
+            if(success){
+                var usuario = data.usuario.Usuario;
+                var usuario_id = usuario.id;
+                
+                //una vez creado guardamos en cookies su datos importantes
+                createCookie("user", JSON.stringify(usuario), 365);
+                
+                //una vez registrado los datos, mandamos a la home
+                $.mobile.changePage('#home', {transition: "fade"});
+            }else{
+                showAlert('Ha ocurrido un error al momento de registrarse!, por favor intente de nuevo', 'Error', 'Aceptar');
+            }
+        },
+        beforeSend : function(){
+            //mostramos loading
+            showLoadingCustom('Guardando datos...');
+        }
+    });
+}
+
+//Comprar recompensa
+function comprarRecompensa(local_id, recompensa_id){
+    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga la compra de la recompensa
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
+        
+        showLoadingCustom('Compra de recompensa, en progreso...');
+        
+    	$.getJSON(BASE_URL_APP + 'recompensas/mobileComprarRecompensa/'+me+'/'+local_id+'/'+recompensa_id, function(data) {
+            
+            if(data){
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                
+                if(data.success){
+                    showAlert(data.mensaje, "Compra Realizada!", "Aceptar");
+                    
+                    //re-escribimos la cookie con los puntos restantes
+                    reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
+                }else{
+                    showAlert(data.mensaje, "Compra no disponible", "Aceptar");
+                }
+            }
+    	});
+    
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar la compra.","Error","Aceptar");
+    }
+}
+
 //logout
 function logout(){
     if(isLogin()){
