@@ -99,6 +99,26 @@ function shareFacebookWallPost(subtitulo, descripcion, imagen) {
     });
 }
 
+//shareTwitterWallPost
+function shareTwitterWallPost(subtitulo, descripcion, imagen) {
+    
+    // check if we already have access tokens
+    if(localStorage.accessToken && localStorage.tokenSecret) {
+    	// then directly setToken() and read the timeline
+    	cb.setToken(localStorage.accessToken, localStorage.tokenSecret);
+        cb.__call(
+            "statuses_update",
+            {"status": descripcion},
+            function (reply) {
+                // ...
+                alert(JSON.stringify(reply));
+            }
+        );
+    } else { // authorize the user and ask her to get the pin.
+        
+    }
+}
+    
 /* REGISTRO TWITTER FUNCTION */
 //loginTwitterConnect
 function loginTwitterConnect() {
@@ -131,6 +151,11 @@ function loginTwitterConnect() {
                                	"oauth_accessToken", {oauth_verifier: parameter[1]},
                                	function (reply) {
                             	   	cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                                    
+                                    //almacenamos el oauth_token y oauth_token_secret en la db del dispositivo
+                                   	localStorage.accessToken = reply.oauth_token;
+                                   	localStorage.tokenSecret = reply.oauth_token_secret;
+                                    
                                     //obtenemos el nombre y el id del usuario de su twitter
                                     var user_id = reply.user_id;
                                     var user_screen_name = reply.screen_name;
@@ -273,7 +298,9 @@ function checkIn(local_id){
                                     shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
                                 },500);
                             }else if(user.registrado_mediante == "twitter"){
-                                
+                                setTimeout(function(){
+                                    shareTwitterWallPost(data.subtitulo, data.descripcion, imagen);
+                                },500);
                             }
                         },         // callback
                         "Check In Registrado!", // title
@@ -355,7 +382,9 @@ function comprarRecompensa(local_id, recompensa_id){
                                     shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
                                 },500);
                             }else if(user.registrado_mediante == "twitter"){
-                                
+                                setTimeout(function(){
+                                    shareTwitterWallPost(data.subtitulo, data.descripcion, imagen);
+                                },500);
                             }
                         },         // callback
                         "Compra Realizada!",    // title
