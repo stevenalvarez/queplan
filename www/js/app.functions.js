@@ -263,19 +263,15 @@ function checkIn(local_id){
                     //re-escribimos la cookie con los puntos totales
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
                     
-                    console.log("aqui 1");
-                    shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
-                    console.log("aqui 2");
-                    
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
-                    
-                    /*
                     navigator.notification.alert(
                         data.mensaje,           // message
                         function(){
                             if(user.registrado_mediante == "facebook"){
-                                shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
+                                setTimeout(function(){
+                                    shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
+                                },1000);
                             }else if(user.registrado_mediante == "twitter"){
                                 
                             }
@@ -283,8 +279,6 @@ function checkIn(local_id){
                         "Check In Registrado!", // title
                         "Aceptar"               // buttonName
                     );
-                    
-                    */
                     
                 }else{
                     showAlert(data.mensaje, "Check In no disponible", "Aceptar");
@@ -357,7 +351,9 @@ function comprarRecompensa(local_id, recompensa_id){
                         data.mensaje,           // message
                         function(){
                             if(user.registrado_mediante == "facebook"){
-                                shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
+                                setTimeout(function(){
+                                    shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
+                                },1000);
                             }else if(user.registrado_mediante == "twitter"){
                                 
                             }
