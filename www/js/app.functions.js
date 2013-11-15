@@ -76,18 +76,26 @@ function logoutFacebookConnect() {
     });
 }
 
-//compartiFacebookWallPost
-function compartiFacebookWallPost(usuario_title, proyecto_title, proyecto_actividad_patrocinio, proyecto_imagen, enlace_proyecto) {
+//shareFacebookWallPost
+function shareFacebookWallPost(subtitulo, descripcion, imagen) {
     var params = {
         method: 'feed',
-        name: usuario_title + ' - ' + proyecto_title,
-        link: enlace_proyecto,
-        picture: proyecto_imagen,
-        caption: 'www.patrocinalos.com',
-        description: proyecto_actividad_patrocinio
+        name: "QuéPlan?",
+        caption: subtitulo,
+        description: descripcion,
+        link: 'http://www.queplanmadrid.es/',
+        picture: imagen,
+        actions: [
+            { name: 'QuéPlan?', link: 'http://www.queplanmadrid.es/' }
+        ],
+        user_message_prompt: 'Comparte tu opinión sobre QuéPlan?'
     };
-    FB.ui(params, function(obj) { 
-        showAlert("Haz compartido con exito el proyecto!.", "Enhorabuena", "Aceptar");
+    FB.ui(params, function(response) {
+        if (response && response.post_id) {
+            showAlert("Se ha publicado tu Post!.", "Enhorabuena", "Aceptar");
+        } else {
+            showAlert("Lo sentimos no se publico tu Post!.", "Error", "Aceptar");
+        }
     });
 }
 
@@ -250,10 +258,26 @@ function checkIn(local_id){
                 $.mobile.loading( 'hide' );
                 
                 if(data.success){
-                    showAlert(data.mensaje, "Check In Registrado!", "Aceptar");
+                    var imagen = BASE_URL_APP+'img/logo_oficial.png';
                     
                     //re-escribimos la cookie con los puntos totales
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
+                    
+                    //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
+                    //que puede ser de facebook o twitter
+                    navigator.notification.alert(
+                        data.mensaje,           // message
+                        function(){
+                            if(user.registrado_mediante == "facebook"){
+                                shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
+                            }else if(user.registrado_mediante == "twitter"){
+                                
+                            }
+                        },         // callback
+                        "Check In Registrado!", // title
+                        "Aceptar"               // buttonName
+                    );
+                    
                 }else{
                     showAlert(data.mensaje, "Check In no disponible", "Aceptar");
                 }
@@ -314,10 +338,26 @@ function comprarRecompensa(local_id, recompensa_id){
                 $.mobile.loading( 'hide' );
                 
                 if(data.success){
-                    showAlert(data.mensaje, "Compra Realizada!", "Aceptar");
+                    var imagen = BASE_URL_APP+'img/logo_oficial.png';
                     
                     //re-escribimos la cookie con los puntos restantes
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
+                    
+                    //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
+                    //que puede ser de facebook o twitter
+                    navigator.notification.alert(
+                        data.mensaje,           // message
+                        function(){
+                            if(user.registrado_mediante == "facebook"){
+                                shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
+                            }else if(user.registrado_mediante == "twitter"){
+                                
+                            }
+                        },         // callback
+                        "Compra Realizada!",    // title
+                        "Aceptar"               // buttonName
+                    );
+                    
                 }else{
                     showAlert(data.mensaje, "Compra no disponible", "Aceptar");
                 }
