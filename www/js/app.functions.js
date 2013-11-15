@@ -80,15 +80,15 @@ function logoutFacebookConnect() {
 function shareFacebookWallPost(subtitulo, descripcion, imagen) {
     var params = {
         method: 'feed',
-        name: "QuéPlan?",
+        name: "QuePlan?",
         caption: subtitulo,
         description: descripcion,
         link: 'http://www.queplanmadrid.es/',
         picture: imagen,
         actions: [
-            { name: 'QuéPlan?', link: 'http://www.queplanmadrid.es/' }
+            { name: 'QuePlan?', link: 'http://www.queplanmadrid.es/' }
         ],
-        user_message_prompt: 'Comparte tu opinión sobre QuéPlan?'
+        user_message_prompt: 'Comparte tu opinion sobre QuePlan?'
     };
     FB.ui(params, function(response) {
         if (response && response.post_id) {
@@ -271,7 +271,7 @@ function checkIn(local_id){
                             if(user.registrado_mediante == "facebook"){
                                 setTimeout(function(){
                                     shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
-                                },1000);
+                                },500);
                             }else if(user.registrado_mediante == "twitter"){
                                 
                             }
@@ -353,7 +353,7 @@ function comprarRecompensa(local_id, recompensa_id){
                             if(user.registrado_mediante == "facebook"){
                                 setTimeout(function(){
                                     shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
-                                },1000);
+                                },500);
                             }else if(user.registrado_mediante == "twitter"){
                                 
                             }
