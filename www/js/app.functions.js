@@ -102,7 +102,7 @@ function shareFacebookWallPost(subtitulo, descripcion, imagen) {
 //shareTwitterWallPost
 function shareTwitterWallPost(subtitulo, descripcion, imagen) {
     
-    descripcion+= " via <a href='https://twitter.com/QuePlanMadrid'>@QuePlanMadrid</a>";
+    descripcion+= " via <a href='https%3A%2F%2Ftwitter.com%2FQuePlanMadrid'>@QuePlanMadrid</a>";
     
     // check if we already have access tokens
     if(localStorage.accessToken && localStorage.tokenSecret) {
