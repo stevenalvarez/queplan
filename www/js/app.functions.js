@@ -112,12 +112,57 @@ function shareTwitterWallPost(subtitulo, descripcion, imagen) {
             "statuses_update",
             {"status": descripcion},
             function (reply) {
-                // ...
-                alert(JSON.stringify(reply));
+                //alert(JSON.stringify(reply));
             }
         );
     } else { // authorize the user and ask her to get the pin.
-        
+        cb.__call(
+        	"oauth_requestToken",
+        		{oauth_callback: "http://www.terrazas.arrobacreativa.com/"},
+        		function (reply) {
+        			// nailed it!
+           			cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+           			cb.__call(
+        			"oauth_authorize",	{},
+        			function (auth_url) {
+        			    var ingreso_correcto = true;
+        				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
+                		window.plugins.childBrowser.onLocationChange = function(loc){
+                			if (loc.indexOf("http://www.terrazas.arrobacreativa.com/?") >= 0 && ingreso_correcto) {
+                			    ingreso_correcto = false;
+                                //close childBrowser
+                                window.plugins.childBrowser.close();
+                                
+                    			// Parse the returned URL
+                                var params = loc.toString().split("&");
+                                var verifier = params[1].toString();
+                                var parameter = verifier.split("="); //oauth_verifier
+                                                                
+                            	cb.__call(
+                                   	"oauth_accessToken", {oauth_verifier: parameter[1]},
+                                   	function (reply) {
+                                	   	cb.setToken(reply.oauth_token, reply.oauth_token_secret);
+                                        
+                                        //almacenamos el oauth_token y oauth_token_secret en la db del dispositivo
+                                       	localStorage.accessToken = reply.oauth_token;
+                                       	localStorage.tokenSecret = reply.oauth_token_secret;
+                                        
+                                        //publicamos en twitter
+                                        cb.__call(
+                                            "statuses_update",
+                                            {"status": descripcion},
+                                            function (reply) {
+                                                //alert(JSON.stringify(reply));
+                                            }
+                                        );
+                                    }
+                                );
+                			}
+                		}; // When the ChildBrowser URL changes we need to track that
+           			}
+        		);
+        	}
+        );
     }
 }
     
@@ -185,7 +230,7 @@ function loginTwitterConnect() {
                                 }
                             );
             			}
-            		}; // When the ChildBrowser URL changes we need to track that                         
+            		}; // When the ChildBrowser URL changes we need to track that
        			}
     		);
     	}
