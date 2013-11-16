@@ -316,12 +316,12 @@ function checkIn(local_id){
     //volvemos a recalcular la ubicacion 
     getLocationGPS();
     
-    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga check-ing
+    //verficamos que este logeado porque solo si lo esta podemos dejarle que haga check-in
     if(isLogin()){
         var user = COOKIE;
         var me = user.id;
         
-        showLoadingCustom('Check In, en progreso...');
+        showLoadingCustom('Estoy Aqu&iacute;, en progreso...');
         
     	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
             
@@ -350,18 +350,18 @@ function checkIn(local_id){
                                 },500);
                             }
                         },         // callback
-                        "Check In Registrado!", // title
+                        "AQU&Iacute; ESTOY!", // title
                         "Aceptar"               // buttonName
                     );
                     
                 }else{
-                    showAlert(data.mensaje, "Check In no disponible", "Aceptar");
+                    showAlert(data.mensaje, "AQU&Iacute; ESTOY NO DISPONIBLE", "Aceptar");
                 }
             }
     	});
     
     }else{
-        showAlert("Debes de conectarte con facebook o twitter para realizar el check-in","Error","Aceptar");
+        showAlert("Debes de conectarte con facebook o twitter para realizar Estoy aqu&iacute;","Error","Aceptar");
     }
 }
 

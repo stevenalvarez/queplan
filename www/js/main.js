@@ -830,7 +830,7 @@ function getMiPerfil(parent_id){
         var user = COOKIE;
         
         if($.trim(user.email) == ""){
-            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta, para poder seguir por favor debes llenar tu email.","Aviso","Aceptar");
+            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta, para poder seguir por favor debes rellenar tu email así cuando ganes una recompensa podremos entrar en contacto. Gracias.","Aviso","Aceptar");
         }
         
         var puntos_acumulados = user.puntos_acumulados; 
