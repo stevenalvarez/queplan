@@ -102,7 +102,7 @@ function shareFacebookWallPost(subtitulo, descripcion, imagen) {
 //shareTwitterWallPost
 function shareTwitterWallPost(subtitulo, descripcion, imagen) {
     
-    descripcion+= "&source=queplanmadrides&related=queplanmadrid&via=queplanmadrid";
+    descripcion+= "&url=''&source=queplanmadrides&related=queplanmadrid&via=queplanmadrid";
     // check if we already have access tokens
     if(localStorage.accessToken && localStorage.tokenSecret) {
     	// then directly setToken() and read the timeline
