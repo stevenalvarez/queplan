@@ -197,13 +197,14 @@
 #locales .ui-listview, #planes .ui-listview, #estoy_aqui .ui-listview{margin: 0px;margin-bottom: 8px;}
 #locales .ui-listview li, #planes .ui-listview li, #estoy_aqui .ui-listview li{background: #f2f2f2;}
 #locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb, #estoy_aqui .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 60px;min-height: 60px;max-width: 122px;width: 122px;}
-#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb, #estoy_aqui .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 132px;padding-right: 10px;padding-top: 8px;padding-bottom: 0;min-height: 52px;margin-top: 2px; margin-bottom: 2px;overflow: hidden;display: none;}
+#locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb, #estoy_aqui .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 122px;padding-right: 10px;padding-top: 0px;padding-bottom: 0;min-height: 60px;margin-top: 2px; margin-bottom: 2px;overflow: hidden;display: none;}
 #locales .ui-listview .ui-li-heading, #planes .ui-listview .ui-li-heading, #estoy_aqui .ui-listview .ui-li-heading{margin-top: 0;white-space: normal;font-size: 12px;text-shadow: none;margin-bottom: 0;line-height: 14px;}
 #locales .ui-listview .ui-li-heading a, #planes .ui-listview .ui-li-heading a, #estoy_aqui .ui-listview .ui-li-heading a{color: #838383;font-family:'century_gothicregular';}
-#locales .ui-listview .content_descripcion, #planes .ui-listview .content_descripcion, #estoy_aqui .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;min-height: 45px;max-height: 45px;}
-#locales .ui-listview .content_descripcion .ubicacion, #planes .ui-listview .content_descripcion .ubicacion, #estoy_aqui .ui-listview .content_descripcion .ubicacion{width: 60%;float: left;}
-#locales .ui-listview .content_descripcion .km, #planes .ui-listview .content_descripcion .km, #estoy_aqui .ui-listview .content_descripcion .km{width: 38%;padding: 8px 0;float: right;text-shadow: none;color: #df086f;font-family:'century_gothicregular';font-size: 15px;}
-#locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b, #estoy_aqui .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 65px;display: block;text-align: right;}
+#locales .ui-listview .content_recuadro, #planes .ui-listview .content_recuadro, #estoy_aqui .ui-listview .content_recuadro{background: url("../img/bg_item_li.png") no-repeat scroll top left transparent;position: relative;left: -24px;padding-left: 24px;width: 100%;padding-bottom: 4px;}
+#locales .ui-listview .content_descripcion, #planes .ui-listview .content_descripcion, #estoy_aqui .ui-listview .content_descripcion{overflow: hidden;border-bottom: 1px dotted #acacac;padding-bottom: 2px;min-height: 45px;max-height: 45px;padding-top: 8px;margin-left: 10px;}
+#locales .ui-listview .content_descripcion .ubicacion, #planes .ui-listview .content_descripcion .ubicacion, #estoy_aqui .ui-listview .content_descripcion .ubicacion{width: 52%;float: left;}
+#locales .ui-listview .content_descripcion .km, #planes .ui-listview .content_descripcion .km, #estoy_aqui .ui-listview .content_descripcion .km{width: 46%;padding: 12px 0;float: right;text-shadow: none;color: #df086f;font-family:'century_gothicregular';font-size: 12px;}
+#locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b, #estoy_aqui .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 80px;display: block;text-align: right;}
 
 /* LOCAL DESCRIPCION  -  PLAN DESCRIPCION */
 #local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin: 0px;min-height: 415px;border-radius: 0;border: none;}
@@ -235,16 +236,17 @@
 #recompensas .ui-content{background: url("../img/bg_guia.png") repeat scroll 0 0 transparent;overflow: hidden;}
 #recompensas .ui-listview{margin: 0}
 #recompensas .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 60px;max-width: 80px;min-height: 60px;}
-#recompensas .ui-listview li.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit{min-height: 43px;padding-left: 90px;padding-top: 0.5em;padding-bottom: 0.5em;}
+#recompensas .ui-listview li.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit{min-height: 43px;padding-left: 80px;padding-top: 0em;padding-bottom: 0em;}
 #recompensas .ui-listview li.ui-btn-hover-a .ui-btn-inner .ui-icon-arrow-r{background-position: 0px 85%;}
 #recompensas .ui-listview li.ui-btn-hover-a .ui-btn-text .ui-li-heading, #recompensas .ui-listview .content_descripcion span{color: #df086f;text-shadow: none;}
-#recompensas .ui-listview .content_descripcion span{font-size: 14px;}
 #recompensas .ui-listview li.ui-btn-up-a,#recompensas .ui-listview li.ui-btn-hover-a{background-image: none;background: transparent;}
 #recompensas .ui-listview .ui-btn-inner .ui-icon-arrow-r{right: 18px;background-position: 0px 15%;}
 #recompensas .ui-listview .ui-btn-inner .ui-icon-shadow{-moz-box-shadow: 0 0 0 rgba(255,255,255,.4);-webkit-box-shadow: 0 0 0 rgba(255,255,255,.4) }
 #recompensas .ui-listview .ui-btn-inner .ui-icon{background-image: url("../img/arrow_sprite.png");width: 12px;height: 18px;background-size: 10px;background-color: transparent;-webkit-border-radius: 0;border-radius: 0;}
 #recompensas .ui-listview .ui-li-heading{margin-top: 0;font-size: 16px;text-shadow: none;margin-bottom: 0;font-weight: normal;}
+#recompensas .ui-listview .content_recuadro{padding-top: 0.5em;padding-bottom: 0.5em;background: url("../img/bg_item_li.png") no-repeat scroll top left transparent;position: relative;left: -24px;padding-left: 34px;width: 100%;}
 #recompensas .ui-listview .content_descripcion,#recompensas .content_top{overflow: hidden;font-weight: normal;font-family:'century_gothicregular'}
+#recompensas .ui-listview .content_descripcion span{font-size: 14px;}
 #recompensas .content_top{margin: 10px 20px 10px;font-size: 19px;letter-spacing: -1px;}
 #recompensas .content_top span{color: #df086f;font-size: 25px;}
 

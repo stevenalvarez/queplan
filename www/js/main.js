@@ -263,14 +263,16 @@ function getPlanes(parent_id){
                     
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/promociones/thumbnails/' + imagen + '"/>' +
-                        '<div class="content_descripcion">' +
-                            '<div class="ubicacion">' +
-                                '<h3 class="ui-li-heading">' +
-                                    '<a href="plan_descripcion.html?id='+item.Promocion.id+'">'+item.Promocion.title+'</a>' +
-                                '</h3>' +
-                            '</div>' +
-                            '<div class="km">' +
-                                '<b>'+parseFloat(kilomentros).toFixed(0)+' km</b>' +
+                        '<div class="content_recuadro">' +
+                            '<div class="content_descripcion">' +
+                                '<div class="ubicacion">' +
+                                    '<h3 class="ui-li-heading">' +
+                                        '<a href="plan_descripcion.html?id='+item.Promocion.id+'">'+item.Promocion.title+'</a>' +
+                                    '</h3>' +
+                                '</div>' +
+                                '<div class="km">' +
+                                    '<b>'+parseFloat(kilomentros).toFixed(2)+' km</b>' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                     '</li>';
@@ -390,14 +392,16 @@ function getLocalesById(parent_id, categoria_id){
                     var imagen = item.Local.imagen!=""?item.Local.imagen : "default.png";
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + imagen + '"/>' +
-                        '<div class="content_descripcion">' +
-                            '<div class="ubicacion">' +
-                                '<h3 class="ui-li-heading">' +
-                                    '<a href="local_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
-                                '</h3>' +
-                            '</div>' +
-                            '<div class="km">' +
-                                '<b>'+parseFloat(kilomentros).toFixed(0)+' km</b>' +
+                        '<div class="content_recuadro">' +
+                            '<div class="content_descripcion">' +
+                                '<div class="ubicacion">' +
+                                    '<h3 class="ui-li-heading">' +
+                                        '<a href="local_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
+                                    '</h3>' +
+                                '</div>' +
+                                '<div class="km">' +
+                                    '<b>'+parseFloat(kilomentros).toFixed(2)+' km</b>' +
+                                '</div>' +
                             '</div>' +
                         '</div>' +
                     '</li>';
@@ -537,22 +541,24 @@ function getLocalesByDistance(parent_id){
                     
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
                         '<img src="'+BASE_URL_APP+'img/locales/thumbnails/' + imagen + '"/>' +
-                        '<div class="content_descripcion">' +
-                            '<div class="ubicacion">' +
-                                '<h3 class="ui-li-heading">' +
-                                    '<a href="javascript:checkIn('+item.Local.id+')">'+item.Local.title+'</a>' +
-                                '</h3>' +
-                            '</div>' +
-                            '<div class="km">';
-                            
-                            //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
-                            if(parseInt(item.Local.kilomentros) < 1){
-                                html+='<b>'+parseFloat(item.Local.metros).toFixed(0)+' m</b>';
-                            }else{
-                                html+='<b>'+parseFloat(item.Local.kilomentros).toFixed(0)+' km</b>';
-                            }
+                        '<div class="content_recuadro">' +
+                            '<div class="content_descripcion">' +
+                                '<div class="ubicacion">' +
+                                    '<h3 class="ui-li-heading">' +
+                                        '<a href="javascript:checkIn('+item.Local.id+')">'+item.Local.title+'</a>' +
+                                    '</h3>' +
+                                '</div>' +
+                                '<div class="km">';
                                 
-                            html+='</div>' +
+                                //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
+                                if(parseInt(item.Local.kilomentros) < 1){
+                                    html+='<b>'+parseFloat(item.Local.metros).toFixed(2)+' m</b>';
+                                }else{
+                                    html+='<b>'+parseFloat(item.Local.kilomentros).toFixed(2)+' km</b>';
+                                }
+                                    
+                                html+='</div>' +
+                            '</div>' +
                         '</div>' +
                     '</li>';
         		    
@@ -607,9 +613,11 @@ function getRecompensas(parent_id) {
             	var html='<li>'+
                     '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
                         '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
-                        '<div class="content_descripcion">'+
-                            '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
-                            '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
+                        '<div class="content_recuadro">' +
+                            '<div class="content_descripcion">'+
+                                '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
+                                '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
+                            '</div>'+
                         '</div>'+
                     '</a>'+
                 '</li>';
