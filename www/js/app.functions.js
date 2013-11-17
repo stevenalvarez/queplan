@@ -321,7 +321,7 @@ function checkIn(local_id){
         var user = COOKIE;
         var me = user.id;
         
-        showLoadingCustom('Estoy Aqu&iacute;, en progreso...');
+        showLoadingCustom('Estoy Aqu\u00ED, en progreso...');
         
     	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
             
@@ -350,18 +350,18 @@ function checkIn(local_id){
                                 },500);
                             }
                         },         // callback
-                        "AQU&Iacute; ESTOY!", // title
+                        "AQU\u00CD ESTOY!", // title
                         "Aceptar"               // buttonName
                     );
                     
                 }else{
-                    showAlert(data.mensaje, "AQU&Iacute; ESTOY NO DISPONIBLE", "Aceptar");
+                    showAlert(data.mensaje, "AQU\u00CD ESTOY NO DISPONIBLE", "Aceptar");
                 }
             }
     	});
     
     }else{
-        showAlert("Debes de conectarte con facebook o twitter para realizar Estoy aqu&iacute;","Error","Aceptar");
+        showAlert("Debes de conectarte con facebook o twitter para realizar Estoy aqu\u00ED","Error","Aceptar");
     }
 }
 
