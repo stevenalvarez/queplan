@@ -222,13 +222,13 @@
 #local_descripcion .content_middle .ui-navbar, #plan_descripcion .content_middle .ui-navbar{border-bottom: 1px solid #fff;}
 #local_descripcion .content_bottom, #plan_descripcion .content_bottom, #recompensa_descripcion .content_bottom{text-shadow: 0 0 0;font-family:'century_gothicregular';}
 #local_descripcion .content_bottom div.texto_descripcion, #plan_descripcion .content_bottom div.texto_descripcion, #recompensa_descripcion .content_bottom div.texto_descripcion{margin: 3px 12px;font-size: 10px;color: #838383;line-height: 12px;/*max-height: 72px;*/min-height: 72px;overflow: hidden;}
-#local_descripcion .content_bottom .informacion, #plan_descripcion .content_bottom .informacion{overflow: hidden;font-size: 12px;color: #000;margin: 0 12px;padding-top: 15px;margin-bottom: 12px;margin-top: -12px;}
-#local_descripcion .content_bottom .informacion label{color: #df086f;}
-#local_descripcion .content_bottom .informacion li{float: left;}
-#local_descripcion .content_bottom .informacion li.llamada{line-height: 12px;letter-spacing: -1px;min-width: 95px;}
-#local_descripcion .content_bottom .informacion li.planes_hoy{position: relative;margin-right: 5px;}
-#local_descripcion .content_bottom .informacion li.planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;margin-left: 5px;text-shadow: 0 1px 1px #6c6f77;}
-#local_descripcion .content_bottom .informacion li.planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
+#local_descripcion .content_bottom .informacion, #plan_descripcion .content_bottom .informacion{overflow: hidden;font-size: 12px;color: #000;margin: 0 12px;padding-top: 3px;margin-bottom: 12px;}
+#local_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
+#local_descripcion .content_bottom .informacion li span, #local_descripcion .content_bottom .informacion li a{color: #000;}
+#local_descripcion .content_bottom .informacion li{float: left;line-height: 12px;letter-spacing: -1px;width: 49%;}
+#local_descripcion .content_bottom .informacion .planes_hoy{position: relative;clear: both;width: 124px;margin: 0 auto;margin-top: 15px;}
+#local_descripcion .content_bottom .informacion .planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;text-shadow: 0 1px 1px #6c6f77;}
+#local_descripcion .content_bottom .informacion .planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
 #local_descripcion .content_bottom .informacion li.home{float: left;}
 #local_descripcion .content_bottom .informacion li.home a{background: url("../img/bg_home.png") no-repeat scroll center top transparent;background-size: 32px 26px;border: none;height: 26px;width: 34px;display: block;text-indent: -9999px;}
 
@@ -303,10 +303,6 @@
 ================================================== */
 
 @media only screen and  (max-width: 479px) {
-    #local_descripcion .content_bottom .informacion li.llamada{
-        max-width: 125px;
-        min-width: 125px;
-    }
 }
 
 @media only screen and (min-width: 480px) and (max-width: 768px) {
@@ -334,9 +330,6 @@
     }
     #plan_descripcion .content_bottom .informacion .right{
         float: left;
-    }
-    #local_descripcion .content_bottom .informacion label{
-        display: block;
     }
 }
 
