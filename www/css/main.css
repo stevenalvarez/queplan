@@ -226,7 +226,7 @@
 #local_descripcion .content_bottom .informacion label{color: #df086f;display: block;}
 #local_descripcion .content_bottom .informacion li span, #local_descripcion .content_bottom .informacion li a{color: #000;}
 #local_descripcion .content_bottom .informacion li{float: left;line-height: 12px;letter-spacing: -1px;width: 49%;}
-#local_descripcion .content_bottom .informacion .planes_hoy{position: relative;clear: both;width: 124px;margin: 0 auto;margin-top: 15px;}
+#local_descripcion .content_bottom .informacion .planes_hoy{position: relative;clear: both;width: 124px;margin: 0 auto;margin-top: 18px;}
 #local_descripcion .content_bottom .informacion .planes_hoy p{background: url("../img/bg_planes_hoy.png") no-repeat scroll top left transparent;padding-left: 40px;background-size: 123px;width: 84px;height: 20px;margin-top: -1px;font-size: 10px;padding-top: 7px;color: #fff;text-shadow: 0 1px 1px #6c6f77;}
 #local_descripcion .content_bottom .informacion .planes_hoy span{position: absolute;right: 5px;top: -14px;color: #fff;width: 22px;height: 22px;text-align: center;background: url("../img/bg_item.png") no-repeat scroll center top transparent;background-size: 20px;border: none;line-height: 20px;}
 #local_descripcion .content_bottom .informacion li.home{float: left;}
