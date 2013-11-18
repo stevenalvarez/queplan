@@ -42,7 +42,10 @@ $(document).bind('pageshow', function(event, ui) {
         container_ul.animate({opacity: 1}, 500 );
         
         //borramos la clase de la categoria seleccionada
-        page.find(".owl-item").removeClass("active");
+        var element_desactive = page.find(".owl-item.active");
+        element_desactive.removeClass("active");
+        var imagen_desactive = element_desactive.find("img");
+        imagen_desactive.attr("src",BASE_URL_APP+'img/categorias/gris/' + imagen_desactive.attr("alt"));
     });
     
     //inicializamos la ubicacion 
@@ -162,6 +165,7 @@ function getCategorias(parent_id) {
                 clone.find(".ui-icon").css("background-size","35px");
                 clone.find(".ui-icon").css("padding-left","5px");
                 clone.find(".ui-icon").css("margin-top","-18px");
+                clone.attr("lang",imagen);
                 clone.css("display","block");
                 clone.addClass("clone");
                 
@@ -173,6 +177,12 @@ function getCategorias(parent_id) {
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
+                
+                //al momento de touch cambiamos su imagen a color rosa
+                container.find("a").unbind("touchstart").bind("touchstart", function(){
+                    $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
+                    $(this).find(".ui-icon").css("background-size","35px");
+                });
             });
         }
 	});
@@ -194,7 +204,7 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
             	var html='<li>'+
                         '<div class="recuadro">' +
                             '<a href="#'+item.Categoria.id+'" id="'+item.Categoria.id+'">' +
-                                '<img src="'+BASE_URL_APP+'img/categorias/' + imagen + '" />' +
+                                '<img src="'+BASE_URL_APP+'img/categorias/gris/' + imagen + '" alt="'+imagen+'" />' +
                             '</a>' +
                         '</div>' +
                         '<p>'+item.Categoria.title+'</p>' +
@@ -213,9 +223,21 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
                     responsive: false,
                 });
                 container.find("a").unbind("touchstart").bind("touchstart", function(){
-                    container.find(".owl-item").removeClass("active");
-                    $(this).parent().parent().parent().addClass("active");
-                    var categoria_id = $(this).attr("href");
+                    var element = $(this);
+                    //desactivamos el item
+                    var element_desactive = container.find(".owl-item.active");
+                    element_desactive.removeClass("active");
+                    var imagen_desactive = element_desactive.find("img");
+                    imagen_desactive.attr("src",BASE_URL_APP+'img/categorias/gris/' + imagen_desactive.attr("alt"));
+                    
+                    //activamos el item
+                    var element_active = element.parent().parent().parent();
+                    element_active.addClass("active");
+                    var imagen_active = element_active.find("img");
+                    imagen_active.attr("src",BASE_URL_APP+'img/categorias/' + imagen_active.attr("alt"));
+                    
+                    //obtenemos el id de la categoria
+                    var categoria_id = element.attr("href");
                     categoria_id = categoria_id.substring(1,categoria_id.length);
                     
                     //mostramos u ocultamos los items segun a su categoria
@@ -231,7 +253,10 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
                 
                 //si viene alguna categoria seleccionda marcamos esa
                 if(categoria_id != undefined){
-                    container.find("a#"+categoria_id).parent().parent().parent().addClass("active");
+                    var element_active = container.find("a#"+categoria_id).parent().parent().parent();
+                    element_active.addClass("active");
+                    var imagen_active = element_active.find("img");
+                    imagen_active.attr("src",BASE_URL_APP+'img/categorias/' + imagen_active.attr("alt"));
                 }
             });
         }
@@ -735,6 +760,7 @@ function getComoFunciona(parent_id) {
                 clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/"+imagen+"')  no-repeat scroll top center transparent");
                 clone.find(".ui-icon").css("background-size","28px");
                 clone.find(".ui-icon").css("margin-top","-13px");
+                clone.attr("lang",imagen);
                 clone.css("display","block");
                 clone.addClass("clone");
                 
@@ -746,6 +772,13 @@ function getComoFunciona(parent_id) {
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
+                
+                //al momento de touch cambiamos su imagen a color rosa
+                container.find("a").unbind("touchstart").bind("touchstart", function(){
+                    $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/comofunciona/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
+                    $(this).find(".ui-icon").css("background-size","28px");
+                });
+                
             });
         }
 	});
