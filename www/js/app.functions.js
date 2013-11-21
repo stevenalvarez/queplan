@@ -41,7 +41,7 @@ function loginFacebookConnect() {
                     showLoadingCustom('Validando datos...');
                     
                     //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
-                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid, function(data) {
+                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
                         //ocultamos el loading
                         $.mobile.loading( 'hide' );
                 	    if(data.success){
@@ -211,7 +211,7 @@ function loginTwitterConnect() {
                                     showLoadingCustom('Validando datos...');
                                     
                                     //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
-                                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+device.uuid, function(data) {
+                                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
                                         //ocultamos el loading
                                         $.mobile.loading( 'hide' );
                                 	    if(data.success){
@@ -368,7 +368,7 @@ function checkIn(local_id){
 //REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL LOGIN CON FB O TW
 function registrar_datos(app_id, email, registrado_mediante, username, nombre, imagen, genero){
     $.ajax({
-        data: {u_app_id:app_id, u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name},
+        data: {u_app_id:app_id, u_email:email, u_login_con:registrado_mediante, u_username:username, u_nombre:nombre, u_imagen:imagen, u_genero:genero, d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name, u_token_notificacion:PUSH_NOTIFICATION_TOKEN},
         type: "POST",
         url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
         dataType: "html",

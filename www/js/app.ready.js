@@ -5,6 +5,8 @@ var COOKIE = '';
 var REDIREC_TO = '';
 var LATITUDE = 0;
 var LONGITUDE = 0;
+var PUSH_NOTIFICATION_REGISTER = '';
+var PUSH_NOTIFICATION_TOKEN = 0;
 
 //Twitter Codebird
 var cb = new Codebird; // we will require this everywhere
@@ -52,36 +54,49 @@ var app = {
         //Inicializamos el pushNotification
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
-            alert("Register called android");
+            //alert("Register called android");
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"629734064389","ecb":"app.onNotificationGCM"});
         }
         else {
-            alert("Register called ios");
-            pushNotification.register(this.successHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
+            //alert("Register called ios");
+            pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
         }        
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
-        console.log("Regid " + result);
-        alert('Callback Success! Result = '+result);
+        //console.log("Regid " + result);
+        //alert('Callback Success! Result = '+result);
     },
     errorHandler:function(error) {
         alert(error);
     },
+    tokenHandler:function(result) {
+        PUSH_NOTIFICATION_REGISTER = 'ios';
+        
+        //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
+        if(PUSH_NOTIFICATION_TOKEN == 0){
+            PUSH_NOTIFICATION_TOKEN = result;
+        }
+        //console.log("Regid " + result);
+        //alert('Callback Success! Result = '+result);
+    },    
     onNotificationGCM: function(e) {
         switch( e.event )
         {
             case 'registered':
                 if ( e.regid.length > 0 )
                 {
-                    console.log("Regid " + e.regid);
-                    alert('registration id = '+e.regid);
+                    PUSH_NOTIFICATION_REGISTER = 'android';
+                    PUSH_NOTIFICATION_TOKEN = e.regid;
+                    //console.log("Regid " + e.regid);
+                    //alert('registration id = '+e.regid);
                 }
             break;
  
             case 'message':
               // this is the actual push notification. its format depends on the data model from the push server
-              alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+              //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+              alert(e.message);
             break;
  
             case 'error':
