@@ -71,9 +71,6 @@
     <!-- pushNotification -->
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
     
-    <!-- pushLocalNotification -->
-    <gap:plugin name="com.simplec.plugins.localnotification" />
-    
     <!-- access -->
     <access origin="*" browserOnly="true"/>
     
