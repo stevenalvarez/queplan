@@ -317,6 +317,7 @@ function getPlanes(parent_id){
                     parent.find(".ui-content").fadeIn("slow");
                 });
             }else{
+                container.append("<li><p class='ningun_plan'>HOY NO TENEMOS NING&Uacute;N PLAN DISPONIBLE.</p></li>");
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
@@ -333,6 +334,12 @@ function getPlanById(parent_id, plan_id){
     container.find(".m-carousel-controls > a").remove();
     
     parent.find(".ui-content").hide();
+    
+    var nav_opciones = parent.find(".nav-opciones");
+    nav_opciones.find("li:nth-child(3)").removeClass().addClass("ui-block-c");
+    nav_opciones.find("li:nth-child(4)").removeClass().addClass("ui-block-d");
+    nav_opciones.find("li:nth-child(5)").removeClass().addClass("ui-block-e");
+    nav_opciones.find("li:nth-child(6)").removeClass().addClass("ui-block-f");
     
 	$.getJSON(BASE_URL_APP + 'promocions/mobileGetPlanById/'+plan_id, function(data) {
         
@@ -400,7 +407,7 @@ function getLocalesById(parent_id, categoria_id){
     
     parent.find(".ui-content").hide();
     
-	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocales', function(data) {
+	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocales/'+LATITUDE+"/"+LONGITUDE, function(data) {
         
         if(data.items){
             //mostramos loading
@@ -412,7 +419,6 @@ function getLocalesById(parent_id, categoria_id){
                     
                     var class_categoria = 'categoria_'+item.Local.categoria_id;
                     var class_zona = 'zona_'+item.Local.zona_id;
-                    var kilomentros = distance(LATITUDE,LONGITUDE,item.Local.latitud,item.Local.longitud,'K');
                     
                     var imagen = item.Local.imagen!=""?item.Local.imagen : "default.png";
                     var html='<li class="'+class_categoria+' '+class_zona+'">' +
@@ -424,9 +430,16 @@ function getLocalesById(parent_id, categoria_id){
                                         '<a href="local_descripcion.html?id='+item.Local.id+'">'+item.Local.title+'</a>' +
                                     '</h3>' +
                                 '</div>' +
-                                '<div class="km">' +
-                                    '<b>'+parseFloat(kilomentros).toFixed(2)+' km</b>' +
-                                '</div>' +
+                                '<div class="km">';
+                                
+                                //si esta menos de 1km le mostramos la distancia en metros en la cual se encuentra
+                                if(parseInt(item.Local.kilomentros) < 1){
+                                    html+='<b>'+parseFloat(item.Local.metros).toFixed(2)+' m</b>';
+                                }else{
+                                    html+='<b>'+parseFloat(item.Local.kilomentros).toFixed(2)+' km</b>';
+                                }
+                                    
+                                html+='</div>' +
                             '</div>' +
                         '</div>' +
                     '</li>';
@@ -462,6 +475,12 @@ function getLocalById(parent_id, local_id){
     container.find(".m-carousel-controls > a").remove();
     
     parent.find(".ui-content").hide();
+    
+    var nav_opciones = parent.find(".nav-opciones");
+    nav_opciones.find("li:nth-child(3)").removeClass().addClass("ui-block-c");
+    nav_opciones.find("li:nth-child(4)").removeClass().addClass("ui-block-d");
+    nav_opciones.find("li:nth-child(5)").removeClass().addClass("ui-block-e");
+    nav_opciones.find("li:nth-child(6)").removeClass().addClass("ui-block-f");
     
 	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocalById/'+local_id, function(data) {
         
@@ -869,7 +888,7 @@ function getMiPerfil(parent_id){
         var user = COOKIE;
         
         if($.trim(user.email) == ""){
-            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta, para poder seguir por favor debes rellenar tu email as\u00ED cuando ganes una recompensa podremos entrar en contacto. Gracias.","Aviso","Aceptar");
+            showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
         var puntos_acumulados = user.puntos_acumulados; 
