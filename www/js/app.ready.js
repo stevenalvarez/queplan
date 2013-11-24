@@ -7,6 +7,7 @@ var LATITUDE = 0;
 var LONGITUDE = 0;
 var PUSH_NOTIFICATION_REGISTER = '';
 var PUSH_NOTIFICATION_TOKEN = 0;
+var INTERVAL;
 
 //Twitter Codebird
 var cb = new Codebird; // we will require this everywhere
@@ -60,7 +61,10 @@ var app = {
         else {
             //alert("Register called ios");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
-        }        
+        }
+        
+        //Iniciamos el intervalo de mostrar la notificaion local
+        this.initIntervalNotificacion;
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
@@ -121,5 +125,14 @@ var app = {
             var snd = new Media(event.sound);
             snd.play();
         }
+    },
+    initIntervalNotificacion: function(){
+        alert("kjasfd");
+        INTERVAL = setTimeout(function(){
+            mobileCheckDistance();
+        },10000);
+    },
+    stopIntervalNotificacion: function(){
+        clearTimeout(INTERVAL);
     }
 };

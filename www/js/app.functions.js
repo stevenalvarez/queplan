@@ -486,3 +486,19 @@ function logout(){
         );
     }
 }
+
+//notificaion local
+function mobileCheckDistance(){
+    //volvemos a recalcular la ubicacion 
+    getLocationGPS();
+        
+    if(isLogin()){
+        var user = COOKIE;
+        var app_id = user.app_id;
+        
+        //verificamos si esta a distancia para que se le envie una alerta automatica
+    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckDistance/'+app_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
+    	   alert("llega");
+        });
+    }
+}
