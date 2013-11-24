@@ -52,6 +52,9 @@ var app = {
         //Inicializamos el api de twitter
         cb.setConsumerKey(consumer_key, consumer_secret);
         
+        //Iniciamos el intervalo de mostrar la notificaion local
+        this.initIntervalNotificacion();
+        
         //Inicializamos el pushNotification
         var pushNotification = window.plugins.pushNotification;
         if (device.platform == 'android' || device.platform == 'Android') {
@@ -62,9 +65,6 @@ var app = {
             //alert("Register called ios");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
         }
-        
-        //Iniciamos el intervalo de mostrar la notificaion local
-        this.initIntervalNotificacion;
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
@@ -127,12 +127,11 @@ var app = {
         }
     },
     initIntervalNotificacion: function(){
-        alert("kjasfd");
-        INTERVAL = setTimeout(function(){
+        INTERVAL = setInterval(function(){
             mobileCheckDistance();
         },10000);
     },
     stopIntervalNotificacion: function(){
-        clearTimeout(INTERVAL);
+        clearInterval(INTERVAL);
     }
 };
