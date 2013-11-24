@@ -528,6 +528,12 @@ function getLocalById(parent_id, local_id){
             parent.find(".llamar a").attr("href","tel:"+$.trim(telefonos[0]));
             parent.find(".planes_hoy span").html(promocion.length);
             
+            if(promocion.length > 0){
+                //siempre sacamos el primero por mas que haiga mil
+                var plan_id = promocion[0]['id'];
+                parent.find(".planes_hoy a").attr("href","plan_descripcion.html?id="+plan_id);
+            }
+            
             //map
             parent.find(".map a").attr("href","local_google_map.html?latitud="+local.latitud+"&longitud="+local.longitud);
             //web
