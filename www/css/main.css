@@ -272,6 +272,7 @@
 #mi_perfil .ui-btn-submit.ui-btn-twitter .ui-btn-text, #mi_perfil .ui-btn-submit.ui-btn-purple .ui-btn-text{background-position: 80%;}
 #mi_perfil .ui-field-contain{padding-top: 0;}
 #mi_perfil .cambiar_email .ui-btn-text{font-family: 'century_gothicregular';}
+#mi_perfil .recibir_alertas.si .ui-btn-text{padding-left: 42px;background-position: 60%;}
 
 /* COMO FUNCIONA */
 #como_funciona .que_plan .ui-icon{background: url("../img/que_plan.png") no-repeat scroll top center transparent;background-size: 28px;margin-top: -13px !important;}

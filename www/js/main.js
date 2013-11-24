@@ -883,9 +883,11 @@ function getValidarDeviceUuid(parent_id, device_uuid){
 function getMiPerfil(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".content_details");
+    var recibir_alertas = 0;
     
     if(isLogin()){
         var user = COOKIE;
+        recibir_alertas = user.recibir_alertas;
         
         if($.trim(user.email) == ""){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
@@ -924,6 +926,74 @@ function getMiPerfil(parent_id){
                 });
             }else{
                 showAlert("Por favor ingrese un email valido!.");
+            }
+        });
+        
+        if(recibir_alertas == "" || recibir_alertas == 0){
+            parent.find(".recibir_alertas").addClass("si");
+            parent.find(".recibir_alertas").find(".ui-btn-text").html("Recibir alertas");
+        }
+        
+        //recibir/dejar de recibir alertas
+        parent.find(".recibir_alertas").unbind("touchstart").bind("touchstart", function(){
+            
+            if(recibir_alertas == 1){
+                navigator.notification.confirm(
+                    "Estas seguro que quieres dejar de recibir alertas?", // message
+                    function(buttonIndex){
+                        //1:aceptar,2:cancelar
+                        if(buttonIndex == 1){
+                            showLoadingCustom('Espere por favor...');
+                            
+                            var me = user.id;
+                            
+                        	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetAlerta/'+me, function(data) {
+                                
+                                if(data){
+                                    //ocultamos loading
+                                    $.mobile.loading( 'hide' );
+                                    
+                                    if(data.success){
+                                        recibir_alertas = data.recibir_alertas;
+                                        parent.find(".recibir_alertas").addClass("si");
+                                        parent.find(".recibir_alertas").find(".ui-btn-text").html("Recibir alertas");
+                                        //re-escribimos la cookie con el nuevo recibir_alertas
+                                        reWriteCookie("user","recibir_alertas",data.recibir_alertas);
+                                        showAlert(data.mensaje, "Aviso", "Aceptar");
+                                    }else{
+                                        showAlert(data.mensaje, "Error", "Aceptar");
+                                    }
+                                }
+                        	});
+                        }
+                    },            // callback to invoke with index of button pressed
+                'Salir',           // title
+                'Aceptar,Cancelar'         // buttonLabels
+                );
+            
+            }else{
+                showLoadingCustom('Espere por favor...');
+                
+                var me = user.id;
+                
+            	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetAlerta/'+me, function(data) {
+                    
+                    if(data){
+                        //ocultamos loading
+                        $.mobile.loading( 'hide' );
+                        
+                        if(data.success){
+                            recibir_alertas = data.recibir_alertas;
+                            parent.find(".recibir_alertas").removeClass("si");
+                            parent.find(".recibir_alertas").find(".ui-btn-text").html("Dejar de recibir alertas");
+                            //re-escribimos la cookie con el nuevo recibir_alertas
+                            reWriteCookie("user","recibir_alertas",data.recibir_alertas);
+                            showAlert(data.mensaje, "Aviso", "Aceptar");
+                        }else{
+                            showAlert(data.mensaje, "Error", "Aceptar");
+                        }
+                    }
+            	});
             }
         });
         
