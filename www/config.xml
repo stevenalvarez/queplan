@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "com.sysdecom.queplan"
     versionCode = "1"
 	version 	= "1">
 
-	<name>QuePlan?</name>
+	<name>QuéPlan?</name>
 
 	<description>
-		Aplicacion mobile - QuePlan?
+		Aplicacion mobile - QuéPlan?
 	</description>
 
 	<author href="http://www.queplan.es/"
