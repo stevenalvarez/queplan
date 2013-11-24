@@ -1,7 +1,7 @@
 /************************************ VARIABLES DE CONFIGURACION *******************************************************/
 
 /************************************ server *******************************************************/
-var BASE_URL_APP = "http://www.terrazas.arrobacreativa.com/";
+var BASE_URL_APP = "http://www.queplanmadrid.es/";
 
 /************************************ localhost *******************************************************/
 //var BASE_URL_APP = "http://localhost/queplan/web/";
