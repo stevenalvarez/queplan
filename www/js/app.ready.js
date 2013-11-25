@@ -72,11 +72,9 @@ var app = {
         //alert('Callback Success! Result = '+result);
     },
     errorHandler:function(error) {
-        alert("bbbbbb");
         alert(error);
     },
     tokenHandler:function(result) {
-        alert("aaaaaa");
         PUSH_NOTIFICATION_REGISTER = 'ios';
         
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
@@ -115,31 +113,23 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        alert("cccccccccccc");
-        alert(JSON.stringify(event));
         var pushNotification = window.plugins.pushNotification;
         
         if (event.alert) {
-            alert("1");
             navigator.notification.alert(event.alert);
         }
         if (event.badge) {
-            alert("2");
             pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
         }
         if (event.sound) {
-            alert("3");
             var snd = new Media(event.sound);
             snd.play();
         }
-        if (event.local_id) {
-            alert("4 " + event.local_id);
-        }        
     },
     initIntervalNotificacion: function(){
         INTERVAL = setInterval(function(){
             mobileCheckDistance();
-        },10000);
+        },300000); // 5min
     },
     stopIntervalNotificacion: function(){
         clearInterval(INTERVAL);
