@@ -33,11 +33,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        
-        //pause
-        document.addEventListener("pause", this.onPause, false);
-        //resume
-        document.addEventListener("resume", this.onResume, false);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -130,12 +125,6 @@ var app = {
             var snd = new Media(event.sound);
             snd.play();
         }
-    },
-    onPause: function(){
-        app.stopIntervalNotificacion();
-    },
-    onResume: function(){
-        app.initIntervalNotificacion();
     },
     initIntervalNotificacion: function(){
         INTERVAL = setInterval(function(){
