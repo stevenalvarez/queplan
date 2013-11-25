@@ -116,15 +116,21 @@ var app = {
         var pushNotification = window.plugins.pushNotification;
         
         if (event.alert) {
+            alert("1");
             navigator.notification.alert(event.alert);
         }
         if (event.badge) {
+            alert("2");
             pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
         }
         if (event.sound) {
+            alert("3");
             var snd = new Media(event.sound);
             snd.play();
         }
+        if (event.local_id) {
+            alert("4 " + event.local_id);
+        }        
     },
     initIntervalNotificacion: function(){
         INTERVAL = setInterval(function(){
