@@ -498,7 +498,10 @@ function mobileCheckDistance(){
         
         //verificamos si esta a distancia para que se le envie una alerta automatica
     	$.getJSON(BASE_URL_APP + 'locals/mobileCheckDistance/'+app_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
-    	   alert("llega");
+    	   //respuesta
+    	   if(data){
+    	       
+    	   }
         });
     }
 }
