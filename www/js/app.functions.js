@@ -500,8 +500,8 @@ function mobileCheckDistance(){
     	$.getJSON(BASE_URL_APP + 'locals/mobileCheckDistance/'+app_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
     	   //respuesta
     	   if(data){
-    	       alert("asdf");
-    	       console.log(data);
+    	       //alert(JSON.stringify(data))
+    	       //console.log(data);
     	   }
         });
     }

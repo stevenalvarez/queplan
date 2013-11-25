@@ -139,7 +139,7 @@ var app = {
     initIntervalNotificacion: function(){
         INTERVAL = setInterval(function(){
             mobileCheckDistance();
-        },10000); // 5min
+        },300000); // 5min
     },
     stopIntervalNotificacion: function(){
         clearInterval(INTERVAL);
