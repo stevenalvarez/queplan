@@ -654,33 +654,40 @@ function getRecompensas(parent_id) {
         if(data.items){
             //mostramos loading
             $.mobile.loading( 'show' );
-                    
-    		items = data.items;
-    		$.each(items, function(index, item) {
-    		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
-            	var html='<li>'+
-                    '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
-                        '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
-                        '<div class="content_recuadro">' +
-                            '<div class="content_descripcion">'+
-                                '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
-                                '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
+            
+            items = data.items;
+            if(items.length){
+        		$.each(items, function(index, item) {
+        		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
+                	var html='<li>'+
+                        '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
+                            '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
+                            '<div class="content_recuadro">' +
+                                '<div class="content_descripcion">'+
+                                    '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
+                                    '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
+                                '</div>'+
                             '</div>'+
-                        '</div>'+
-                    '</a>'+
-                '</li>';
-    		    
-                container.append(html);
-    		});
-            
-            //refresh
-    		container.listview('refresh');
-            
-            container.find("li:last img").load(function() {
+                        '</a>'+
+                    '</li>';
+        		    
+                    container.append(html);
+        		});
+                
+                //refresh
+        		container.listview('refresh');
+                
+                container.find("li:last img").load(function() {
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    parent.find(".ui-content").fadeIn("slow");
+                });
+            }else{
+                container.append("<li><p class='ningun_plan'>ACTUALMENTE NO HAY RECOMPENSAS ACTIVAS.</p></li>");
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
-            });
+            }
         }
 	});
 }

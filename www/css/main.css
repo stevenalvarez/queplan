@@ -208,7 +208,8 @@
 #locales .ui-listview .content_descripcion .ubicacion, #planes .ui-listview .content_descripcion .ubicacion, #estoy_aqui .ui-listview .content_descripcion .ubicacion{width: 52%;float: left;}
 #locales .ui-listview .content_descripcion .km, #planes .ui-listview .content_descripcion .km, #estoy_aqui .ui-listview .content_descripcion .km{width: 46%;padding: 12px 0;float: right;text-shadow: none;color: #df086f;font-family:'century_gothicregular';font-size: 12px;}
 #locales .ui-listview .content_descripcion .km b, #planes .ui-listview .content_descripcion .km b, #estoy_aqui .ui-listview .content_descripcion .km b{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;width: 80px;display: block;text-align: right;}
-#planes .ningun_plan{color: #df086f;font-size: 13px;text-shadow: none;padding: 10px;}
+#planes .ningun_plan, #recompensas .ningun_plan{color: #df086f;font-size: 13px;text-shadow: none;padding: 10px;}
+#recompensas .ningun_plan{font-size: 12px;}
 
 /* LOCAL DESCRIPCION  -  PLAN DESCRIPCION */
 #local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin: 0px;min-height: 415px;border-radius: 0;border: none;}
