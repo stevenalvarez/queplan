@@ -213,7 +213,7 @@
 
 /* LOCAL DESCRIPCION  -  PLAN DESCRIPCION */
 #local_descripcion .ui-content, #plan_descripcion .ui-content, #recompensa_descripcion .ui-content{margin: 0px;min-height: 415px;border-radius: 0;border: none;}
-#local_descripcion .nav-opciones li, #plan_descripcion .nav-opciones li{text-align: center;}
+#local_descripcion .nav-opciones li, #plan_descripcion .nav-opciones li{text-align: center;float: left;width: 16%;margin-right: 2px;}
 #local_descripcion .nav-opciones a, #plan_descripcion .nav-opciones a{background: transparent;border: none;display: inline-block;width: 38px;height: 35px;}
 #local_descripcion .nav-opciones .ui-icon, #plan_descripcion .nav-opciones .ui-icon{border: none;margin: 0;padding: 0;box-shadow: 0 0 0;border-radius: 0;width: 35px;height: 35px;}
 #local_descripcion .nav-opciones .ui-btn-inner, #plan_descripcion .nav-opciones .ui-btn-inner{border: none;padding-top: 0;padding-bottom: 0;}
