@@ -42,7 +42,7 @@
 .ui-btn-submit.ui-shadow,.ui-btn-normal.ui-shadow{-moz-box-shadow: 0px 0px 0px /*{global-box-shadow-size}*/ rgba(0,0,0,.6) /*{global-box-shadow-color}*/;-webkit-box-shadow: 0px 0px 0px /*{global-box-shadow-size}*/ rgba(0,0,0,0.6) /*{global-box-shadow-color}*/;}
 .ui-btn-corner-all, .ui-corner-all {border-radius: 5px 5px 5px 5px;}
 .ui-btn-submit.ui-btn,.ui-btn-normal.ui-btn{border: none;}
-.ui-btn-submit.ui-btn-facebook .ui-btn-inner,.ui-btn-submit.ui-btn-twitter .ui-btn-inner,.ui-btn-submit.ui-btn-purple .ui-btn-inner{padding: 0 10px 0 20px;}
+.ui-btn-submit.ui-btn-facebook .ui-btn-inner,.ui-btn-submit.ui-btn-twitter .ui-btn-inner,.ui-btn-submit.ui-btn-purple .ui-btn-inner, .ui-btn-submit.ui-btn-registro .ui-btn-inner{padding: 0 10px 0 20px;}
 .ui-btn-submit.ui-btn-facebook.ui-btn-up-a{
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #416ed1 /*{c-bup-background-start}*/), to( #395aa2 /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #416ed1 /*{c-bup-background-start}*/, #395aa2 /*{c-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
@@ -77,7 +77,8 @@
 	background-image:      -o-linear-gradient( #79d0f9 /*{c-bup-background-start}*/, #55bee6 /*{c-bup-background-end}*/); /* Opera 11.10+ */
 	background-image:         linear-gradient( #79d0f9 /*{c-bup-background-start}*/, #55bee6 /*{c-bup-background-end}*/);        
 }
-.ui-btn-submit.ui-btn-purple.ui-btn-up-a{
+.ui-btn-submit.ui-btn-purple.ui-btn-up-a,
+.ui-btn-submit.ui-btn-registro.ui-btn-up-a{
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #cd0766 /*{c-bup-background-start}*/), to( #ab0555 /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #cd0766 /*{c-bup-background-start}*/, #ab0555 /*{c-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient( #cd0766 /*{c-bup-background-start}*/, #ab0555 /*{c-bup-background-end}*/); /* FF3.6 */
@@ -86,7 +87,9 @@
 	background-image:         linear-gradient( #cd0766 /*{c-bup-background-start}*/, #ab0555 /*{c-bup-background-end}*/);        
 }
 .ui-btn-submit.ui-btn-purple.ui-btn-hover-a,
-.ui-btn-submit.ui-btn-purple.ui-btn-active{
+.ui-btn-submit.ui-btn-purple.ui-btn-active,
+.ui-btn-submit.ui-btn-registro.ui-btn-hover-a,
+.ui-btn-submit.ui-btn-registro.ui-btn-active{
 	background-image: -webkit-gradient(linear, left top, left bottom, from( #df086f /*{c-bup-background-start}*/), to( #ea348c /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
 	background-image: -webkit-linear-gradient( #df086f /*{c-bup-background-start}*/, #ea348c /*{c-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
 	background-image:    -moz-linear-gradient( #df086f /*{c-bup-background-start}*/, #ea348c /*{c-bup-background-end}*/); /* FF3.6 */
@@ -94,11 +97,12 @@
 	background-image:      -o-linear-gradient( #df086f /*{c-bup-background-start}*/, #ea348c /*{c-bup-background-end}*/); /* Opera 11.10+ */
 	background-image:         linear-gradient( #df086f /*{c-bup-background-start}*/, #ea348c /*{c-bup-background-end}*/);        
 }
-.ui-btn-submit.ui-btn-facebook .ui-btn-text,.ui-btn-submit.ui-btn-twitter .ui-btn-text, .ui-btn-submit.ui-btn-purple .ui-btn-text{display: inline-block;text-align: left;padding: 0.5em 0 0.6em 10px;text-shadow: 0 1px 1px #000;}
+.ui-btn-submit.ui-btn-facebook .ui-btn-text,.ui-btn-submit.ui-btn-twitter .ui-btn-text, .ui-btn-submit.ui-btn-purple .ui-btn-text, .ui-btn-submit.ui-btn-registro .ui-btn-text{display: inline-block;text-align: left;padding: 0.5em 0 0.6em 10px;text-shadow: 0 1px 1px #000;}
 .ui-btn-submit.ui-btn-facebook .ui-icon,.ui-btn-submit.ui-btn-twitter .ui-icon,.ui-btn-submit.ui-btn-purple .ui-icon{background: none;box-shadow: none;}
 .ui-btn-submit.ui-btn-facebook .ui-btn-text{background: url("../img/icon_facebook.png") no-repeat scroll left top transparent;background-position: 87% center;background-size: 28px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
 .ui-btn-submit.ui-btn-twitter .ui-btn-text{background: url("../img/icon_twitter.png") no-repeat scroll left top transparent;background-position: 77% center;background-size: 28px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
 .ui-btn-submit.ui-btn-purple .ui-btn-text{background: url("../img/icon_alerta.png") no-repeat scroll left top transparent;background-position: 77% center;background-size: 24px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
+.ui-btn-submit.ui-btn-registro .ui-btn-text{font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
 
 .logo.ui-title{margin: .6em 18% .8em;white-space: normal;}
 .logo.ui-title img{width: 100%;height: auto;}
