@@ -3,8 +3,14 @@
     <head>
     	<meta charset="utf-8"/>
     	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="google-signin-clientid" content="629734064389-ca988gfh0d9v7a2cq7l45o5c7hb9aaio.apps.googleusercontent.com" />
+        <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
+        <meta name="google-signin-requestvisibleactions" content="http://schemas.google.com/AddActivity" />
+        <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+        <meta name="google-signin-callback" content="signinCallback" />
+        <meta name="google-signin-width" content="wide" />
     	
-        <title>Que Plan</title>
+        <title>Qu&eacute;Plan?</title>
         
         <link rel="stylesheet" href="css/jquery.mobile-1.3.1.css" />
         <link rel="stylesheet" href="css/reset.css" />
@@ -44,6 +50,43 @@
         <script src="js/app.functions.js"></script>
         <script src="js/config.js"></script>
         <script src="js/main.js"></script>
+        
+        <script type="text/javascript">
+        (function() {
+          var po = document.createElement('script');
+          po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/client:plusone.js?onload=render';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(po, s);
+        })();
+        
+        /* Executed when the APIs finish loading */
+        function render() {
+          // Additional params
+          var additionalParams = {
+            'theme' : 'dark'
+          };
+        
+          gapi.signin.render('googleAccount', additionalParams);
+        }
+        
+        function signinCallback(authResult) {
+          if (authResult['status']['signed_in']) {
+            // Update the app to reflect a signed in user
+            // Hide the sign-in button now that the user is authorized, for example:
+            //document.getElementById('signinButton').setAttribute('style', 'display: none');
+            alert("logeado");
+          } else {
+            // Update the app to reflect a signed out user
+            // Possible error values:
+            //   "user_signed_out" - User is signed-out
+            //   "access_denied" - User denied access to your app
+            //   "immediate_failed" - Could not automatically log in the user
+            //console.log('Sign-in state: ' + authResult['error']);
+          }
+        }
+        
+        </script>
 		
         <!-- cargamos al ultimo el script que inicializa los valores una vez cargado el dispositivo -->
         <script type="text/javascript" src="js/app.ready.js"></script>
@@ -71,7 +114,11 @@
                 <div id="data_loading_fb" style="display: none;">loading fb...</div>
                 <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
                 <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
-                <a class="ui-btn-submit ui-btn-registro" href="#registro" data-role="button" data-transition="slide">Usar mi direcci&oacute;n de correo</a>
+                <div id="gSignInWrapper">
+                    <div id="googleAccount" class="classesToStyleWith">
+                        <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" data-role="button" data-transition="slide">Conectar con Google</a>
+                    </div>
+                </div>
             </div>
     	</div><!-- /content -->
     
