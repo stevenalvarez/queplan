@@ -104,7 +104,15 @@ var app = {
             case 'message':
               // this is the actual push notification. its format depends on the data model from the push server
               //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-              alert(e.message);
+              var title = "Alert";
+              navigator.notification.alert(
+                e.message,           // message
+                function(){
+                    redirectToPage(e.payload.seccion, e.payload.seccion_id);
+                },         // callback
+                title, // title
+                "Aceptar"               // buttonName
+              );
             break;
  
             case 'error':
@@ -120,7 +128,15 @@ var app = {
         var pushNotification = window.plugins.pushNotification;
         
         if (event.alert) {
-            navigator.notification.alert(event.alert);
+            var title = "Alert";
+            navigator.notification.alert(
+                event.alert,           // message
+                function(){
+                    redirectToPage(event.seccion, event.seccion_id);
+                },         // callback
+                title, // title
+                "Aceptar"               // buttonName
+            );
         }
         if (event.badge) {
             pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);

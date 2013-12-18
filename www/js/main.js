@@ -71,7 +71,10 @@ $('#planes').live('pagebeforeshow', function(event, ui) {
 //PLAN DESCRIPCION
 $('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    getPlanById(page_id, getUrlVars()["id"]);
+    var id = getUrlVars()["id"];
+    //si en undefined verificamos su url, para el redirect automatico
+    if(id == undefined) id = getUrl($(ui.prevPage).context.baseURI)["id"];
+    getPlanById(page_id, id);
 });
 
 //LOCALES
@@ -86,7 +89,10 @@ $('#locales').live('pagebeforeshow', function(event, ui) {
 //LOCAL DESCRIPCION
 $('#local_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    getLocalById(page_id, getUrlVars()["id"]);
+    var id = getUrlVars()["id"];
+    //si en undefined verificamos su url, para el redirect automatico
+    if(id == undefined) id = getUrl($(ui.prevPage).context.baseURI)["id"];
+    getLocalById(page_id, id);
 });
 
 //RECOMPENSAS
@@ -98,7 +104,10 @@ $('#recompensas').live('pagebeforeshow', function(event, ui) {
 //RECOMPENSA DESCRIPCION
 $('#recompensa_descripcion').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    getRecompensaById(page_id, getUrlVars()["id"]);
+    var id = getUrlVars()["id"];
+    //si en undefined verificamos su url, para el redirect automatico
+    if(id == undefined) id = getUrl($(ui.prevPage).context.baseURI)["id"];
+    getRecompensaById(page_id, id);
 });
 
 //ESTOY AQUI

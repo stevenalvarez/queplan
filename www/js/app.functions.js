@@ -506,3 +506,29 @@ function mobileCheckDistance(){
         });
     }
 }
+
+function redirectToPage(seccion, id){
+    var page = "";
+    if(seccion == "local"){
+        page = "#guia"
+        if(id != ""){
+            page = "local_descripcion.html?id="+id;
+        }        
+    }else if(seccion == "plan"){
+        page = "planes.html";
+        if(id != ""){
+            page = "plan_descripcion.html?id="+id;
+        }
+    }else if(seccion == "recompensa"){
+        page = "#recompesas";
+        if(id != ""){
+            page = "recompensa_descripcion.html?id="+id;
+        }
+    }
+    
+    if(seccion != "" && id != ""){
+        $.mobile.changePage(page, {transition: "fade", changeHash: false});
+    }else{
+        //TODO
+    }
+}
