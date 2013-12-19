@@ -526,7 +526,7 @@ function redirectToPage(seccion, id){
         }
     }
     
-    if(seccion != "" && id != ""){
+    if(seccion != ""){
         $.mobile.changePage(page, {transition: "fade", changeHash: false});
     }else{
         //TODO
