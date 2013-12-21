@@ -45,14 +45,6 @@
         <script src="js/config.js"></script>
         <script src="js/main.js"></script>
 		
-        <!-- refer to GAPI login google -->
-        <script type="text/javascript" src="js/liquid.js"></script>
-        <script type="text/javascript" src="js/helper/liquid.helper.oauth.js"></script>
-        <script type="text/javascript" src="js/model/liquid.model.tasks.js"></script>
-        
-		<!-- refer to GAPI directly -->
-        <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
-        
         <!-- cargamos al ultimo el script que inicializa los valores una vez cargado el dispositivo -->
         <script type="text/javascript" src="js/app.ready.js"></script>
         <script type="text/javascript">
@@ -79,9 +71,7 @@
                 <div id="data_loading_fb" style="display: none;">loading fb...</div>
                 <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
                 <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
-                <div id="access-code" data-authcode="">
-                   <a id="auth-app" class="ui-btn-submit ui-btn-google" href="#" data-role="button" data-transition="none">Conectar con Google</a>
-                </div>
+                <!--<a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" data-role="button" data-transition="slide">Conectar con Google</a>-->
             </div>
     	</div><!-- /content -->
     
@@ -336,8 +326,6 @@
     	</div><!-- /footer -->
     
     </div><!-- /page -->
-    
-    <script type="text/javascript" src="js/gtaskdemo.main.js" charset="utf-8"></script>
     
     </body>
 </html>
