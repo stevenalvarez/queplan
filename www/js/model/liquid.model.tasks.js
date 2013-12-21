@@ -46,15 +46,12 @@
 	    *                            loading of Google API is complete.
 	    */
 	   loadGapi : function(callback) {
-	       alert("que???");
 		   var $this = model.tasks;
 		   
 		   if ($this.isGapiLoaded) {
-		      alert("simon");
 			   callback();		   
 		   }
 		   else {
-		      alert("aqui");
 			   /* load the google api and then invoke callback */
                gapi.client.load('plus','v1', function(){
                     var email = "";
@@ -98,7 +95,39 @@
                   });
               });
 		   }
-	   }
+	   },
+	   /**
+	    * Gets the list of Tasks associated with a TaskList
+	    * Reference: 
+	    * https://developers.google.com/google-apps/tasks/v1/reference/tasks/list
+	    * 
+	    * Uses Google API to Connect to Google's Server
+	    * 
+	    * @param callback A callback function which is invoked when data is received
+	    *                 from Google's Server.
+	    * 
+	    */
+	   getList: function(callback) {
+		   var $this = model.tasks;
+		   
+		   liquid.helper.oauth.getAccessToken(function(tokenObj) {
+			   
+			   console.log('Access Token >> ' + tokenObj.access_token);
+			   /* at first set the access Token */
+				gapi.auth.setToken({
+					access_token: tokenObj.access_token
+				});
+				
+				$this.loadGapi(function() {
+					var request = gapi.client.tasks.tasks.list({
+					  	tasklist: $this.tasklistId, // tasklist id
+					});
+					
+					request.execute(callback);
+	  			});
+		   });
+		   
+	   },
 	   	   
 	} // end of liquid.model.tasks
 
