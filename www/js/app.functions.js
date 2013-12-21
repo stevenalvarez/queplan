@@ -52,7 +52,8 @@ function loginFacebookConnect() {
                             if(isLogin()){
                                 $.mobile.changePage('#home');
                             }
-                        }else if(data.email_registrado){
+                        }else{
+                            if(data.email_registrado){
                                 showAlert(data.mensaje, 'Error Login', 'Aceptar');
                             }else{
                                 //registramos los datos
@@ -226,11 +227,12 @@ function loginTwitterConnect() {
                                             if(isLogin()){
                                                 $.mobile.changePage('#home');
                                             }
-                                        }else if(data.email_registrado){
+                                        }else{
+                                            if(data.email_registrado){
                                                 showAlert(data.mensaje, 'Error Login', 'Aceptar');
                                             }else{
                                                 //registramos los datos
-                                                registrar_datos(user_id,email,'twitter',user_screen_name,"","","");
+                                                registrar_datos(user_id,email,'twitter',user_screen_name,"","","");                                                
                                             }
                                         }
                                 	});
@@ -478,9 +480,6 @@ function logout(){
                             if(data.success){
                                 //logout de fb y tw
                                 logoutFacebookConnect();
-                                
-                                //logout google
-                                liquid.helper.oauth.unAuthorize();
                                 
                                 eraseCookie("user");
                                 redirectLogin();
