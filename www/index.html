@@ -33,6 +33,14 @@
         <script src="facebook-js-sdk.js"></script>
         <script src="childbrowser.js"></script>
         
+        <!-- refer to GAPI login google -->
+        <script type="text/javascript" charset="utf-8" src="js/liquid.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/helper/liquid.helper.oauth.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/model/liquid.model.tasks.js"></script>
+        
+		<!-- refer to GAPI directly -->
+        <script type="text/javascript" charset="utf-8" src="https://apis.google.com/js/client.js"></script>
+        
         <!-- codebird -->
         <script src="js/sha1.js"></script>
         <script src="js/codebird.js"></script>
@@ -71,7 +79,9 @@
                 <div id="data_loading_fb" style="display: none;">loading fb...</div>
                 <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
                 <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
-                <!--<a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" data-role="button" data-transition="slide">Conectar con Google</a>-->
+                <div id="access-code" data-authcode="">
+                   <a id="auth-app" class="ui-btn-submit ui-btn-google" href="#" data-role="button" data-transition="none">Conectar con Google</a>
+                </div>
             </div>
     	</div><!-- /content -->
     
@@ -326,6 +336,8 @@
     	</div><!-- /footer -->
     
     </div><!-- /page -->
+    
+    <script type="text/javascript" src="js/gtaskdemo.main.js" charset="utf-8"></script>
     
     </body>
 </html>

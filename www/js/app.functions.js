@@ -472,6 +472,9 @@ function logout(){
                                 //logout de fb y tw
                                 logoutFacebookConnect();
                                 
+                                //logout google
+                                liquid.helper.oauth.unAuthorize();
+                                
                                 eraseCookie("user");
                                 redirectLogin();
                             }else{
