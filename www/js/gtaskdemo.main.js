@@ -12,24 +12,11 @@
  */
 
 
-$(document).ready(function() {
+function loginGoogleConnect() {
 	
-	/* startApp after device ready */
-	document.addEventListener("deviceready", startApp, false);
-});
-
-/**
- * Start the App
- */
-function startApp() {
-	
+    alert("see");
 	var oAuth = liquid.helper.oauth;
-	
-    $("#access-code").click(function(event) {
-        alert("kjllasdf");
-        liquid.helper.oauth.authorize(authorizeWindowChange);
-        event.preventDefault();
-    });
+	liquid.helper.oauth.authorize(authorizeWindowChange);
 
     
     if (oAuth.isAuthorized()) {
@@ -38,6 +25,7 @@ function startApp() {
 }
 
 function authorizeWindowChange(uriLocation) {
+    alert(uriLocation);
     //console.log("Location Changed: " + uriLocation); 
 	var oAuth = liquid.helper.oauth;
 	
