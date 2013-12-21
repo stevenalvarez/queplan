@@ -67,6 +67,31 @@
                     var genero = profile.gender;
                     var username = profile.name.givenName; //no es el username pero bueno
                     alert(email);
+                    
+            	    //mostramos loading
+                    showLoadingCustom('Validando datos...');
+                    
+                    //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
+                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+email+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
+                        //ocultamos el loading
+                        $.mobile.loading( 'hide' );
+                	    if(data.success){
+                	        var usuario = data.usuario.Usuario;
+                            //guardamos los datos en la COOKIE
+                	        createCookie("user", JSON.stringify(usuario), 365);
+                            //mandamos directo al home si es que la cookie se creo correctamente
+                            if(isLogin()){
+                                $.mobile.changePage('#home');
+                            }
+                        }else if(data.email_registrado){
+                                showAlert(data.mensaje, 'Error Login', 'Aceptar');
+                            }else{
+                                //registramos los datos
+                                registrar_datos(user_id,email,'twitter',user_screen_name,"","","");
+                            }
+                        }
+                	});                    
+                    
                   });
               });
 		   }

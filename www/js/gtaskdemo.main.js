@@ -26,21 +26,15 @@ function startApp() {
 	var oAuth = liquid.helper.oauth;
 	
     $("#access-code").click(function(event) {
+        alert("kjllasdf");
         liquid.helper.oauth.authorize(authorizeWindowChange);
         event.preventDefault();
     });
 
     
     if (oAuth.isAuthorized()) {
-    	/* Start Page TaskList */
-    	startPageTaskList();
+    	//TODO
     }
-}
-
-function startPageTaskList() {
-    $.mobile.changePage("#page-tasklist", {
-        transition : "none",
-    });
 }
 
 function authorizeWindowChange(uriLocation) {
@@ -55,7 +49,8 @@ function authorizeWindowChange(uriLocation) {
         oAuth.saveRefreshToken({ 
         	  	auth_code: oAuth.authCode
         	  }, function() {
-        		  startPageTaskList();
+        		  //TODO
+                  alert("Todo");
         	  });
         
     } 

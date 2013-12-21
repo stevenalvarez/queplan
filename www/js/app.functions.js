@@ -52,10 +52,13 @@ function loginFacebookConnect() {
                             if(isLogin()){
                                 $.mobile.changePage('#home');
                             }
-                        }else{
-                            //registramos los datos
-                            registrar_datos(app_id,email,'facebook',username,nombre,imagen,genero);
-                            //registrar_datos(100000614903708, "steven.alvarez.v@gmail.com",'facebook',"johsteven","Jhonny Esteban Alvarez Villazante","http://profile.ak.fbcdn.net/hprofile-ak-ash2/371352_100000614903708_518504752_q.jpg","male");
+                        }else if(data.email_registrado){
+                                showAlert(data.mensaje, 'Error Login', 'Aceptar');
+                            }else{
+                                //registramos los datos
+                                registrar_datos(app_id,email,'facebook',username,nombre,imagen,genero);
+                                //registrar_datos(100000614903708, "steven.alvarez.v@gmail.com",'facebook',"johsteven","Jhonny Esteban Alvarez Villazante","http://profile.ak.fbcdn.net/hprofile-ak-ash2/371352_100000614903708_518504752_q.jpg","male");
+                            }
                         }
                 	});
                 }
@@ -223,9 +226,12 @@ function loginTwitterConnect() {
                                             if(isLogin()){
                                                 $.mobile.changePage('#home');
                                             }
-                                        }else{
-                                            //registramos los datos
-                                            registrar_datos(user_id,email,'twitter',user_screen_name,"","","");
+                                        }else if(data.email_registrado){
+                                                showAlert(data.mensaje, 'Error Login', 'Aceptar');
+                                            }else{
+                                                //registramos los datos
+                                                registrar_datos(user_id,email,'twitter',user_screen_name,"","","");
+                                            }
                                         }
                                 	});
                                 }
