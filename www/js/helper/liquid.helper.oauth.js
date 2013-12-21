@@ -91,7 +91,7 @@
 			$this.requestStatus = $this.status.NOT_DETERMINED;
 			
 			// Now open new browser
-			window.plugins.childBrowser.showWebPage(authUri, {showLocationBar : true}); 		
+			window.plugins.childBrowser.showWebPage(authUri, {showLocationBar : false}); 		
 			window.plugins.childBrowser.onClose = $this.onAuthClose;		
 			window.plugins.childBrowser.onLocationChange = $this.onAuthUrlChange;		
 		},
