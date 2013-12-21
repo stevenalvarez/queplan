@@ -1,0 +1,77 @@
+
+/**
+ * A Sample Model for Tasks. 
+ * 
+ * 
+ * This file requires the following to be included:
+ * 
+ * @requires cordova.js (Phonegap library)
+ * @requires jquery.js (jquery library)
+ * @requires gapi-client.min.js (google API JS Client)
+ * @requires liquid.js (The Base library)
+ * @requires liquid.helper.oauth.js (the oauth helper method)
+ * 
+ *  
+ * Google APIs Explorer (for the class/json names of google api)
+ * https://developers.google.com/apis-explorer/
+ * 
+ * @author Abdullah Rubiyath
+ * @author Hossain Khan
+ *  
+ * @copyright Liquid Labs Inc.
+ * 
+ */
+
+/**
+ * Adds a Model called Tasks (for Google Tasks)
+ * to the model attribute/property of liquid
+ * 
+ * @param model The Model of liquid to be extended from.
+ */
+(function(model) {
+	
+   model.tasks = {
+   
+	   isGapiLoaded : false,
+	   tasklistId: '@default', // All users has default list 
+	   gapiConfig: liquid.config.gapi,
+		   
+	   
+	   /**
+	    * Loads the Google API and then invokes the callback. It checks if the
+	    * library is already loaded or not. If its already loaded, it simply 
+	    * invokes the callback, else, loads Google API and invokes the callback
+	    * 
+	    * @param {Function} callback The callback function to be invoked after
+	    *                            loading of Google API is complete.
+	    */
+	   loadGapi : function(callback) {
+		   var $this = model.tasks;
+		   
+		   if ($this.isGapiLoaded) {
+			   callback();		   
+		   }
+		   else {
+			   /* load the google api and then invoke callback */
+               gapi.client.load('plus','v1', function(){
+                    var email = "";
+                    var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+                    request.execute( function(profile) {
+                        email = profile['emails'].filter(function(v) {
+                            return v.type === 'account'; // Filter out the primary email
+                        })[0].value; // get the email from the filtered results, should always be defined.
+                        
+                    var user_id = profile.id;
+                    var imagen = profile.image.url;
+                    var nombre = profile.displayName;
+                    var genero = profile.gender;
+                    var username = profile.name.givenName; //no es el username pero bueno
+                    alert(email);
+                  });
+              });
+		   }
+	   }
+	   	   
+	} // end of liquid.model.tasks
+
+})(window.liquid.model);

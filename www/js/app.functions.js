@@ -41,7 +41,7 @@ function loginFacebookConnect() {
                     showLoadingCustom('Validando datos...');
                     
                     //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
-                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
+                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+email+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
                         //ocultamos el loading
                         $.mobile.loading( 'hide' );
                 	    if(data.success){
@@ -206,12 +206,13 @@ function loginTwitterConnect() {
                                     //obtenemos el nombre y el id del usuario de su twitter
                                     var user_id = reply.user_id;
                                     var user_screen_name = reply.screen_name;
+                                    var email = '';
                                     
                             	    //mostramos loading
                                     showLoadingCustom('Validando datos...');
                                     
                                     //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
-                                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
+                                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+email+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
                                         //ocultamos el loading
                                         $.mobile.loading( 'hide' );
                                 	    if(data.success){
@@ -224,7 +225,7 @@ function loginTwitterConnect() {
                                             }
                                         }else{
                                             //registramos los datos
-                                            registrar_datos(user_id,"",'twitter',user_screen_name,"","","");
+                                            registrar_datos(user_id,email,'twitter',user_screen_name,"","","");
                                         }
                                 	});
                                 }
