@@ -34,8 +34,11 @@ function authorizeWindowChange(uriLocation) {
         oAuth.saveRefreshToken({ 
         	  	auth_code: oAuth.authCode
         	  }, function() {
+        	       //mostramos loading
+                   showLoadingCustom('Validando datos...');
+                   
         	       liquid.model.tasks.getList(function(data) {
-        	           alert(JSON.stringify(data)); // debug JSON response data
+        	           //alert(JSON.stringify(data)); // debug JSON response data
                    });
         	  });
         

@@ -66,10 +66,6 @@
                         var nombre = profile.displayName;
                         var genero = profile.gender;
                         var username = profile.name.givenName; //no es el username pero bueno
-                        alert(email);
-                        
-                	    //mostramos loading
-                        showLoadingCustom('Validando datos...');
                         
                         //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
                     	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+user_id+'/'+email+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
