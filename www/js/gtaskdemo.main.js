@@ -17,7 +17,6 @@ function loginGoogleConnect() {
 	var oAuth = liquid.helper.oauth;
 	liquid.helper.oauth.authorize(authorizeWindowChange);
 
-    
     if (oAuth.isAuthorized()) {
     	//TODO
     }

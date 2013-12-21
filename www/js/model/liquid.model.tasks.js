@@ -46,12 +46,15 @@
 	    *                            loading of Google API is complete.
 	    */
 	   loadGapi : function(callback) {
+	       alert("que???");
 		   var $this = model.tasks;
 		   
 		   if ($this.isGapiLoaded) {
+		      alert("simon");
 			   callback();		   
 		   }
 		   else {
+		      alert("aqui");
 			   /* load the google api and then invoke callback */
                gapi.client.load('plus','v1', function(){
                     var email = "";
