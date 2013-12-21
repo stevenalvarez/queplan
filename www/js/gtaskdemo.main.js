@@ -14,7 +14,6 @@
 
 function loginGoogleConnect() {
 	
-    alert("see");
 	var oAuth = liquid.helper.oauth;
 	liquid.helper.oauth.authorize(authorizeWindowChange);
 
@@ -25,7 +24,6 @@ function loginGoogleConnect() {
 }
 
 function authorizeWindowChange(uriLocation) {
-    alert(uriLocation);
     //console.log("Location Changed: " + uriLocation); 
 	var oAuth = liquid.helper.oauth;
 	
