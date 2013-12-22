@@ -104,12 +104,12 @@
 }
 .ui-btn-submit.ui-btn-google.ui-btn-hover-a,
 .ui-btn-submit.ui-btn-google.ui-btn-active{
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #e84e3b /*{c-bup-background-start}*/), to( #dd4b39 /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
-	background-image: -webkit-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #dd4b39 /*{c-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
-	background-image:    -moz-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #dd4b39 /*{c-bup-background-end}*/); /* FF3.6 */
-	background-image:     -ms-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #dd4b39 /*{c-bup-background-end}*/); /* IE10 */
-	background-image:      -o-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #dd4b39 /*{c-bup-background-end}*/); /* Opera 11.10+ */
-	background-image:         linear-gradient( #e84e3b /*{c-bup-background-start}*/, #dd4b39 /*{c-bup-background-end}*/);        
+	background-image: -webkit-gradient(linear, left top, left bottom, from( #e84e3b /*{c-bup-background-start}*/), to( #f06958 /*{c-bup-background-end}*/)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #f06958 /*{c-bup-background-end}*/); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #f06958 /*{c-bup-background-end}*/); /* FF3.6 */
+	background-image:     -ms-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #f06958 /*{c-bup-background-end}*/); /* IE10 */
+	background-image:      -o-linear-gradient( #e84e3b /*{c-bup-background-start}*/, #f06958 /*{c-bup-background-end}*/); /* Opera 11.10+ */
+	background-image:         linear-gradient( #e84e3b /*{c-bup-background-start}*/, #f06958 /*{c-bup-background-end}*/);        
 }
 .ui-btn-submit.ui-btn-facebook .ui-btn-text,.ui-btn-submit.ui-btn-twitter .ui-btn-text, .ui-btn-submit.ui-btn-purple .ui-btn-text, .ui-btn-submit.ui-btn-google .ui-btn-text{display: inline-block;text-align: left;padding: 0.5em 0 0.6em 10px;text-shadow: 0 1px 1px #000;}
 .ui-btn-submit.ui-btn-facebook .ui-icon,.ui-btn-submit.ui-btn-twitter .ui-icon,.ui-btn-submit.ui-btn-purple .ui-icon,.ui-btn-submit.ui-btn-google .ui-icon{background: none;box-shadow: none;}
@@ -182,6 +182,7 @@
 #view .texto {color: #000;text-shadow: 0 0 0;text-align: center;border-bottom: 1px solid #e3e3e3;font-size: 20px;padding: 15px 20px;letter-spacing: -1px;font-family:'century_gothicregular';line-height: 23px;}
 #view .texto .con_facebook{color: #39599f;}
 #view .texto .con_twitter{color: #45b0e3;}
+#view .texto .con_google{color: #d04332;}
 #view .content_options{padding: 5px 10px;}
 #view .ui-header,#view .ui-content{display: none;}
 
@@ -289,6 +290,7 @@
 #mi_perfil .ui-btn-submit.ui-btn-facebook, #mi_perfil .ui-btn-submit.ui-btn-twitter{display: none;}
 #mi_perfil .ui-btn-submit.ui-btn-facebook .ui-btn-text{background-position: 92%;}
 #mi_perfil .ui-btn-submit.ui-btn-twitter .ui-btn-text, #mi_perfil .ui-btn-submit.ui-btn-purple .ui-btn-text{background-position: 80%;}
+#mi_perfil .ui-btn-submit.ui-btn-google .ui-btn-text{background-position: 85%;}
 #mi_perfil .ui-field-contain{padding-top: 0;}
 #mi_perfil .cambiar_email .ui-btn-text{font-family: 'century_gothicregular';}
 #mi_perfil .recibir_alertas.si .ui-btn-text{padding-left: 42px;background-position: 60%;}
