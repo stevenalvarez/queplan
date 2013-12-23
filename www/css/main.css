@@ -279,7 +279,7 @@
 #recompensa_descripcion .content_middle{border-bottom: 1px solid #fff;}
 #recompensa_descripcion .content_middle .content_puntos{overflow: hidden;border-bottom: 1px solid #e3e3e3;}
 #recompensa_descripcion .content_bottom .informacion{margin: 10px 0;}
-#recompensa_descripcion .content_bottom div.texto_descripcion{max-height: 145px;min-height: 145px;}
+#recompensa_descripcion .content_bottom div.texto_descripcion{/*max-height: 145px;*/min-height: 145px;}
 
 /* MI PERFIL */
 #mi_perfil .ui-content, #como_funciona_descripcion .ui-content, #quiero_participar_descripcion .ui-content{margin-top: 34px;min-height: 345px;}
@@ -317,7 +317,7 @@
 
 /* PLAN DESCRIPCION */
 #plan_descripcion .content_bottom .informacion{padding-top: 0px;margin-top: 0px;font-style: italic;color: #838383;font-size: 11px;}
-#plan_descripcion .content_bottom div.texto_descripcion{max-height: 102px;min-height: 102px;}
+#plan_descripcion .content_bottom div.texto_descripcion{/*max-height: 102px;*/min-height: 102px;}
 #plan_descripcion .content_bottom .informacion label, #plan_descripcion .content_bottom .informacion span{font-family: 'century_gothicregular'; color: #df086f;}
 #plan_descripcion .content_bottom .informacion span{font-weight: bold;}
 
