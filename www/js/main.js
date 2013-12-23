@@ -22,7 +22,7 @@ $(document).bind('pageshow', function(event, ui) {
     if(isLogin()){
         var user = COOKIE;
         if($.trim(user.email) == ""){
-            $.mobile.changePage('#mi_perfil', {transition: "fade"});
+            $.mobile.changePage('#mi_perfil', {transition: "none"});
         }
     }
     
