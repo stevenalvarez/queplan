@@ -517,6 +517,7 @@ function mobileCheckDistance(){
 }
 
 function redirectToPage(seccion, id){
+    alert("si");
     var page = "";
     if(seccion == "local"){
         page = "#guia"
@@ -542,7 +543,7 @@ function redirectToPage(seccion, id){
         var inside = false;
         var interval = setInterval(function(){
             if(isLogin() && inside == false){
-                console.log("si");
+                alert("perra");
                 inside = true;
                 $.mobile.changePage(page);
                 clearInterval(interval);
