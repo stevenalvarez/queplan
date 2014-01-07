@@ -536,7 +536,7 @@ function redirectToPage(seccion, id){
     }
     
     if(seccion != ""){
-        var time = isLogin() ? 0 : 3500;
+        var time = isLogin() ? 200 : 3500;
         setTimeout(function(){
             $.mobile.changePage(page);
         },time);
