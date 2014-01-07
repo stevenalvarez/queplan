@@ -517,7 +517,6 @@ function mobileCheckDistance(){
 }
 
 function redirectToPage(seccion, id){
-    alert("si");
     var page = "";
     if(seccion == "local"){
         page = "#guia"
@@ -543,12 +542,11 @@ function redirectToPage(seccion, id){
         var inside = false;
         var interval = setInterval(function(){
             if(isLogin() && inside == false){
-                alert("perra");
                 inside = true;
-                $.mobile.changePage(page);
+                setTimeout(function(){
+                    $.mobile.changePage(page);
+                },100);
                 clearInterval(interval);
-            }else{
-                console.log("no");
             }
         },200);
     }else{
