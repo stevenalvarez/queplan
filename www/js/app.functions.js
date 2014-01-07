@@ -264,7 +264,7 @@ function isLogin(){
 function redirectLogin(){
     $("#view").find(".ui-header").fadeIn("slow");
     $("#view").find(".ui-content").fadeIn("slow");
-    $.mobile.changePage('#view', {transition: "none", changeHash: true});
+    $.mobile.changePage('#view');
 }
 
 //Abrimos el enlace en un navegador del sistema (IOS|ANDROID)
@@ -395,7 +395,7 @@ function registrar_datos(app_id, email, registrado_mediante, username, nombre, i
                 createCookie("user", JSON.stringify(usuario), 365);
                 
                 //una vez registrado los datos, mandamos a la home
-                $.mobile.changePage('#home', {transition: "none"});
+                $.mobile.changePage('#home');
             }else{
                 showAlert('Ha ocurrido un error al momento de registrarse!, por favor intente de nuevo', 'Error', 'Aceptar');
             }
@@ -536,7 +536,7 @@ function redirectToPage(seccion, id){
     }
     
     if(seccion != ""){
-        $.mobile.changePage(page, {transition: "none", changeHash: true});
+        $.mobile.changePage(page);
     }else{
         //TODO
     }
