@@ -536,11 +536,9 @@ function redirectToPage(seccion, id){
     }
     
     if(seccion != ""){
-        $(document).bind('pageshow', function(event, ui) {
-            alert("1");
+        setTimeout(function(){
             $.mobile.changePage(page);
-            alert(page);
-        });
+        },3000);
     }else{
         //TODO
     }
