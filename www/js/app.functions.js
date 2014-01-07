@@ -536,19 +536,11 @@ function redirectToPage(seccion, id){
     }
     
     if(seccion != ""){
-        //no podemos redireccinar rapidamente porque no tiene a donde ir,
-        //pero sabemos que cuando esta logeado es porque ya ingreso a una page
-        //por tanto recien podemos mandar a su redirect, de esa forma controlamos
-        var inside = false;
-        var interval = setInterval(function(){
-            if(isLogin() && inside == false){
-                inside = true;
-                setTimeout(function(){
-                    $.mobile.changePage(page);
-                },100);
-                clearInterval(interval);
-            }
-        },200);
+        $(document).bind('pageshow', function(event, ui) {
+            alert("1");
+            $.mobile.changePage(page);
+            alert(page);
+        });
     }else{
         //TODO
     }
