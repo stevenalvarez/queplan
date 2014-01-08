@@ -12,8 +12,8 @@ var INTERVAL;
 
 /* notificacion */
 var HAVE_NOTIFICATION = false;
-var EVENT_SECCCION = '';
-var EVENT_SECCCION_ID = '';
+var TYPE_NOTIFICATION = '';
+var EVENT = '';
 
 //Twitter Codebird
 var cb = new Codebird; // we will require this everywhere
@@ -108,59 +108,39 @@ var app = {
             break;
  
             case 'message':
-                alert("android");
               // this is the actual push notification. its format depends on the data model from the push server
               //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-              var title = "Alert";
-              navigator.notification.alert(
-                e.message,           // message
-                function(){
-                    alert(APP_INITIALIZED + " android");
-                    if(APP_INITIALIZED){
-                        redirectToPage(e.payload.seccion, e.payload.seccion_id);
-                    }else{
-                        alert("android");
-                        HAVE_NOTIFICATION = true;
-                        EVENT_SECCCION = e.payload.seccion;
-                        EVENT_SECCCION_ID = e.payload.seccion_id;
-                    }
-                },         // callback
-                title, // title
-                "Aceptar"               // buttonName
-              );
+                if(APP_INITIALIZED){
+                    alert("directo + android");
+                    showNotification(e,'android');
+                }else{
+                    HAVE_NOTIFICATION = true;
+                    TYPE_NOTIFICATION = 'android';
+                    EVENT = e;
+                }
             break;
  
             case 'error':
-              alert('GCM error = '+e.msg);
+                alert('GCM error = '+e.msg);
             break;
  
             default:
-              alert('An unknown GCM event has occurred');
-              break;
+                alert('An unknown GCM event has occurred');
+            break;
         }
     },
     onNotificationAPN: function(event) {
         var pushNotification = window.plugins.pushNotification;
         
         if (event.alert) {
-            alert("ios");
-            var title = "Alert";
-            navigator.notification.alert(
-                event.alert,           // message
-                function(){
-                    alert(APP_INITIALIZED + " ios");
-                    if(APP_INITIALIZED){
-                        redirectToPage(event.seccion, event.seccion_id);
-                    }else{
-                        alert("ios");
-                        HAVE_NOTIFICATION = true;
-                        EVENT_SECCCION = event.seccion;
-                        EVENT_SECCCION_ID = event.seccion_id;
-                    }
-                },         // callback
-                title, // title
-                "Aceptar"               // buttonName
-            );
+            if(APP_INITIALIZED){
+                alert("directo + ios");
+                showNotification(event,'ios');
+            }else{
+                HAVE_NOTIFICATION = true;
+                TYPE_NOTIFICATION = 'ios';
+                EVENT = e;
+            }
         }
         if (event.badge) {
             pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
