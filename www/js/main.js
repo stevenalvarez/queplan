@@ -50,6 +50,11 @@ $(document).bind('pageshow', function(event, ui) {
     
     //inicializamos la ubicacion 
     getLocationGPS();
+    
+    //si tiene una notificacion pendiente la mostramos
+    if(HAVE_NOTIFICATION){
+        redirectToPage(EVENT_SECCCION, EVENT_SECCCION_ID);
+    }
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -884,7 +889,8 @@ function getValidarDeviceUuid(parent_id, device_uuid){
         $.mobile.loading('show');
        	   
 	    if(data.success){
-	        var usuario = data.usuario.Usuario;
+            APP_INITIALIZED = true;
+            var usuario = data.usuario.Usuario;
             //guardamos los datos en la COOKIE
 	        createCookie("user", JSON.stringify(usuario), 365);
             //mandamos directo al home si es que la cookie se creo correctamente

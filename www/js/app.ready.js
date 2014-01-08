@@ -1,6 +1,7 @@
 /************************************ GLOBAL VARIABLES *******************************************************/
 var FB_LOGIN_SUCCESS = false;
 var TW_LOGIN_SUCCESS = false;
+var APP_INITIALIZED = false;
 var COOKIE = '';
 var REDIREC_TO = '';
 var LATITUDE = 0;
@@ -8,6 +9,11 @@ var LONGITUDE = 0;
 var PUSH_NOTIFICATION_REGISTER = '';
 var PUSH_NOTIFICATION_TOKEN = 0;
 var INTERVAL;
+
+/* notificacion */
+var HAVE_NOTIFICATION = false;
+var EVENT_SECCCION = '';
+var EVENT_SECCCION_ID = '';
 
 //Twitter Codebird
 var cb = new Codebird; // we will require this everywhere
@@ -108,7 +114,14 @@ var app = {
               navigator.notification.alert(
                 e.message,           // message
                 function(){
-                    redirectToPage(e.payload.seccion, e.payload.seccion_id);
+                    if(APP_INITIALIZED){
+                        redirectToPage(e.payload.seccion, e.payload.seccion_id);
+                    }else{
+                        alert("android");
+                        HAVE_NOTIFICATION = true;
+                        EVENT_SECCCION = e.payload.seccion;
+                        EVENT_SECCCION_ID = e.payload.seccion_id;
+                    }
                 },         // callback
                 title, // title
                 "Aceptar"               // buttonName
@@ -132,7 +145,14 @@ var app = {
             navigator.notification.alert(
                 event.alert,           // message
                 function(){
-                    redirectToPage(event.seccion, event.seccion_id);
+                    if(APP_INITIALIZED){
+                        redirectToPage(event.seccion, event.seccion_id);
+                    }else{
+                        alert("ios");
+                        HAVE_NOTIFICATION = true;
+                        EVENT_SECCCION = event.seccion;
+                        EVENT_SECCCION_ID = event.seccion_id;
+                    }
                 },         // callback
                 title, // title
                 "Aceptar"               // buttonName
