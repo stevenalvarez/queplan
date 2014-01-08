@@ -496,7 +496,7 @@ function logout(){
     }
 }
 
-//notificaion local
+//mobileCheckDistance
 function mobileCheckDistance(){
     //volvemos a recalcular la ubicacion 
     getLocationGPS();
@@ -516,6 +516,23 @@ function mobileCheckDistance(){
     }
 }
 
+//showNotification
+function showNotification(event, type){
+    var message = type == "android" ? event.message : event.alert;
+    var seccion = type == "android" ? event.payload.seccion : event.seccion;
+    var seccion_id = type == "android" ? event.payload.seccion_id : event.seccion_id;
+    
+    navigator.notification.alert(
+        message,
+        function(){
+            redirectToPage(seccion, seccion_id);
+        },
+        "Alert",
+        "Aceptar"
+    );
+}
+
+//redirectToPage
 function redirectToPage(seccion, id){
     var page = "";
     if(seccion == "local"){
@@ -536,10 +553,7 @@ function redirectToPage(seccion, id){
     }
     
     if(seccion != ""){
-        var time = isLogin() ? 200 : 3500;
-        setTimeout(function(){
-            $.mobile.changePage(page);
-        },time);
+        $.mobile.changePage(page);
     }else{
         //TODO
     }
