@@ -553,7 +553,9 @@ function redirectToPage(seccion, id){
     }
     
     if(seccion != ""){
-        $.mobile.changePage(page);
+        setTimeout(function(){
+            $.mobile.changePage(page);
+        },200);
     }else{
         //TODO
     }

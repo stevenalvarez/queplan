@@ -51,13 +51,16 @@ $(document).bind('pageshow', function(event, ui) {
     //inicializamos la ubicacion 
     getLocationGPS();
     
-    //si tiene una notificacion pendiente la mostramos
-    if(HAVE_NOTIFICATION){
-        alert("puta pendiente");
-        showNotification(EVENT, TYPE_NOTIFICATION);
-        HAVE_NOTIFICATION = false;
+    //mostramos la notificacion pendiente solo si no es en view
+    if(page_id != "view"){
+        //si tiene una notificacion pendiente la mostramos
+        if(HAVE_NOTIFICATION){
+            setTimeout(function(){
+                showNotification(EVENT, TYPE_NOTIFICATION);
+            },300);
+            HAVE_NOTIFICATION = false;
+        }
     }
-    
 });
 
 /************************************ EVENTOS *******************************************************/
