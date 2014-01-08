@@ -111,7 +111,6 @@ var app = {
               // this is the actual push notification. its format depends on the data model from the push server
               //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
                 if(APP_INITIALIZED){
-                    alert("directo + android");
                     showNotification(e,'android');
                 }else{
                     HAVE_NOTIFICATION = true;
@@ -134,12 +133,11 @@ var app = {
         
         if (event.alert) {
             if(APP_INITIALIZED){
-                alert("directo + ios");
                 showNotification(event,'ios');
             }else{
                 HAVE_NOTIFICATION = true;
                 TYPE_NOTIFICATION = 'ios';
-                EVENT = e;
+                EVENT = event;
             }
         }
         if (event.badge) {

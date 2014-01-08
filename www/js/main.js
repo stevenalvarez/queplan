@@ -53,7 +53,7 @@ $(document).bind('pageshow', function(event, ui) {
     
     //si tiene una notificacion pendiente la mostramos
     if(HAVE_NOTIFICATION){
-        alert("pendiente");
+        alert("puta pendiente");
         showNotification(EVENT, TYPE_NOTIFICATION);
         HAVE_NOTIFICATION = false;
     }
