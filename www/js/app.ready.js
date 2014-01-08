@@ -114,6 +114,7 @@ var app = {
               navigator.notification.alert(
                 e.message,           // message
                 function(){
+                    alert(APP_INITIALIZED + " android");
                     if(APP_INITIALIZED){
                         redirectToPage(e.payload.seccion, e.payload.seccion_id);
                     }else{
@@ -145,6 +146,7 @@ var app = {
             navigator.notification.alert(
                 event.alert,           // message
                 function(){
+                    alert(APP_INITIALIZED + " ios");
                     if(APP_INITIALIZED){
                         redirectToPage(event.seccion, event.seccion_id);
                     }else{

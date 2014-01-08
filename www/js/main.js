@@ -890,6 +890,7 @@ function getValidarDeviceUuid(parent_id, device_uuid){
        	   
 	    if(data.success){
             APP_INITIALIZED = true;
+            alert(APP_INITIALIZED);
             var usuario = data.usuario.Usuario;
             //guardamos los datos en la COOKIE
 	        createCookie("user", JSON.stringify(usuario), 365);
