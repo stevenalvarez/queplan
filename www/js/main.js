@@ -332,6 +332,11 @@ function getPlanes(parent_id){
                     //mostramos todos los planes
                     container.find("li").show();
                     
+                    //link a las imagenes
+                    container.find("li").each(function( index ) {
+                        $(this).find("img").wrap("<a href='"+$(this).find(".content_recuadro a").attr("href")+"'></a>");
+                    });
+                    
                     //ocultamos loading
                     $.mobile.loading( 'hide' );
                     parent.find(".ui-content").fadeIn("slow");
@@ -473,6 +478,11 @@ function getLocalesById(parent_id, categoria_id){
                 container.find("li:last img").load(function() {
                     //mostramos los locales de esa categoria
                     container.find("li.categoria_"+categoria_id).show();
+                    
+                    //link a las imagenes
+                    container.find("li").each(function( index ) {
+                        $(this).find("img").wrap("<a href='"+$(this).find(".content_recuadro a").attr("href")+"'></a>");
+                    });
                     
                     //ocultamos loading
                     $.mobile.loading( 'hide' );
@@ -639,6 +649,11 @@ function getLocalesByDistance(parent_id){
                 container.find("li:last img").load(function() {
                     //mostramos todos los locales
                     container.find("li").show();
+                    
+                    //link a las imagenes
+                    container.find("li").each(function( index ) {
+                        $(this).find("img").wrap("<a href='"+$(this).find(".content_recuadro a").attr("href")+"'></a>");
+                    });
                     
                     //ocultamos loading
                     $.mobile.loading( 'hide' );
