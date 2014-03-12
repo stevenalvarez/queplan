@@ -72,6 +72,9 @@
     <!-- pushNotification -->
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
     
+    <!-- BarcodeScanner -->
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+    
     <!-- access -->
     <access origin="*" browserOnly="true"/>
     
