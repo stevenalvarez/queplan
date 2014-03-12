@@ -1,12 +1,347 @@
-<!doctype html>
-<html class="ui-mobile-rendering">
+<!DOCTYPE html>
+<html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    	<meta charset="utf-8"/>
+    	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+        
         <title>Qu&eacute;Plan?</title>
-        <script>
-            window.location='./main.html';
+        
+        <link rel="stylesheet" href="css/jquery.mobile-1.3.1.css" />
+        <link rel="stylesheet" href="css/reset.css" />
+    	<link rel="stylesheet" href="css/main.css" />
+        
+        <!-- include carousel.css -->
+        <link rel="stylesheet" href="css/carousel.min.css"/>
+        <link rel="stylesheet" href="css/carousel-style.css"/>
+        
+        <!-- include slider.css -->
+        <link href="css/owl.carousel.css" rel="stylesheet"/>
+        <link href="css/owl.theme.css" rel="stylesheet"/>
+    	
+        <script src="js/jquery-1.8.2.js"></script>
+        <script type="text/javascript">
+            $(document).bind("mobileinit", function () {
+                $.mobile.defaultPageTransition = 'none';
+            });
         </script>
+		<script src="js/jquery.mobile-1.3.1.js"></script>
+        
+        <!-- include carousel.js -->
+        <script src="js/carousel.min.js"></script>
+        
+        <!-- include slider.js -->
+        <script src="js/owl.carousel.min.js"></script>
+		
+        <script src="cordova.js"></script>
+        <script src="PushNotification.js"></script>
+        <script src="cdv-plugin-fb-connect.js"></script>
+        <script src="facebook-js-sdk.js"></script>
+        <script src="childbrowser.js"></script>
+        
+        <!-- refer to GAPI login google -->
+        <script type="text/javascript" src="js/liquid.js"></script>
+        <script type="text/javascript" src="js/helper/liquid.helper.oauth.js"></script>
+        <script type="text/javascript" src="js/model/liquid.model.tasks.js"></script>
+        
+		<!-- refer to GAPI directly -->
+        <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
+        
+        <!-- codebird -->
+        <script src="js/sha1.js"></script>
+        <script src="js/codebird.js"></script>
+        
+        <!-- include googleapis-->
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBvLnXtnEnR1tea2mEXAYGhOXUgFEfm_Ig&sensor=true"></script>
+        
+        <script src="js/functions.js"></script>
+        <script src="js/app.functions.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/main.js"></script>
+		
+        <!-- cargamos al ultimo el script que inicializa los valores una vez cargado el dispositivo -->
+        <script type="text/javascript" src="js/app.ready.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script> 
     </head>
     <body>
+    
+    <!-- VIEW -->
+    
+    <div data-role="page" id="view" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+    		<h1 class="logo">
+                <img src="img/logo.png"/>
+            </h1>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <p class="texto">
+                Accede a trav&eacute;s de tu cuenta <span class="con_facebook">facebook</span> , <span class="con_twitter">Twitter</span> o <span class="con_google">Google</span>
+            </p>
+            <div class="content_options">
+                <div id="data_loading_fb" style="display: none;">loading fb...</div>
+                <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
+                <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
+                <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)"  onclick="loginGoogleConnect()" data-role="button" data-transition="none">Conectar con Google</a>
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <!-- HOME -->
+    
+    <div data-role="page" id="home" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+    		<h1 class="logo">
+                <img src="img/logo.png"/>
+            </h1>
+    	</div><!-- /header -->
+    
+    	<div data-role="content" class="options">
+            <div data-role="controlgroup" data-type="horizontal">
+                <a class="icon_planes" href="planes.html" data-role="button" data-icon="none" data-iconpos="top">Planes de Hoy</a>
+                <a class="icon_guia" href="#guia" data-role="button" data-icon="none" data-iconpos="top">Guia</a>
+                <a class="icon_recompensas" href="#recompensas" data-role="button" data-icon="none" data-iconpos="top">Recompensas</a>
+                <a class="icon_estoy_aqui" href="estoy_aqui.html" data-role="button" data-icon="none" data-iconpos="top">Estoy aqu&iacute;</a>
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+           <div data-role="navbar">
+                <ul class="nav-custom">
+                    <li><a href="#como_funciona" class="nav_como_funciona" data-icon="none" data-iconpos="top">Como<br/>Funciona</a></li>
+                    <li><a href="#mi_perfil" class="nav_mi_perfil" data-icon="none" data-iconpos="top">Mi Perfil</a></li>
+                    <li><a href="quiero_participar_descripcion.html?id=1" class="nav_quiero_participar" data-icon="none" data-iconpos="top">Quiero<br/>Participar</a></li>
+                </ul>
+            </div>
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->    
+    
+    <!-- GUIA -->
+    
+    <div data-role="page" id="guia" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    &nbsp;
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <div data-role="controlgroup" data-corners="false">
+                <a style="display: none;" href="#" data-role="button" data-icon="none" data-iconpos="left">&nbsp;</a>
+                <!--
+                <a class="guia_restaurante" href="planes.html?id=1" data-role="button" data-icon="none" data-iconpos="left">Restaurantes</a>
+                <a class="guia_salud_bienestar" href="planes.html?id=2" data-role="button" data-icon="none" data-iconpos="left">Salud & Bienestar</a>
+                <a class="guia_shopping" href="planes.html?id=3" data-role="button" data-icon="none" data-iconpos="left">Shopping</a>
+                <a class="guia_ocio" href="planes.html?id=4" data-role="button" data-icon="none" data-iconpos="left">Ocio</a>
+                <a class="guia_centros_comerciales" href="planes.html?id=5" data-role="button" data-icon="none" data-iconpos="left">Centros Comerciales</a>
+                <a class="guia_otros" href="planes.html?id=6" data-role="button" data-icon="none" data-iconpos="left">Otros</a>
+                -->
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <!-- RECOMPENSAS -->
+    
+    <div data-role="page" id="recompensas" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    &nbsp;
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <div class="content_top">
+                <p>
+                    Tienes
+                    <span class="puntos">0</span> <span>Puntos</span>
+                    Acumulados
+                </p>
+            </div>
+            <ul data-role="listview">
+                <!--
+            	<li>
+                    <a href="recompensa_descripcion.html?id=1">
+                        <img src="img/recompensas/img1.jpg"/>
+                        <div class="content_descripcion">
+                            <h3 class="ui-li-heading">Cupon Descuento 50%</h3>
+                            <span>90</span> <span>puntos</span>
+                        </div>
+                    </a>
+                </li>
+            	<li>
+                    <a href="recompensa_descripcion.html?id=2">
+                        <img src="img/recompensas/img2.jpg"/>
+                        <div class="content_descripcion">
+                            <h3 class="ui-li-heading">Regalo Gratis</h3>
+                            <span>90</span> <span>puntos</span>
+                        </div>
+                    </a>
+                </li>
+            	<li>
+                    <a href="recompensa_descripcion.html?id=3">
+                        <img src="img/recompensas/img3.jpg"/>
+                        <div class="content_descripcion">
+                            <h3 class="ui-li-heading">Descuento 30%</h3>
+                            <span>90</span> <span>puntos</span>
+                        </div>
+                    </a>
+                </li>
+            	<li>
+                    <a href="recompensa_descripcion.html?id=4">
+                        <img src="img/recompensas/img4.jpg"/>
+                        <div class="content_descripcion">
+                            <h3 class="ui-li-heading">Premio Gratis</h3>
+                            <span>90</span> <span>puntos</span>
+                        </div>
+                    </a>
+                </li>
+            	<li>
+                    <a href="recompensa_descripcion.html?id=5">
+                        <img src="img/recompensas/img5.jpg"/>
+                        <div class="content_descripcion">
+                            <h3 class="ui-li-heading">Viaje gratis para 2</h3>
+                            <span>90</span> <span>puntos</span>
+                        </div>
+                    </a>
+                </li>
+                -->
+            </ul>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <!-- MI PERFIL -->
+    
+    <div data-role="page" id="mi_perfil" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    &nbsp;
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <h2 class="ui-li-heading">Mi Perfil</h2>
+            <div class="content_details">
+                <p>Actualmente tiene acumulado esta cantidad de Puntos, Sigue Sumando.</p>
+                <div class="content_puntos">
+                    <div class="left">
+                        <span>1</span>
+                        <span>2</span>
+                        <span>3</span>
+                        <span>4</span>
+                        <span>5</span>
+                        <span>6</span>
+                        <span>7</span>
+                        <span>8</span>
+                        <span>9</span>
+                        <span>10</span>
+                        <i>.........</i>
+                    </div>
+                    <div class="right puntos">
+                        <b>0</b> puntos
+                    </div>
+                </div>
+                <div data-role="fieldcontain">
+                    <form id="form_change_email">
+                        <input class="user_id" name="user_id" type="hidden" />
+                        <input class="user_email" name="user_email" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="c"/>
+                        <a class="cambiar_email" type="submit" data-role="button" data-mini="true">Cambiar</a>
+                    </form>
+                </div>
+                <div class="content_options" style="clear: both">
+                    <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Facebook</a>
+                    <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Twitter</a>
+                    <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Google</a>
+                    <a class="recibir_alertas ui-btn-submit ui-btn-purple" href="javascript:void(0)" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas</a>
+                </div>
+            </div>
+        
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <!-- COMO FUNCIONA -->
+    
+    <div data-role="page" id="como_funciona" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    &nbsp;
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <div data-role="controlgroup" data-corners="false">
+                <a style="display: none;" class="que_plan" href="como_funciona_descripcion.html?id=1" data-role="button" data-icon="none" data-iconpos="left">&nbsp;</a>
+                <!--
+                <a class="que_plan" href="#que_plan" data-role="button" data-icon="none" data-iconpos="left">Que plan ?</a>
+                <a class="como_hacer_puntos" href="#como_hacer_puntos" data-role="button" data-icon="none" data-iconpos="left">Como hacer puntos ?</a>
+                <a class="quiero_anunciarme" href="#quiero_anunciarme" data-role="button" data-icon="none" data-iconpos="left">Quiero anunciarme !</a>
+                <a class="como_resevar_un_plan" href="#como_resevar_un_plan" data-role="button" data-icon="none" data-iconpos="left">Como reservar un plan ?</a>
+                <a class="dejar_recibir_alertas" href="#dejar_recibir_alertas" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas ?</a>
+                -->
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <script type="text/javascript" src="js/gtaskdemo.main.js" ></script>
+    
     </body>
 </html>
