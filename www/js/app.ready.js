@@ -164,6 +164,7 @@ var app = {
         clearInterval(INTERVAL);
     },
     scan: function() {
+        alert("lkjakdsf");
         
         window.plugins.barcodeScanner.scan( function(result) {
         alert("We got a barcode\n" +
