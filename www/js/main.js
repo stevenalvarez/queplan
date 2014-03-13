@@ -27,26 +27,6 @@ $(document).bind('pageshow', function(event, ui) {
     }
     
     var page_id = event.target.id;
-    var page = $("#" + $.mobile.activePage.attr('id'));
-    page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
-        $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
-        $(this).addClass("ui-btn-active-a");
-        var zona_id = $(this).attr("href");
-        zona_id = zona_id.substring(1,zona_id.length);
-        
-        //mostramos u ocultamos los items segun su zona
-        var container_ul = page.find(".ui-listview");
-        container_ul.css("opacity","0.5");
-        container_ul.find("li").hide();
-        container_ul.find("li.zona_"+zona_id).show();
-        container_ul.animate({opacity: 1}, 500 );
-        
-        //borramos la clase de la categoria seleccionada
-        var element_desactive = page.find(".owl-item.active");
-        element_desactive.removeClass("active");
-        var imagen_desactive = element_desactive.find("img");
-        imagen_desactive.attr("src",BASE_URL_APP+'img/categorias/gris/' + imagen_desactive.attr("alt"));
-    });
     
     //inicializamos la ubicacion 
     getLocationGPS();
@@ -74,6 +54,7 @@ $('#guia').live('pagebeforeshow', function(event, ui) {
 //PLANES
 $('#planes').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
+    getZonas(page_id);
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id);
     getPlanes(page_id);
@@ -92,6 +73,7 @@ $('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
 $('#locales').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     var categoria_id = getUrlVars()["id"];
+    getZonas(page_id);
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id, categoria_id);
     getLocalesById(page_id, categoria_id);
@@ -1049,4 +1031,60 @@ function getMiPerfil(parent_id){
         //mostramos solo el boton para deslogearse el cual puede ser facebook o twitter
         container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
     }
+}
+
+//OBTENEMOS LAS ZONAS
+function getZonas(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".ui-footer");
+    container.find('li').remove();
+    
+    container.hide();
+    
+	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas', function(data) {
+        
+        if(data.items){
+            //mostramos loading
+            $.mobile.loading( 'show' );
+            
+    		items = data.items;
+            if(items.length){
+                var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom zonas">';
+        		$.each(items, function(index, item) {
+        		    var clase = (index+1)%2 ==0 ? 'nav_madrid_norte' : 'nav_madrid_centro';
+        		    html+= '<li><a href="#'+item.Zona.id+'" class="'+clase+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
+        		});
+                html+='</ul></div>';
+                container.append(html);
+                
+                //refresh
+        		container.trigger("create");
+                
+                var page = $("#" + $.mobile.activePage.attr('id'));
+                page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
+                    $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
+                    $(this).addClass("ui-btn-active-a");
+                    var zona_id = $(this).attr("href");
+                    zona_id = zona_id.substring(1,zona_id.length);
+                    
+                    //mostramos u ocultamos los items segun su zona
+                    var container_ul = page.find(".ui-listview");
+                    container_ul.css("opacity","0.5");
+                    container_ul.find("li").hide();
+                    container_ul.find("li.zona_"+zona_id).show();
+                    container_ul.animate({opacity: 1}, 500 );
+                    
+                    //borramos la clase de la categoria seleccionada
+                    var element_desactive = page.find(".owl-item.active");
+                    element_desactive.removeClass("active");
+                    var imagen_desactive = element_desactive.find("img");
+                    imagen_desactive.attr("src",BASE_URL_APP+'img/categorias/gris/' + imagen_desactive.attr("alt"));
+                });
+                
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                container.fadeIn("slow");
+            }
+        }
+	});
 }

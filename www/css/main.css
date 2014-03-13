@@ -136,7 +136,7 @@
 
 /* NAVIGATION FOOTER */
 .ui-footer{background: url("../img/bg_top_footer.png") repeat-x scroll top left transparent;border-top: 1px solid transparent;}
-.ui-footer .ui-navbar{margin-top: 5px;background-color: #3e454d;height: 100%;}
+.ui-footer .ui-navbar{margin-top: 3px;background-color: #3e454d;height: 100%;}
 .ui-footer .ui-navbar li .ui-btn-icon-top .ui-btn-inner{padding-top: 32px;min-height: 18px;margin-bottom: -5px;}
 .nav-custom .ui-btn{background-image: none !important;border: none !important;font-family:'century_gothicregular';font-weight: normal !important;text-shadow: none !important;line-height: 8px !important;background: #3e454d !important;}
 .nav-custom .ui-btn .ui-btn-inner {border-top: none;}
@@ -147,9 +147,7 @@
 .nav-custom .ui-btn.nav_mi_perfil .ui-icon {background-image: url("../img/icon_mi_perfil.png");background-size: 24px 23px;}
 .nav-custom .ui-btn.nav_quiero_participar .ui-icon {background-image: url("../img/icon_quiero_participar.png");background-size: 30px 23px;}
 .nav-custom .ui-btn.nav_madrid_centro .ui-icon {background-image: url("../img/icon_madrid_centro.png");background-size: 30px 23px;}
-.nav-custom .ui-btn.nav_madrid_centro{margin-right: 5px;width: 70px;}
 .nav-custom .ui-btn.nav_madrid_norte .ui-icon {background-image: url("../img/icon_madrid_norte.png");background-size: 30px 23px;}
-.nav-custom .ui-btn.nav_madrid_norte{margin-left: 5px;width: 70px;}
 .nav-custom .ui-btn-hover-a .ui-btn-inner,.nav-custom .ui-btn-active-a .ui-btn-inner{background: url("../img/bg_item.png") no-repeat scroll center top transparent;width: 50px;background-size: 56px;border: none;display: inline-block;position: relative;top: -8px;}
 
 /* NAVIGATION ENLACES */
@@ -216,7 +214,7 @@
 #locales .guia_items .recuadro img, #planes .guia_items .recuadro img, #estoy_aqui .guia_items .recuadro img{width: 100%;}
 #locales .guia_items p, #planes .guia_items p, #estoy_aqui .guia_items p{font-size: 9px;color: #595858;text-shadow: none;text-align: center;font-family:'century_gothicregular';}
 #locales .guia_items .owl-item.active p, #planes .guia_items .owl-item.active p, #estoy_aqui .guia_items .owl-item.active p{color: #fff;}
-#locales .ui-listview, #planes .ui-listview, #estoy_aqui .ui-listview{margin: 0px;margin-bottom: 8px;}
+#locales .ui-listview, #planes .ui-listview, #estoy_aqui .ui-listview{margin: 0px;margin-bottom: 2px;}
 #locales .ui-listview li, #planes .ui-listview li, #estoy_aqui .ui-listview li{background: #f2f2f2;}
 #locales .ui-listview li .ui-li-thumb, #planes .ui-listview li .ui-li-thumb, #estoy_aqui .ui-listview li .ui-li-thumb{left: 0px;top: 0;max-height: 60px;min-height: 60px;max-width: 122px;width: 122px;}
 #locales .ui-listview .ui-li-static.ui-li-has-thumb, #planes .ui-listview .ui-li-static.ui-li-has-thumb, #estoy_aqui .ui-listview .ui-li-static.ui-li-has-thumb{padding-left: 122px;padding-right: 10px;padding-top: 0px;padding-bottom: 0;min-height: 60px;margin-top: 2px; margin-bottom: 2px;overflow: hidden;display: none;}
