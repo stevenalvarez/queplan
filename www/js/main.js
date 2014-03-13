@@ -914,6 +914,7 @@ function getValidarDeviceUuid(parent_id, device_uuid){
 function getMiPerfil(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".content_details");
+    var form_configurar_alertas = parent.find("#form_configurar_alertas")
     var recibir_alertas = 0;
     
     if(isLogin()){
@@ -1030,6 +1031,63 @@ function getMiPerfil(parent_id){
         
         //mostramos solo el boton para deslogearse el cual puede ser facebook o twitter
         container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
+        
+        //obtenemos las zonas
+    	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas/'+user.id, function(data) {
+            if(data.items){
+                //mostramos loading
+                $.mobile.loading( 'show' );
+        		items = data.items;
+                var alertas = data.alertas;
+                var html = "";
+                if(items.length){
+                    form_configurar_alertas.find(".usuario_id").val(user.id);
+            		$.each(items, function(index, item) {
+            		    var checked=''
+            		    if(alertas == false){
+            		      checked='checked="checked"';
+            		    }else if(item.Zona.recibir){
+            		      checked='checked="checked"';
+            		    }
+            		    html+= '<input name="zonas[]" id="alerta_'+item.Zona.id+'" type="checkbox" value="'+item.Zona.id+'" '+checked+' /><label for="alerta_'+item.Zona.id+'">'+item.Zona.title+'</label>';
+            		});
+                    
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    
+                    //refresh
+                    form_configurar_alertas.find(".lista_zonas").html('');
+                    form_configurar_alertas.find(".lista_zonas").append('<fieldset data-role="controlgroup">'+html+'</fieldset>');
+                    form_configurar_alertas.trigger("create");
+                }
+            }
+    	});
+        
+        //guardar la configuracion de alertas
+        form_configurar_alertas.find(".guardar_config_alertas").unbind("touchstart").bind("touchstart", function(){
+            //Si todo el form es valido mandamos
+            $.ajax({
+                data: form_configurar_alertas.serialize(),
+                type: "POST",
+                url: BASE_URL_APP + 'usuarios/mobileSaveAlertas',
+                dataType: "html",
+                success: function(data){
+                    $.mobile.loading( 'hide' );
+                    
+                    data = $.parseJSON(data);
+                    if(data.success){
+                        showAlert(data.mensaje, "Aviso", "Aceptar");
+                    }else{
+                        showAlert(data.mensaje, "Error", "Aceptar");
+                    }
+                },
+                beforeSend : function(){
+                    //mostramos loading
+                    showLoadingCustom('Guardando...');
+                }
+            });
+          return false;
+        });
     }
 }
 

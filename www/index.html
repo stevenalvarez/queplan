@@ -297,6 +297,12 @@
                     <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Google</a>
                     <a class="recibir_alertas ui-btn-submit ui-btn-purple" href="javascript:void(0)" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas</a>
                 </div>
+                <form id="form_configurar_alertas">
+                    <input type="hidden" name="usuario_id" class="usuario_id" value="" />
+                    <p style="margin-bottom: 0;color: #df086f;">Selecciona las zonas de las que quieres recibir alertas</p>
+                    <div class="lista_zonas"></div>
+                    <a class="guardar_config_alertas ui-btn-submit ui-btn-green" type="submit" data-role="button">Guardar configuraci&oacute;n</a>
+                </form>
             </div>
         
     	</div><!-- /content -->
