@@ -163,16 +163,15 @@ var app = {
         clearInterval(INTERVAL);
     },
     scan: function() {
-        alert("lkjakdsf");
+        alert("hola");
         
-        window.plugins.barcodeScanner.scan( function(result) {
-        alert("We got a barcode\n" +
-                  "Result: " + result.text + "\n" +
-                  "Format: " + result.format + "\n" +
-                  "Cancelled: " + result.cancelled);
-      }, function(error) {
-        alert("Scanning failed: " + error);
-            }
-      );
+        window.plugins.barcodeScanner.scan( BarcodeScanner.Type.QR_CODE,function(result) {
+                alert("We got a barcode: " + result);
+            }, function(error) {
+                alert("Scanning failed: " + error);
+            }, {yesString: "Install"}
+            );
+            
+            alert("fin");
     }
 };
