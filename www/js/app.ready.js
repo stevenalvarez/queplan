@@ -163,7 +163,7 @@ var app = {
         clearInterval(INTERVAL);
     },
     scan: function() {
-        alert("hola");
+        /*alert("hola");
         
         window.plugins.barcodeScanner.scan( BarcodeScanner.Type.QR_CODE,function(result) {
                 alert("We got a barcode: " + result);
@@ -172,6 +172,34 @@ var app = {
             }, {yesString: "Install"}
             );
             
-            alert("fin");
+            alert("fin");*/
+            
+            
+        alert('scanning');
+        
+        var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+
+        scanner.scan( function (result) {
+
+            alert("We got a barcode\n" +
+            "Result: " + result.text + "\n" +
+            "Format: " + result.format + "\n" +
+            "Cancelled: " + result.cancelled);
+
+           console.log("Scanner result: \n" +
+                "text: " + result.text + "\n" +
+                "format: " + result.format + "\n" +
+                "cancelled: " + result.cancelled + "\n");
+            alert(result);
+            /*
+if (args.format == "QR_CODE") {
+window.plugins.childBrowser.showWebPage(args.text, { showLocationBar: false });
+}
+*/
+
+        }, function (error) {
+            alert("Scanning failed: ", error);
+        } );            
+            
     }
 };
