@@ -926,6 +926,7 @@ function getMiPerfil(parent_id){
         }
         
         //mostramos los locales donde se tiene los puntos
+        container.find(".locales").html('');
         var puntos = user.Puntos;
         if(puntos.length){
             $(puntos).each(function(index,item){
