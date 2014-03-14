@@ -164,8 +164,6 @@
 .nav-custom .ui-btn.nav_mi_zona .ui-icon {background-image: url("../img/icon_mi_zona.png");background-size: 25px 23px;}
 .nav-custom .ui-btn.nav_mi_perfil .ui-icon {background-image: url("../img/icon_mi_perfil.png");background-size: 24px 23px;}
 .nav-custom .ui-btn.nav_quiero_participar .ui-icon {background-image: url("../img/icon_quiero_participar.png");background-size: 30px 23px;}
-.nav-custom .ui-btn.nav_madrid_centro .ui-icon {background-image: url("../img/icon_madrid_centro.png");background-size: 30px 23px;}
-.nav-custom .ui-btn.nav_madrid_norte .ui-icon {background-image: url("../img/icon_madrid_norte.png");background-size: 30px 23px;}
 .nav-custom .ui-btn-hover-a .ui-btn-inner,.nav-custom .ui-btn-active-a .ui-btn-inner{background: url("../img/bg_item.png") no-repeat scroll center top transparent;width: 50px;background-size: 56px;border: none;display: inline-block;position: relative;top: -8px;}
 
 /* NAVIGATION ENLACES */
@@ -193,6 +191,8 @@
 .content_puntos span.active{background-color: #df086f;-webkit-box-shadow: rgba(0,0,0,0.25) 0 1px 2px;-moz-box-shadow: rgba(0,0,0,0.25) 0 1px 2px;box-shadow: rgba(0,0,0,0.25) 0 1px 2px;}
 .content_puntos i{display: inline-block;float: left;margin-top: -3px;}
 .content_puntos .puntos{color: #df086f;line-height: 14px;font-size: 17px;}
+.content_puntos.locales{margin: 0 !important;overflow: hidden;font-size: 13px;color: #000;text-shadow: 0 0 0;}
+.content_puntos.locales .item{overflow: hidden;clear: both;}
 
 /* VIEW */
 #view .texto {color: #000;text-shadow: 0 0 0;text-align: center;border-bottom: 1px solid #e3e3e3;font-size: 20px;padding: 15px 20px;letter-spacing: -1px;font-family:'century_gothicregular';line-height: 23px;}

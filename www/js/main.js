@@ -925,8 +925,16 @@ function getMiPerfil(parent_id){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
+        //mostramos los locales donde se tiene los puntos
+        var puntos = user.Puntos;
+        if(puntos.length){
+            $(puntos).each(function(index,item){
+                container.find(".locales").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>').show();
+            });            
+        }
+        
         var puntos_acumulados = user.puntos_acumulados; 
-        container.find(".puntos b").html(puntos_acumulados);
+        container.find(".puntos b.total").html(puntos_acumulados);
         var numero_items = puntos_acumulados/10;
         container.find(".content_puntos span").each(function(index){
             if(index < numero_items){
@@ -1109,14 +1117,18 @@ function getZonas(parent_id){
             if(items.length){
                 var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom zonas">';
         		$.each(items, function(index, item) {
-        		    var clase = (index+1)%2 ==0 ? 'nav_madrid_norte' : 'nav_madrid_centro';
-        		    html+= '<li><a href="#'+item.Zona.id+'" class="'+clase+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
+        		    html+= '<li><a id="zona_'+item.Zona.id+'" href="#'+item.Zona.id+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
         		});
                 html+='</ul></div>';
                 container.append(html);
-                
                 //refresh
         		container.trigger("create");
+                
+                //colocamos su background
+                var nav_custom = parent.find(".nav-custom.zonas");
+                $.each(items, function(index, item) {
+                    nav_custom.find("a#zona_"+item.Zona.id).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/zonas/"+item.Zona.imagen+"')  no-repeat scroll top center transparent").css("background-size","30px 23px");
+                });
                 
                 var page = $("#" + $.mobile.activePage.attr('id'));
                 page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
