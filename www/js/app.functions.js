@@ -301,6 +301,22 @@ function callbackOrientationChange(orientation, page_id){
             itemsMobile : [479,6]
         });
     }
+    if(orientation == "landscape"){
+        var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
+        owlfooter.reinit({
+            items : 5,
+            itemsMobile : [479,5]
+        });
+    }else if(orientation == "portrait"){
+        var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
+        owlfooter.reinit({
+            items : 4,
+            itemsMobile : [479,4]
+        });
+    }
+    
+    $(".nav-custom.zonas").find("li").css("width","100%");
+    $(".nav-custom.zonas").find(".owl-wrapper-outer").css("overflow","inherit");
 }
 
 //MOSTRAMOS EL GOOGLE MAP DEL LOCAL

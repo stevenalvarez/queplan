@@ -920,28 +920,21 @@ function getMiPerfil(parent_id){
     if(isLogin()){
         var user = COOKIE;
         recibir_alertas = user.recibir_alertas;
+        var puntos_acumulados = user.puntos_acumulados;
+        var puntos = user.Puntos;
         
         if($.trim(user.email) == ""){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
-        //mostramos los locales donde se tiene los puntos
-        container.find(".locales").html('');
-        var puntos = user.Puntos;
-        if(puntos.length){
+        //llenamos los puntos
+        container.find(".mis_puntos").find("b.total").html(puntos_acumulados);
+        container.find(".mis_puntos").find(".ui-collapsible-content").html("");
+        if(puntos.length && parseInt(puntos_acumulados)){
             $(puntos).each(function(index,item){
-                container.find(".locales").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>').show();
-            });            
+                container.find(".mis_puntos").find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
+            });
         }
-        
-        var puntos_acumulados = user.puntos_acumulados; 
-        container.find(".puntos b.total").html(puntos_acumulados);
-        var numero_items = puntos_acumulados/10;
-        container.find(".content_puntos span").each(function(index){
-            if(index < numero_items){
-                $(this).addClass("active");
-            }
-        });
         
         //establecemos los datos y evento para el form
         var form = container.find("form#form_change_email");
@@ -1121,6 +1114,7 @@ function getZonas(parent_id){
         		    html+= '<li><a id="zona_'+item.Zona.id+'" href="#'+item.Zona.id+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
         		});
                 html+='</ul></div>';
+                container.find(".ui-navbar").remove();
                 container.append(html);
                 //refresh
         		container.trigger("create");
@@ -1133,7 +1127,7 @@ function getZonas(parent_id){
                 
                 var page = $("#" + $.mobile.activePage.attr('id'));
                 page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
-                    $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
+                    page.find(".zonas").find("a").removeClass("ui-btn-active-a");
                     $(this).addClass("ui-btn-active-a");
                     var zona_id = $(this).attr("href");
                     zona_id = zona_id.substring(1,zona_id.length);
@@ -1154,6 +1148,20 @@ function getZonas(parent_id){
                 
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
+                
+                //aplicamos el slider carrousel
+                container.promise().done(function() {
+                    //iniciamos el carrousel
+                    container.find(".nav-custom.zonas").owlCarousel({
+                        pagination : false,
+                        items : 4,
+                        itemsMobile : [479,4],
+                        responsive: false,
+                    });
+                    container.find(".nav-custom.zonas").find("li").css("width","100%");
+                    container.find(".nav-custom.zonas").find(".owl-wrapper-outer").css("overflow","inherit");
+                });
+                
                 container.fadeIn("slow");
             }
         }
