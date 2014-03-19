@@ -385,8 +385,8 @@ function checkIn(urlamigable){
             }
     	});
     
-    }else{
-        showAlert("Debes de conectarte con facebook o twitter para realizar Estoy aqu\u00ED","Error","Aceptar");
+    }else if(LOGIN_INVITADO){
+        alertaInvitado();
     }
 }
 
@@ -469,8 +469,8 @@ function comprarRecompensa(local_id, recompensa_id){
             }
     	});
     
-    }else{
-        showAlert("Debes de conectarte con facebook o twitter para realizar la compra.","Error","Aceptar");
+    }else if(LOGIN_INVITADO){
+        alertaInvitado();
     }
 }
 
@@ -509,6 +509,8 @@ function logout(){
         'Salir',           // title
         'Aceptar,Cancelar'         // buttonLabels
         );
+    }else if(LOGIN_INVITADO){
+        alertaInvitado();
     }
 }
 
@@ -575,4 +577,91 @@ function redirectToPage(seccion, id){
     }else{
         //TODO
     }
+}
+
+function loginInvitado(){
+    LOGIN_INVITADO = true;
+    $.mobile.changePage('#home');
+}
+
+function alertaInvitado(){
+    navigator.notification.alert(
+        "Hemos detectado que estas navegando como invitado, para ingresar a esta seccion debes logearte",           // message
+        function(){
+            $.mobile.changePage('#view');
+        },         // callback
+        "INVITADO", // title
+        "Aceptar"               // buttonName
+    );
+}
+
+//REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL REGISTRO CON EMAL
+function registrar_email(container, email, password){
+    $.ajax({
+        data: {u_email:email, u_password:password, u_login_con:'email', d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name, u_token_notificacion:PUSH_NOTIFICATION_TOKEN},
+        type: "POST",
+        url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
+        dataType: "html",
+        success: function(data){
+            //ocultamos el loading
+            $.mobile.loading( 'hide' );
+            data = $.parseJSON(data);
+            
+            var success = data.success;
+            if(success){
+                container.find(".codigovalidacion").show();
+                container.find(".registrarse").hide();
+                showAlert(data.mensaje, 'Aviso', 'Aceptar');
+            }else{
+                showAlert(data.mensaje, 'Error', 'Aceptar');
+            }
+        },
+        beforeSend : function(){
+            //mostramos loading
+            showLoadingCustom('Guardando datos...');
+        }
+    });
+}
+
+//LOGIN PARA EL REGISTRO POR EMAIL
+function login_email(container, formulario){
+    $.ajax({
+        data: formulario.serialize(), 
+        type: "POST",
+        url: BASE_URL_APP + 'usuarios/mobileLogin',
+        dataType: "html",
+        success: function(data){
+            //ocultamos el loading
+            $.mobile.loading( 'hide' );
+            data = $.parseJSON(data);
+            
+            var success = data.success;
+            var validado = data.validado;
+            if(success && validado){
+    	        var usuario = data.usuario.Usuario;
+                //guardamos los datos en la COOKIE
+    	        createCookie("user", JSON.stringify(usuario), 365);
+                //mandamos directo al home si es que la cookie se creo correctamente
+                if(isLogin()){
+                    $.mobile.changePage('#home');
+                }
+            }else{
+                if(success == true && validado == false){
+                    container.find(".codigovalidacion").show();
+                    container.find(".registrarse").hide();
+                    if(data.codigo_validacion != ""){
+                        showAlert("El codigo de confirmacion, que introdujo es erroneo. Por favor verifique o ingrese nuevamente el codigo de confirmacion.", 'Aviso', 'Aceptar');
+                    }else{
+                        showAlert(data.mensaje, 'Aviso', 'Aceptar');
+                    }
+                }else{
+                    showAlert(data.mensaje, 'Error', 'Aceptar');
+                }
+            }
+        },
+        beforeSend : function(){
+            //mostramos loading
+            showLoadingCustom('Validando datos...');
+        }
+    });
 }

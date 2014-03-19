@@ -141,6 +141,12 @@ $('#mi_perfil').live('pagebeforeshow', function(event, ui) {
     getMiPerfil(page_id);
 });
 
+//REGISTRO EMAIL
+$('#registro_email').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    getRegistroEmail(page_id);
+});
+
 /************************************ FUNCTIONS *******************************************************/
 
 //OBTENEMOS LAS CATEGORIAS
@@ -1090,6 +1096,8 @@ function getMiPerfil(parent_id){
             });
           return false;
         });
+    }else if(LOGIN_INVITADO){
+        alertaInvitado();
     }
 }
 
@@ -1166,4 +1174,31 @@ function getZonas(parent_id){
             }
         }
 	});
+}
+
+//FORMULARIO PARA EL REGISTRO O INGRESO POR EMAL
+function getRegistroEmail(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".content_details");
+        
+    //establecemos los datos y evento para el form
+    var form = container.find("form#form_registro_email");
+    
+    form.find(".container_opciones a").unbind("touchstart").bind("touchstart", function(){
+        var email = $.trim(form.find(".email").val());
+        var password = $.trim(form.find(".password").val());
+        if(valEmail(email) && password != ""){
+            showLoadingCustom('Validando datos...');
+            var opcion = $(this).attr("lang");
+            if(opcion == "registrarse"){
+                registrar_email(container,email,password);
+            }else if(opcion == "acceder"){
+                login_email(container,form);
+            }
+        }else{
+            showAlert("Por favor ingrese un email valido y password");
+        }
+        
+        return false;
+    });
 }

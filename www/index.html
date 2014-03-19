@@ -77,7 +77,7 @@
             </h1>
     	</div><!-- /header -->
     
-    	<div data-role="content">
+    	<div data-role="content" style="margin-bottom: 10px;">
             <p class="texto">
                 Accede a trav&eacute;s de tu cuenta <span class="con_facebook">facebook</span> , <span class="con_twitter">Twitter</span> o <span class="con_google">Google</span>
             </p>
@@ -86,6 +86,8 @@
                 <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
                 <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
                 <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)"  onclick="loginGoogleConnect()" data-role="button" data-transition="none">Conectar con Google</a>
+                <a class="ui-btn-submit ui-btn-green login" href="javascript:void(0)"  onclick="loginInvitado()" data-role="button" data-transition="none">Ingresar como Invitado</a>
+                <a class="ui-btn-submit ui-btn-orange" href="#registro_email" data-role="button" data-transition="none">Ingresar con mi Email</a>
             </div>
     	</div><!-- /content -->
     
@@ -325,6 +327,47 @@
                 <a class="como_resevar_un_plan" href="#como_resevar_un_plan" data-role="button" data-icon="none" data-iconpos="left">Como reservar un plan ?</a>
                 <a class="dejar_recibir_alertas" href="#dejar_recibir_alertas" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas ?</a>
                 -->
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <!-- REGISTRO EMAIL -->
+    
+    <div data-role="page" id="registro_email" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    &nbsp;
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <h2 class="ui-li-heading">Acceder o Registrarse</h2>
+            <div class="content_details">
+                <p style="margin-bottom: 8px;">Accede o registrate con tu cuenta de email.</p>
+                <form id="form_registro_email">
+                    <input class="email" name="email" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="c"/>
+                    <input class="password" name="password" placeholder="password..." autocomplete="off" type="password" data-mini="true" data-theme="c"/>
+                    <div class="codigovalidacion" style="display: none;">
+                        <input name="codigovalidacion" placeholder="C&oacute;digo Validaci&oacute;n..." autocomplete="off" type="text" data-mini="true" data-theme="c"/>
+                    </div>
+                    <div class="container_opciones">
+                        <a style="width: 49%;" class="ui-btn-submit ui-btn-green registrarse left" lang="registrarse" type="submit" data-role="button" data-mini="true">Registrarse</a>
+                        <a style="width: 49%;" class="ui-btn-submit ui-btn-green acceder right" lang="acceder" type="submit" data-role="button" data-mini="true">Acceder</a>
+                    </div>
+                </form>
             </div>
     	</div><!-- /content -->
     
