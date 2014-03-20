@@ -495,9 +495,9 @@ function logout(){
                             
                             if(data.success){
                                 //logout de fb y tw
-                                logoutFacebookConnect();
+                                //logoutFacebookConnect();
                                 
-                                eraseCookie("user");
+                                //eraseCookie("user");
                                 redirectLogin();
                             }else{
                                 showAlert(data.mensaje, "Error", "Aceptar");
