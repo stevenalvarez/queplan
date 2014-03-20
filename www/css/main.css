@@ -322,7 +322,7 @@
 #mi_perfil h2.ui-li-heading, #como_funciona_descripcion h2.ui-li-heading, #plan_condiciones h2.ui-li-heading, #plan_como_reservar h2.ui-li-heading, #recompensa_condiciones h2.ui-li-heading, #quiero_participar_descripcion h2.ui-li-heading, #registro_email h2.ui-li-heading{text-align: center;color: #5a5a5a;font-family:'century_gothicregular';border-bottom: 1px solid #e3e3e3;padding-bottom: 10px;font-weight: normal;}
 #mi_perfil p, #como_funciona_descripcion p, #quiero_participar_descripcion p, #registro_email p{margin-top: 15px;color: #5a5a5a;font-size: 12px;text-shadow: none;margin-bottom: 20px;font-family:'century_gothicregular'}
 #mi_perfil .content_puntos{margin: 0 0 32px 0;}
-#mi_perfil .ui-btn-submit.ui-btn-facebook, #mi_perfil .ui-btn-submit.ui-btn-twitter,#mi_perfil .ui-btn-submit.ui-btn-facebook, #mi_perfil .ui-btn-submit.ui-btn-google{display: none;}
+#mi_perfil .ui-btn-submit.ui-btn-facebook, #mi_perfil .ui-btn-submit.ui-btn-twitter,#mi_perfil .ui-btn-submit.ui-btn-facebook, #mi_perfil .ui-btn-submit.ui-btn-google, #mi_perfil .ui-btn-submit.ui-btn-email{display: none;}
 #mi_perfil .ui-btn-submit.ui-btn-facebook .ui-btn-text{background-position: 92%;}
 #mi_perfil .ui-btn-submit.ui-btn-twitter .ui-btn-text, #mi_perfil .ui-btn-submit.ui-btn-purple .ui-btn-text{background-position: 80%;}
 #mi_perfil .ui-btn-submit.ui-btn-google .ui-btn-text{background-position: 85%;}
