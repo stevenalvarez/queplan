@@ -153,7 +153,7 @@
 .ui-btn-submit.ui-btn-google .ui-btn-text{background: url("../img/icon_google.png") no-repeat scroll left top transparent;background-position: 80% center;background-size: 24px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
 .ui-btn-submit.ui-btn-green .ui-btn-text{font-size: 14px;font-family:'century_gothicregular';padding-left: 0;text-align: center;}
 .ui-btn-submit.ui-btn-green.login .ui-btn-text{background: url("../img/icon_mi_perfil.png") no-repeat scroll left top transparent;background-position: 80% center;background-size: 24px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';text-align: left;}
-.ui-btn-submit.ui-btn-orange .ui-btn-text{background: url("../img/icon_mi_perfil.png") no-repeat scroll left top transparent;background-position: 80% center;background-size: 24px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
+.ui-btn-submit.ui-btn-orange .ui-btn-text{background: url("../img/icon_email.png") no-repeat scroll left top transparent;background-position: 80% center;background-size: 24px;font-size: 14px;letter-spacing: -1px;font-family:'century_gothicregular';}
 
 .logo.ui-title{margin: .2em 18% .0em;white-space: normal;}
 .logo.ui-title img{width: 100%;height: auto;}

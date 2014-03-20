@@ -586,7 +586,7 @@ function loginInvitado(){
 
 function alertaInvitado(){
     navigator.notification.alert(
-        "Hemos detectado que estas navegando como invitado, para ingresar a esta seccion debes logearte",           // message
+        "Hemos detectado que est\u00E1s navegando como invitado, para ingresar a esta secci\u00F3n debes hacer login",           // message
         function(){
             $.mobile.changePage('#view');
         },         // callback
@@ -650,7 +650,7 @@ function login_email(container, formulario){
                     container.find(".codigovalidacion").show();
                     container.find(".registrarse").hide();
                     if(data.codigo_validacion != ""){
-                        showAlert("El codigo de confirmacion, que introdujo es erroneo. Por favor verifique o ingrese nuevamente el codigo de confirmacion.", 'Aviso', 'Aceptar');
+                        showAlert("El c\u00F3digo de confirmaci\u00F3n, que introdujo es err\u00F3neo. Por favor verifique o ingrese nuevamente el c\u00F3digo de confirmaci\u00F3n.", 'Aviso', 'Aceptar');
                     }else{
                         showAlert(data.mensaje, 'Aviso', 'Aceptar');
                     }
