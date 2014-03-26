@@ -361,6 +361,12 @@
 .container_popup{border-radius: 5px;overflow: hidden;margin: 10px;min-width: 90%;}
 #plan_condiciones h2.ui-li-heading, #plan_como_reservar h2.ui-li-heading, #recompensa_condiciones h2.ui-li-heading{font-weight: bold;font-family: Helvetica, Arial, sans-serif;padding-bottom: 5px;margin-top: 0;}
 
+/* VALIDAR RECOMPENSA */
+.validar_recompensa{background: #29cb08;padding: 12px 0 9px}
+.validar_recompensa a{color: #fff;font-size: 15px;font-family: 'century_gothicregular';font-weight: normal;}
+.validar_recompensa a span{display: block;text-align: center; text-shadow: 0 0 0;line-height: 15px;}
+.validar_recompensa a span.titulo{font-size: 20px;}
+
 /* HOME IPAD AND MOBILE*/
 /* #Mobile (Landscape)
 ================================================== */

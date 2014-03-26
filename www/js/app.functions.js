@@ -348,7 +348,7 @@ function checkIn(urlamigable){
         
         showLoadingCustom('Estoy Aqu\u00ED, en progreso...');
         
-    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+urlamigable+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
+    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+urlamigable, function(data) {
             
             if(data){
                 //ocultamos loading

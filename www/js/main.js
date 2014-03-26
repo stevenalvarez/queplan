@@ -661,18 +661,20 @@ function getRecompensas(parent_id) {
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-listview");
     container.find('li').remove();
+    var usuario_id = '';
     
     parent.find(".ui-content").hide();
     
     //ponemos los puntos acumulados que tiene hasta el momento
     if(isLogin()){
         var user = COOKIE;
+        usuario_id = user.id;
         var puntos_acumulados = user.puntos_acumulados;
         parent.find(".puntos").html(puntos_acumulados);
     }
     
     //obtenemos todas las recompensas
-	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas', function(data) {
+	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas/'+usuario_id, function(data) {
         
         if(data.items){
             //mostramos loading
@@ -690,8 +692,17 @@ function getRecompensas(parent_id) {
                                     '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
                                     '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
                                 '</div>'+
-                            '</div>'+
-                        '</a>'+
+                            '</div>';
+                            
+                            if(item.Recompensa.gane_recompensa){
+                                html+='<div class="validar_recompensa">' +
+                                    '<a href="#">' +
+                                        '<span class="titulo">VALIDAR RECOMPENSAS</span>' + 
+                                        '<span>en el local por el responsable</span>' + 
+                                    '</a>' +
+                                '</div>';
+                            }
+                        html+='</a>'+
                     '</li>';
         		    
                     container.append(html);
