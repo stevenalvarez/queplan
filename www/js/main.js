@@ -700,7 +700,7 @@ function getRecompensas(parent_id) {
                             if(gane_recompensas){
                                 html+='<div id="'+gane_recompensas+'" class="validar_recompensa">' +
                                     '<a href="javascript:pagar_recompensa(\''+gane_recompensas+'\')">' +
-                                        '<span class="titulo">VALIDAR RECOMPENSAS</span>' + 
+                                        '<span class="titulo">VALIDAR RECOMPENSA</span>' + 
                                         '<span>en el local por el responsable</span>' + 
                                     '</a>' +
                                 '</div>';
