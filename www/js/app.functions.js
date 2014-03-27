@@ -670,7 +670,7 @@ function login_email(container, formulario){
 //Pagar Recompensa
 function pagar_recompensa(id){
     navigator.notification.confirm(
-        "¿Seguro que quieres VALIDAR? Solo el responsable del local puede hacer este proceso. Si validas sin estar en el local perder\u00E1s tu recompensa.", // message
+        "\u00BFSeguro que quieres VALIDAR? S\u00F3lo el responsable del local puede hacer este proceso. Si validas sin estar en el local perder\u00E1s tu recompensa.", // message
         function(buttonIndex){
             //1:aceptar,2:cancelar
             if(buttonIndex == 1){
