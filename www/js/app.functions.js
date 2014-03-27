@@ -443,6 +443,7 @@ function comprarRecompensa(local_id, recompensa_id){
                     
                     //re-escribimos la cookie con los puntos restantes
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
+                    reWriteCookie("user","Puntos",data.puntos);
                     
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
