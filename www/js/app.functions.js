@@ -665,3 +665,35 @@ function login_email(container, formulario){
         }
     });
 }
+
+//Pagar Recompensa
+function pagar_recompensa(id){
+    navigator.notification.confirm(
+        "¿Seguro que quieres VALIDAR? Solo el responsable del local puede hacer este proceso. Si validas sin estar en el local perder\u00E1s tu recompensa.", // message
+        function(buttonIndex){
+            //1:aceptar,2:cancelar
+            if(buttonIndex == 1){
+                showLoadingCustom('Espere por favor...');
+                
+            	$.getJSON(BASE_URL_APP + 'usuarios_recompensas/mobileSetPagado/'+id, function(data) {
+                    
+                    if(data){
+                        //ocultamos loading
+                        $.mobile.loading( 'hide' );
+                        
+                        if(data.success){
+                            var element = $("#"+id+".validar_recompensa")
+                            element.hide();
+                            element.parent().parent().find(".ui-icon-arrow-r").css("top","50%");
+                            showAlert(data.mensaje, "Aviso", "Aceptar");
+                        }else{
+                            showAlert(data.mensaje, "Error", "Aceptar");
+                        }
+                    }
+            	});
+            }
+        },            // callback to invoke with index of button pressed
+    'Validar Recompensa',           // title
+    'Aceptar,Cancelar'         // buttonLabels
+    );
+}

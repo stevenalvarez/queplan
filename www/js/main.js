@@ -683,8 +683,11 @@ function getRecompensas(parent_id) {
             items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
+        		    var clase = "";
+  		            var gane_recompensas = item.Recompensa.gane_recompensa;
+                    if(gane_recompensas) clase = "gane_recompensa";
         		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
-                	var html='<li>'+
+                	var html='<li class="'+clase+'">'+
                         '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
                             '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
                             '<div class="content_recuadro">' +
@@ -694,9 +697,9 @@ function getRecompensas(parent_id) {
                                 '</div>'+
                             '</div>';
                             
-                            if(item.Recompensa.gane_recompensa){
-                                html+='<div class="validar_recompensa">' +
-                                    '<a href="#">' +
+                            if(gane_recompensas){
+                                html+='<div id="'+gane_recompensas+'" class="validar_recompensa">' +
+                                    '<a href="javascript:pagar_recompensa(\''+gane_recompensas+'\')">' +
                                         '<span class="titulo">VALIDAR RECOMPENSAS</span>' + 
                                         '<span>en el local por el responsable</span>' + 
                                     '</a>' +
@@ -710,6 +713,7 @@ function getRecompensas(parent_id) {
                 
                 //refresh
         		container.listview('refresh');
+                container.find("li.gane_recompensa").find(".ui-icon-arrow-r").css("top","30%");
                 
                 container.find("li:last img").load(function() {
                     //ocultamos loading
