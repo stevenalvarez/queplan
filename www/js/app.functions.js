@@ -301,22 +301,6 @@ function callbackOrientationChange(orientation, page_id){
             itemsMobile : [479,6]
         });
     }
-    if(orientation == "landscape"){
-        var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
-        owlfooter.reinit({
-            items : 5,
-            itemsMobile : [479,5]
-        });
-    }else if(orientation == "portrait"){
-        var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
-        owlfooter.reinit({
-            items : 4,
-            itemsMobile : [479,4]
-        });
-    }
-    
-    $(".nav-custom.zonas").find("li").css("width","100%");
-    $(".nav-custom.zonas").find(".owl-wrapper-outer").css("overflow","inherit");
 }
 
 //MOSTRAMOS EL GOOGLE MAP DEL LOCAL
@@ -337,7 +321,7 @@ function showGoogleMap(latitud, longitud) {
 }
 
 //REALIZAMOS EL CHECK-IN
-function checkIn(urlamigable){
+function checkIn(local_id){
     //volvemos a recalcular la ubicacion 
     getLocationGPS();
     
@@ -348,7 +332,7 @@ function checkIn(urlamigable){
         
         showLoadingCustom('Estoy Aqu\u00ED, en progreso...');
         
-    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+urlamigable, function(data) {
+    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
             
             if(data){
                 //ocultamos loading
@@ -359,7 +343,6 @@ function checkIn(urlamigable){
                     
                     //re-escribimos la cookie con los puntos totales
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
-					reWriteCookie("user","Puntos",data.puntos);
                     
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
@@ -386,8 +369,8 @@ function checkIn(urlamigable){
             }
     	});
     
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar Estoy aqu\u00ED","Error","Aceptar");
     }
 }
 
@@ -444,7 +427,6 @@ function comprarRecompensa(local_id, recompensa_id){
                     
                     //re-escribimos la cookie con los puntos restantes
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
-                    reWriteCookie("user","Puntos",data.puntos);
                     
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
@@ -471,8 +453,8 @@ function comprarRecompensa(local_id, recompensa_id){
             }
     	});
     
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar la compra.","Error","Aceptar");
     }
 }
 
@@ -511,8 +493,6 @@ function logout(){
         'Salir',           // title
         'Aceptar,Cancelar'         // buttonLabels
         );
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
     }
 }
 
@@ -579,123 +559,4 @@ function redirectToPage(seccion, id){
     }else{
         //TODO
     }
-}
-
-function loginInvitado(){
-    LOGIN_INVITADO = true;
-    $.mobile.changePage('#home');
-}
-
-function alertaInvitado(){
-    navigator.notification.alert(
-        "Hemos detectado que est\u00E1s navegando como invitado, para ingresar a esta secci\u00F3n debes hacer login",           // message
-        function(){
-            $.mobile.changePage('#view');
-        },         // callback
-        "INVITADO", // title
-        "Aceptar"               // buttonName
-    );
-}
-
-//REGISTRAMOS LOS DATOS CUANDO SE REALIZA EL REGISTRO CON EMAL
-function registrar_email(container, email, password){
-    $.ajax({
-        data: {u_email:email, u_password:password, u_login_con:'email', d_plataforma:device.platform, d_version:device.version, d_uuid:device.uuid, d_name:device.name, u_token_notificacion:PUSH_NOTIFICATION_TOKEN},
-        type: "POST",
-        url: BASE_URL_APP + 'usuarios/mobileNewRegistro',
-        dataType: "html",
-        success: function(data){
-            //ocultamos el loading
-            $.mobile.loading( 'hide' );
-            data = $.parseJSON(data);
-            
-            var success = data.success;
-            if(success){
-                container.find(".codigovalidacion").show();
-                container.find(".registrarse").hide();
-                showAlert(data.mensaje, 'Aviso', 'Aceptar');
-            }else{
-                showAlert(data.mensaje, 'Error', 'Aceptar');
-            }
-        },
-        beforeSend : function(){
-            //mostramos loading
-            showLoadingCustom('Guardando datos...');
-        }
-    });
-}
-
-//LOGIN PARA EL REGISTRO POR EMAIL
-function login_email(container, formulario){
-    $.ajax({
-        data: formulario.serialize(), 
-        type: "POST",
-        url: BASE_URL_APP + 'usuarios/mobileLogin',
-        dataType: "html",
-        success: function(data){
-            //ocultamos el loading
-            $.mobile.loading( 'hide' );
-            data = $.parseJSON(data);
-            
-            var success = data.success;
-            var validado = data.validado;
-            if(success && validado){
-    	        var usuario = data.usuario.Usuario;
-                //guardamos los datos en la COOKIE
-    	        createCookie("user", JSON.stringify(usuario), 365);
-                //mandamos directo al home si es que la cookie se creo correctamente
-                if(isLogin()){
-                    $.mobile.changePage('#home');
-                }
-            }else{
-                if(success == true && validado == false){
-                    container.find(".codigovalidacion").show();
-                    container.find(".registrarse").hide();
-                    if(data.codigo_validacion != ""){
-                        showAlert("El c\u00F3digo de confirmaci\u00F3n, que introdujo es err\u00F3neo. Por favor verifique o ingrese nuevamente el c\u00F3digo de confirmaci\u00F3n.", 'Aviso', 'Aceptar');
-                    }else{
-                        showAlert(data.mensaje, 'Aviso', 'Aceptar');
-                    }
-                }else{
-                    showAlert(data.mensaje, 'Error', 'Aceptar');
-                }
-            }
-        },
-        beforeSend : function(){
-            //mostramos loading
-            showLoadingCustom('Validando datos...');
-        }
-    });
-}
-
-//Pagar Recompensa
-function pagar_recompensa(id){
-    navigator.notification.confirm(
-        "\u00BFSeguro que quieres VALIDAR? S\u00F3lo el responsable del local puede hacer este proceso. Si validas sin estar en el local perder\u00E1s tu recompensa.", // message
-        function(buttonIndex){
-            //1:aceptar,2:cancelar
-            if(buttonIndex == 1){
-                showLoadingCustom('Espere por favor...');
-                
-            	$.getJSON(BASE_URL_APP + 'usuarios_recompensas/mobileSetPagado/'+id, function(data) {
-                    
-                    if(data){
-                        //ocultamos loading
-                        $.mobile.loading( 'hide' );
-                        
-                        if(data.success){
-                            var element = $("#"+id+".validar_recompensa")
-                            element.hide();
-                            element.parent().parent().find(".ui-icon-arrow-r").css("top","50%");
-                            showAlert(data.mensaje, "Aviso", "Aceptar");
-                        }else{
-                            showAlert(data.mensaje, "Error", "Aceptar");
-                        }
-                    }
-            	});
-            }
-        },            // callback to invoke with index of button pressed
-    'Validar Recompensa',           // title
-    'Aceptar,Cancelar'         // buttonLabels
-    );
 }
