@@ -359,6 +359,7 @@ function checkIn(urlamigable){
                     
                     //re-escribimos la cookie con los puntos totales
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
+					reWriteCookie("user","Puntos",data.puntos);
                     
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
