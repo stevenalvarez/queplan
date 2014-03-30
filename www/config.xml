@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "com.sysdecom.queplan"
-    versionCode = "6.0"
-	version 	= "1.5">
+    versionCode = "7.0"
+	version 	= "1.6">
 
 	<name>QuéPlan?</name>
 
@@ -70,6 +70,9 @@
     
     <!-- pushNotification -->
     <gap:plugin name="com.phonegap.plugins.pushplugin" />
+    
+    <!-- BarcodeScanner -->
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     
     <!-- access -->
     <access origin="*" browserOnly="true"/>

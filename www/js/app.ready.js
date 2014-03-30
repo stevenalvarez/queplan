@@ -9,6 +9,7 @@ var LONGITUDE = 0;
 var PUSH_NOTIFICATION_REGISTER = '';
 var PUSH_NOTIFICATION_TOKEN = 0;
 var INTERVAL;
+var LOGIN_INVITADO = false;
 
 /* notificacion */
 var HAVE_NOTIFICATION = false;
@@ -161,5 +162,28 @@ var app = {
     },
     stopIntervalNotificacion: function(){
         clearInterval(INTERVAL);
+    },
+    scan: function() {
+        if(isLogin()){
+            var scanner = cordova.require("cordova/plugin/BarcodeScanner");
+            scanner.scan( function (result) {
+                if(result.format == "QR_CODE"){
+                    if(result.text != ""){
+                        var params = (result.text).toString().split("/");
+                        var urlamigable = params[params.length-1].toString();
+                        //Mandamos al checkIn
+                        checkIn(urlamigable);
+                    }else{
+                        showAlert("Scanner failed, please try again.","Error","Aceptar");
+                    }
+                }else if(result.cancelled){
+                    showAlert("Scanner Cancelled.","Error","Aceptar");
+                }
+            }, function (error) {
+                alert("Scanning failed: ", error);
+            } );
+        }else if(LOGIN_INVITADO){
+            alertaInvitado();
+        }
     }
 };
