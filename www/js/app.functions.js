@@ -321,7 +321,7 @@ function showGoogleMap(latitud, longitud) {
 }
 
 //REALIZAMOS EL CHECK-IN
-function checkIn(urlamigable){
+function checkIn(local_id){
     //volvemos a recalcular la ubicacion 
     getLocationGPS();
     
@@ -332,7 +332,7 @@ function checkIn(urlamigable){
         
         showLoadingCustom('Estoy Aqu\u00ED, en progreso...');
         
-    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+urlamigable, function(data) {
+    	$.getJSON(BASE_URL_APP + 'locals/mobileCheckIn/'+me+'/'+local_id+'/'+LATITUDE+"/"+LONGITUDE, function(data) {
             
             if(data){
                 //ocultamos loading
