@@ -616,7 +616,7 @@ function getLocalesByDistance(parent_id){
                             '<div class="content_descripcion">' +
                                 '<div class="ubicacion">' +
                                     '<h3 class="ui-li-heading">' +
-                                        '<a href="javascript:checkIn(\''+item.Local.urlamigable+'\')">'+item.Local.title+'</a>' +
+                                        '<a href="javascript:checkIn('+item.Local.id+')">'+item.Local.title+'</a>' +
                                     '</h3>' +
                                 '</div>' +
                                 '<div class="km">';
