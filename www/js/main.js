@@ -34,6 +34,26 @@ $(document).bind('pageshow', function(event, ui) {
     }
     
     var page_id = event.target.id;
+    var page = $("#" + $.mobile.activePage.attr('id'));
+    page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
+        $(this).parent().parent().find("a").removeClass("ui-btn-active-a");
+        $(this).addClass("ui-btn-active-a");
+        var zona_id = $(this).attr("href");
+        zona_id = zona_id.substring(1,zona_id.length);
+        
+        //mostramos u ocultamos los items segun su zona
+        var container_ul = page.find(".ui-listview");
+        container_ul.css("opacity","0.5");
+        container_ul.find("li").hide();
+        container_ul.find("li.zona_"+zona_id).show();
+        container_ul.animate({opacity: 1}, 500 );
+        
+        //borramos la clase de la categoria seleccionada
+        var element_desactive = page.find(".owl-item.active");
+        element_desactive.removeClass("active");
+        var imagen_desactive = element_desactive.find("img");
+        imagen_desactive.attr("src",BASE_URL_APP+'img/categorias/gris/' + imagen_desactive.attr("alt"));
+    });
     
     //inicializamos la ubicacion 
     getLocationGPS();
@@ -61,7 +81,6 @@ $('#guia').live('pagebeforeshow', function(event, ui) {
 //PLANES
 $('#planes').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
-    getZonas(page_id);
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id);
     getPlanes(page_id);
@@ -80,7 +99,6 @@ $('#plan_descripcion').live('pagebeforeshow', function(event, ui) {
 $('#locales').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     var categoria_id = getUrlVars()["id"];
-    getZonas(page_id);
     //inicializamos el carrousel slider
     getCategoriasByCarrousel(page_id, categoria_id);
     getLocalesById(page_id, categoria_id);
@@ -146,12 +164,6 @@ $('#quiero_participar_descripcion').live('pagebeforeshow', function(event, ui) {
 $('#mi_perfil').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     getMiPerfil(page_id);
-});
-
-//REGISTRO EMAIL
-$('#registro_email').live('pagebeforeshow', function(event, ui) {
-    var page_id = $(this).attr("id");
-    getRegistroEmail(page_id);
 });
 
 /************************************ FUNCTIONS *******************************************************/
@@ -618,7 +630,7 @@ function getLocalesByDistance(parent_id){
                             '<div class="content_descripcion">' +
                                 '<div class="ubicacion">' +
                                     '<h3 class="ui-li-heading">' +
-                                        '<a href="javascript:checkIn(\''+item.Local.urlamigable+'\')">'+item.Local.title+'</a>' +
+                                        '<a href="javascript:checkIn('+item.Local.id+')">'+item.Local.title+'</a>' +
                                     '</h3>' +
                                 '</div>' +
                                 '<div class="km">';
@@ -668,20 +680,18 @@ function getRecompensas(parent_id) {
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-listview");
     container.find('li').remove();
-    var usuario_id = '0';
     
     parent.find(".ui-content").hide();
     
     //ponemos los puntos acumulados que tiene hasta el momento
     if(isLogin()){
         var user = COOKIE;
-        usuario_id = user.id;
         var puntos_acumulados = user.puntos_acumulados;
         parent.find(".puntos").html(puntos_acumulados);
     }
     
     //obtenemos todas las recompensas
-	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas/'+usuario_id, function(data) {
+	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas', function(data) {
         
         if(data.items){
             //mostramos loading
@@ -690,11 +700,8 @@ function getRecompensas(parent_id) {
             items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
-        		    var clase = "";
-  		            var gane_recompensas = item.Recompensa.gane_recompensa;
-                    if(gane_recompensas) clase = "gane_recompensa";
         		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
-                	var html='<li class="'+clase+'">'+
+                	var html='<li>'+
                         '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
                             '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
                             '<div class="content_recuadro">' +
@@ -702,17 +709,8 @@ function getRecompensas(parent_id) {
                                     '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
                                     '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
                                 '</div>'+
-                            '</div>';
-                            
-                            if(gane_recompensas){
-                                html+='<div id="'+gane_recompensas+'" class="validar_recompensa">' +
-                                    '<a href="javascript:pagar_recompensa(\''+gane_recompensas+'\')">' +
-                                        '<span class="titulo">VALIDAR RECOMPENSA</span>' + 
-                                        '<span>en el local por el responsable</span>' + 
-                                    '</a>' +
-                                '</div>';
-                            }
-                        html+='</a>'+
+                            '</div>'+
+                        '</a>'+
                     '</li>';
         		    
                     container.append(html);
@@ -720,7 +718,6 @@ function getRecompensas(parent_id) {
                 
                 //refresh
         		container.listview('refresh');
-                container.find("li.gane_recompensa").find(".ui-icon-arrow-r").css("top","30%");
                 
                 container.find("li:last img").load(function() {
                     //ocultamos loading
@@ -942,27 +939,24 @@ function getValidarDeviceUuid(parent_id, device_uuid){
 function getMiPerfil(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".content_details");
-    var form_configurar_alertas = parent.find("#form_configurar_alertas")
     var recibir_alertas = 0;
     
     if(isLogin()){
         var user = COOKIE;
         recibir_alertas = user.recibir_alertas;
-        var puntos_acumulados = user.puntos_acumulados;
-        var puntos = user.Puntos;
         
         if($.trim(user.email) == ""){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
-        //llenamos los puntos
-        container.find(".mis_puntos").find("b.total").html(puntos_acumulados);
-        container.find(".mis_puntos").find(".ui-collapsible-content").html("");
-        if(puntos.length && parseInt(puntos_acumulados)){
-            $(puntos).each(function(index,item){
-                container.find(".mis_puntos").find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
-            });
-        }
+        var puntos_acumulados = user.puntos_acumulados; 
+        container.find(".puntos b").html(puntos_acumulados);
+        var numero_items = puntos_acumulados/10;
+        container.find(".content_puntos span").each(function(index){
+            if(index < numero_items){
+                $(this).addClass("active");
+            }
+        });
         
         //establecemos los datos y evento para el form
         var form = container.find("form#form_change_email");
@@ -1061,166 +1055,5 @@ function getMiPerfil(parent_id){
         
         //mostramos solo el boton para deslogearse el cual puede ser facebook o twitter
         container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
-        
-        //obtenemos las zonas
-    	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas/'+user.id, function(data) {
-            if(data.items){
-                //mostramos loading
-                $.mobile.loading( 'show' );
-        		items = data.items;
-                var alertas = data.alertas;
-                var html = "";
-                if(items.length){
-                    form_configurar_alertas.find(".usuario_id").val(user.id);
-            		$.each(items, function(index, item) {
-            		    var checked=''
-            		    if(alertas == false){
-            		      checked='checked="checked"';
-            		    }else if(item.Zona.recibir){
-            		      checked='checked="checked"';
-            		    }
-            		    html+= '<input name="zonas[]" id="alerta_'+item.Zona.id+'" type="checkbox" value="'+item.Zona.id+'" '+checked+' /><label for="alerta_'+item.Zona.id+'">'+item.Zona.title+'</label>';
-            		});
-                    
-                    //ocultamos loading
-                    $.mobile.loading( 'hide' );
-                    
-                    //refresh
-                    form_configurar_alertas.find(".lista_zonas").html('');
-                    form_configurar_alertas.find(".lista_zonas").append('<fieldset data-role="controlgroup">'+html+'</fieldset>');
-                    form_configurar_alertas.trigger("create");
-                }
-            }
-    	});
-        
-        //guardar la configuracion de alertas
-        form_configurar_alertas.find(".guardar_config_alertas").unbind("touchstart").bind("touchstart", function(){
-            //Si todo el form es valido mandamos
-            $.ajax({
-                data: form_configurar_alertas.serialize(),
-                type: "POST",
-                url: BASE_URL_APP + 'usuarios/mobileSaveAlertas',
-                dataType: "html",
-                success: function(data){
-                    $.mobile.loading( 'hide' );
-                    
-                    data = $.parseJSON(data);
-                    if(data.success){
-                        showAlert(data.mensaje, "Aviso", "Aceptar");
-                    }else{
-                        showAlert(data.mensaje, "Error", "Aceptar");
-                    }
-                },
-                beforeSend : function(){
-                    //mostramos loading
-                    showLoadingCustom('Guardando...');
-                }
-            });
-          return false;
-        });
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
     }
-}
-
-//OBTENEMOS LAS ZONAS
-function getZonas(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".ui-footer");
-    container.find('li').remove();
-    
-    container.hide();
-    
-	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas', function(data) {
-        
-        if(data.items){
-            //mostramos loading
-            $.mobile.loading( 'show' );
-            
-    		items = data.items;
-            if(items.length){
-                var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom zonas">';
-        		$.each(items, function(index, item) {
-        		    html+= '<li><a id="zona_'+item.Zona.id+'" href="#'+item.Zona.id+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
-        		});
-                html+='</ul></div>';
-                container.find(".ui-navbar").remove();
-                container.append(html);
-                //refresh
-        		container.trigger("create");
-                
-                //colocamos su background
-                var nav_custom = parent.find(".nav-custom.zonas");
-                $.each(items, function(index, item) {
-                    nav_custom.find("a#zona_"+item.Zona.id).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/zonas/"+item.Zona.imagen+"')  no-repeat scroll top center transparent").css("background-size","30px 23px");
-                });
-                
-                var page = $("#" + $.mobile.activePage.attr('id'));
-                page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
-                    page.find(".zonas").find("a").removeClass("ui-btn-active-a");
-                    $(this).addClass("ui-btn-active-a");
-                    var zona_id = $(this).attr("href");
-                    zona_id = zona_id.substring(1,zona_id.length);
-                    
-                    //mostramos u ocultamos los items segun su zona
-                    var container_ul = page.find(".ui-listview");
-                    container_ul.css("opacity","0.5");
-                    container_ul.find("li").hide();
-                    container_ul.find("li.zona_"+zona_id).show();
-                    container_ul.animate({opacity: 1}, 500 );
-                    
-                    //borramos la clase de la categoria seleccionada
-                    var element_desactive = page.find(".owl-item.active");
-                    element_desactive.removeClass("active");
-                    var imagen_desactive = element_desactive.find("img");
-                    imagen_desactive.attr("src",BASE_URL_APP+'img/categorias/gris/' + imagen_desactive.attr("alt"));
-                });
-                
-                //ocultamos loading
-                $.mobile.loading( 'hide' );
-                
-                //aplicamos el slider carrousel
-                container.promise().done(function() {
-                    //iniciamos el carrousel
-                    container.find(".nav-custom.zonas").owlCarousel({
-                        pagination : false,
-                        items : 4,
-                        itemsMobile : [479,4],
-                        responsive: false,
-                    });
-                    container.find(".nav-custom.zonas").find("li").css("width","100%");
-                    container.find(".nav-custom.zonas").find(".owl-wrapper-outer").css("overflow","inherit");
-                });
-                
-                container.fadeIn("slow");
-            }
-        }
-	});
-}
-
-//FORMULARIO PARA EL REGISTRO O INGRESO POR EMAL
-function getRegistroEmail(parent_id){
-    var parent = $("#"+parent_id);
-    var container = parent.find(".content_details");
-        
-    //establecemos los datos y evento para el form
-    var form = container.find("form#form_registro_email");
-    
-    form.find(".container_opciones a").unbind("touchstart").bind("touchstart", function(){
-        var email = $.trim(form.find(".email").val());
-        var password = $.trim(form.find(".password").val());
-        if(valEmail(email) && password != ""){
-            showLoadingCustom('Validando datos...');
-            var opcion = $(this).attr("lang");
-            if(opcion == "registrarse"){
-                registrar_email(container,email,password);
-            }else if(opcion == "acceder"){
-                login_email(container,form);
-            }
-        }else{
-            showAlert("Por favor ingrese un email valido y password");
-        }
-        
-        return false;
-    });
 }
