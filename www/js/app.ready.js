@@ -9,6 +9,7 @@ var LONGITUDE = 0;
 var PUSH_NOTIFICATION_REGISTER = '';
 var PUSH_NOTIFICATION_TOKEN = 0;
 var INTERVAL;
+var LOGIN_INVITADO = false;
 
 /* notificacion */
 var HAVE_NOTIFICATION = false;

@@ -76,7 +76,7 @@
             </h1>
     	</div><!-- /header -->
     
-    	<div data-role="content">
+    	<div data-role="content" style="margin-bottom: 10px;">
             <p class="texto">
                 Accede a trav&eacute;s de tu cuenta <span class="con_facebook">facebook</span> , <span class="con_twitter">Twitter</span> o <span class="con_google">Google</span>
             </p>
@@ -85,6 +85,8 @@
                 <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="loginFacebookConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Facebook</a>
                 <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="loginTwitterConnect()" data-role="button" data-icon="none" data-iconpos="left">Conectar con Twitter</a>
                 <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)"  onclick="loginGoogleConnect()" data-role="button" data-transition="none">Conectar con Google</a>
+                <a class="ui-btn-submit ui-btn-green login" href="javascript:void(0)"  onclick="loginInvitado()" data-role="button" data-transition="none">Ingresar como Invitado</a>
+                <a class="ui-btn-submit ui-btn-orange" href="#registro_email" data-role="button" data-transition="none">Ingresar con mi Email</a>
             </div>
     	</div><!-- /content -->
     
@@ -115,8 +117,8 @@
     	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
            <div data-role="navbar">
                 <ul class="nav-custom">
-                    <li><a href="#como_funciona" class="nav_como_funciona" data-icon="none" data-iconpos="top">Como<br/>Funciona</a></li>
-                    <li><a href="#mi_perfil" class="nav_mi_perfil" data-icon="none" data-iconpos="top">Mi Perfil</a></li>
+                    <li><a href="#como_funciona" class="nav_como_funciona" data-icon="none" data-iconpos="top">C&oacute;mo<br/>Funciona</a></li>
+                    <li><a href="#mi_perfil" class="nav_mi_perfil" data-icon="none" data-iconpos="top">M&iacute; Perfil</a></li>
                     <li><a href="quiero_participar_descripcion.html?id=1" class="nav_quiero_participar" data-icon="none" data-iconpos="top">Quiero<br/>Participar</a></li>
                 </ul>
             </div>
@@ -262,26 +264,11 @@
     	</div><!-- /header -->
     
     	<div data-role="content">
-            <h2 class="ui-li-heading">Mi Perfil</h2>
+            <h2 class="ui-li-heading">M&iacute; Perfil</h2>
             <div class="content_details">
-                <p>Actualmente tiene acumulado esta cantidad de Puntos, Sigue Sumando.</p>
-                <div class="content_puntos">
-                    <div class="left">
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>7</span>
-                        <span>8</span>
-                        <span>9</span>
-                        <span>10</span>
-                        <i>.........</i>
-                    </div>
-                    <div class="right puntos">
-                        <b>0</b> puntos
-                    </div>
+                <p style="margin-bottom: 8px;">Actualmente tiene acumulado.</p>
+                <div class="mis_puntos" data-role="collapsible" data-mini="true" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right">
+                    <h4>Mis Puntos .......................... <b class="total" style="font-size: 14px;float: right;color: #df086f;">0</b></h4>
                 </div>
                 <div data-role="fieldcontain">
                     <form id="form_change_email">
@@ -294,8 +281,15 @@
                     <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Facebook</a>
                     <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Twitter</a>
                     <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Google</a>
+                    <a class="ui-btn-submit ui-btn-orange ui-btn-email" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Email</a>
                     <a class="recibir_alertas ui-btn-submit ui-btn-purple" href="javascript:void(0)" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas</a>
                 </div>
+                <form id="form_configurar_alertas">
+                    <input type="hidden" name="usuario_id" class="usuario_id" value="" />
+                    <p style="margin-bottom: 0;color: #df086f;">Selecciona las zonas de las que quieres recibir alertas</p>
+                    <div class="lista_zonas"></div>
+                    <a class="guardar_config_alertas ui-btn-submit ui-btn-green" type="submit" data-role="button">Guardar configuraci&oacute;n</a>
+                </form>
             </div>
         
     	</div><!-- /content -->
@@ -333,6 +327,47 @@
                 <a class="como_resevar_un_plan" href="#como_resevar_un_plan" data-role="button" data-icon="none" data-iconpos="left">Como reservar un plan ?</a>
                 <a class="dejar_recibir_alertas" href="#dejar_recibir_alertas" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas ?</a>
                 -->
+            </div>
+    	</div><!-- /content -->
+    
+    	<div data-role="footer" data-tap-toggle="false" data-position="fixed">
+    	</div><!-- /footer -->
+    
+    </div><!-- /page -->
+    
+    <!-- REGISTRO EMAIL -->
+    
+    <div data-role="page" id="registro_email" data-theme="a">
+    
+    	<div data-role="header" data-tap-toggle="false">
+            <ul>
+                <li class="back">
+                    <a class="volver" href="#" data-role="button" data-rel="back">Volver</a>
+                </li>
+                <li class="page">
+                    <img src="img/logo.png"/>
+                </li>
+                <li class="setting">
+                    &nbsp;
+                </li>
+            </ul>
+    	</div><!-- /header -->
+    
+    	<div data-role="content">
+            <h2 class="ui-li-heading">Registro o Login</h2>
+            <div class="content_details">
+                <p style="margin-bottom: 8px;">Si ya est&aacute;s registrado haz Login. Si a&uacute;n no has registrado tu cuenta haz clic en Registrarse.</p>
+                <form id="form_registro_email">
+                    <input class="email" name="email" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="c"/>
+                    <input class="password" name="password" placeholder="password..." autocomplete="off" type="password" data-mini="true" data-theme="c"/>
+                    <div class="codigovalidacion" style="display: none;">
+                        <input name="codigovalidacion" placeholder="C&oacute;digo Validaci&oacute;n..." autocomplete="off" type="text" data-mini="true" data-theme="c"/>
+                    </div>
+                    <div class="container_opciones">
+                        <a style="width: 49%;" class="ui-btn-submit ui-btn-green registrarse left" lang="registrarse" type="submit" data-role="button" data-mini="true">Registrarse</a>
+                        <a style="width: 49%;" class="ui-btn-submit ui-btn-green acceder right" lang="acceder" type="submit" data-role="button" data-mini="true">Acceder</a>
+                    </div>
+                </form>
             </div>
     	</div><!-- /content -->
     
