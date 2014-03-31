@@ -301,22 +301,6 @@ function callbackOrientationChange(orientation, page_id){
             itemsMobile : [479,6]
         });
     }
-    if(orientation == "landscape"){
-        var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
-        owlfooter.reinit({
-            items : 5,
-            itemsMobile : [479,5]
-        });
-    }else if(orientation == "portrait"){
-        var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
-        owlfooter.reinit({
-            items : 4,
-            itemsMobile : [479,4]
-        });
-    }
-    
-    $(".nav-custom.zonas").find("li").css("width","100%");
-    $(".nav-custom.zonas").find(".owl-wrapper-outer").css("overflow","inherit");
 }
 
 //MOSTRAMOS EL GOOGLE MAP DEL LOCAL
@@ -359,7 +343,6 @@ function checkIn(urlamigable){
                     
                     //re-escribimos la cookie con los puntos totales
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_acumulados);
-		    reWriteCookie("user","Puntos",data.puntos);
                     
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
@@ -386,8 +369,8 @@ function checkIn(urlamigable){
             }
     	});
     
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar Estoy aqu\u00ED","Error","Aceptar");
     }
 }
 
@@ -444,7 +427,6 @@ function comprarRecompensa(local_id, recompensa_id){
                     
                     //re-escribimos la cookie con los puntos restantes
                     reWriteCookie("user","puntos_acumulados",data.total_puntos_restantes);
-                    reWriteCookie("user","Puntos",data.puntos);
                     
                     //mostramos el mensaje de success y al cerrar mostramos la pantalla de compartir
                     //que puede ser de facebook o twitter
@@ -471,8 +453,8 @@ function comprarRecompensa(local_id, recompensa_id){
             }
     	});
     
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
+    }else{
+        showAlert("Debes de conectarte con facebook o twitter para realizar la compra.","Error","Aceptar");
     }
 }
 
@@ -511,8 +493,6 @@ function logout(){
         'Salir',           // title
         'Aceptar,Cancelar'         // buttonLabels
         );
-    }else if(LOGIN_INVITADO){
-        alertaInvitado();
     }
 }
 
