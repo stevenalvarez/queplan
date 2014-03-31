@@ -39,6 +39,9 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+        if (parseFloat(window.device.version) === 7.0) {
+              document.body.style.marginTop = "20px";
+        }
         app.receivedEvent('deviceready');
         //pause
         document.addEventListener("pause", this.onPause, false);

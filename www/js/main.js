@@ -17,13 +17,6 @@ $(document).bind('pageinit', function(event){
     var page_id = event.target.id;
 });
 
-$( document ).on( "pageinit", function( event ) {
-    if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i)){
-        $("body").addClass("ios7");
-        $('body').append('<div id="ios7statusbar"/>');
-    }
-});
-
 $(document).bind('pageshow', function(event, ui) {
     //verificamos que el usuario tenga email, sino tiene le obligamos a que si o si coloque
     if(isLogin()){
