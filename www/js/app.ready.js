@@ -40,7 +40,13 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         if (parseFloat(window.device.version) === 7.0) {
-              document.body.style.marginTop = "20px";
+            alert("1");
+            document.body.style.marginTop = "20px";
+            $('.ui-header > *').css('margin-top', function (index, curValue) {return parseInt(curValue, 10) + 20 + 'px';});
+        }
+        if (device.platform == 'iOS' && parseFloat(device.version) >= 7.0) {
+            alert("2");
+            $('.ui-header > *').css('margin-top', function (index, curValue) {return parseInt(curValue, 10) + 20 + 'px';});
         }
         app.receivedEvent('deviceready');
         //pause
