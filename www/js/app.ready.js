@@ -40,7 +40,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         if (device.platform == 'iOS' && parseFloat(device.version) >= 7.0) {
-            $('.ui-header > *').css('margin-top', function (index, curValue) {return parseInt(curValue, 10) + 20 + 'px';});
+            document.body.classList.add('fix-status-bar');
         }
         app.receivedEvent('deviceready');
         //pause
