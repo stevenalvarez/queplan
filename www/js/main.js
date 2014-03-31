@@ -616,7 +616,7 @@ function getLocalesByDistance(parent_id){
                             '<div class="content_descripcion">' +
                                 '<div class="ubicacion">' +
                                     '<h3 class="ui-li-heading">' +
-                                        '<a href="javascript:checkIn('+item.Local.id+')">'+item.Local.title+'</a>' +
+                                        '<a href="javascript:checkIn(\''+item.Local.urlamigable+'\')">'+item.Local.title+'</a>' +
                                     '</h3>' +
                                 '</div>' +
                                 '<div class="km">';
@@ -666,18 +666,20 @@ function getRecompensas(parent_id) {
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-listview");
     container.find('li').remove();
+    var usuario_id = '0';
     
     parent.find(".ui-content").hide();
     
     //ponemos los puntos acumulados que tiene hasta el momento
     if(isLogin()){
         var user = COOKIE;
+        usuario_id = user.id;
         var puntos_acumulados = user.puntos_acumulados;
         parent.find(".puntos").html(puntos_acumulados);
     }
     
     //obtenemos todas las recompensas
-	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas', function(data) {
+	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas/'+usuario_id, function(data) {
         
         if(data.items){
             //mostramos loading
@@ -686,8 +688,11 @@ function getRecompensas(parent_id) {
             items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
+        		    var clase = "";
+  		            var gane_recompensas = item.Recompensa.gane_recompensa;
+                    if(gane_recompensas) clase = "gane_recompensa";
         		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
-                	var html='<li>'+
+                	var html='<li class="'+clase+'">'+
                         '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
                             '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
                             '<div class="content_recuadro">' +
@@ -695,8 +700,17 @@ function getRecompensas(parent_id) {
                                     '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
                                     '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
                                 '</div>'+
-                            '</div>'+
-                        '</a>'+
+                            '</div>';
+                            
+                            if(gane_recompensas){
+                                html+='<div id="'+gane_recompensas+'" class="validar_recompensa">' +
+                                    '<a href="javascript:pagar_recompensa(\''+gane_recompensas+'\')">' +
+                                        '<span class="titulo">VALIDAR RECOMPENSA</span>' + 
+                                        '<span>en el local por el responsable</span>' + 
+                                    '</a>' +
+                                '</div>';
+                            }
+                        html+='</a>'+
                     '</li>';
         		    
                     container.append(html);
@@ -704,6 +718,7 @@ function getRecompensas(parent_id) {
                 
                 //refresh
         		container.listview('refresh');
+                container.find("li.gane_recompensa").find(".ui-icon-arrow-r").css("top","30%");
                 
                 container.find("li:last img").load(function() {
                     //ocultamos loading
