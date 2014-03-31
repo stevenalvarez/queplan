@@ -666,20 +666,18 @@ function getRecompensas(parent_id) {
     var parent = $("#"+parent_id);
     var container = parent.find(".ui-listview");
     container.find('li').remove();
-    var usuario_id = '0';
     
     parent.find(".ui-content").hide();
     
     //ponemos los puntos acumulados que tiene hasta el momento
     if(isLogin()){
         var user = COOKIE;
-        usuario_id = user.id;
         var puntos_acumulados = user.puntos_acumulados;
         parent.find(".puntos").html(puntos_acumulados);
     }
     
     //obtenemos todas las recompensas
-	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas/'+usuario_id, function(data) {
+	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas', function(data) {
         
         if(data.items){
             //mostramos loading
@@ -688,11 +686,8 @@ function getRecompensas(parent_id) {
             items = data.items;
             if(items.length){
         		$.each(items, function(index, item) {
-        		    var clase = "";
-  		            var gane_recompensas = item.Recompensa.gane_recompensa;
-                    if(gane_recompensas) clase = "gane_recompensa";
         		    var imagen = item.Recompensa.imagen!=""?item.Recompensa.imagen : "default.png";
-                	var html='<li class="'+clase+'">'+
+                	var html='<li>'+
                         '<a href="recompensa_descripcion.html?id='+item.Recompensa.id+'">'+
                             '<img src="'+BASE_URL_APP+'img/recompensas/thumbnails/' + imagen + '"/>'+
                             '<div class="content_recuadro">' +
@@ -700,17 +695,8 @@ function getRecompensas(parent_id) {
                                     '<h3 class="ui-li-heading">'+item.Recompensa.title+'</h3>'+
                                     '<span>'+item.Recompensa.punto_costo+'</span> <span>puntos</span>'+
                                 '</div>'+
-                            '</div>';
-                            
-                            if(gane_recompensas){
-                                html+='<div id="'+gane_recompensas+'" class="validar_recompensa">' +
-                                    '<a href="javascript:pagar_recompensa(\''+gane_recompensas+'\')">' +
-                                        '<span class="titulo">VALIDAR RECOMPENSA</span>' + 
-                                        '<span>en el local por el responsable</span>' + 
-                                    '</a>' +
-                                '</div>';
-                            }
-                        html+='</a>'+
+                            '</div>'+
+                        '</a>'+
                     '</li>';
         		    
                     container.append(html);
@@ -718,7 +704,6 @@ function getRecompensas(parent_id) {
                 
                 //refresh
         		container.listview('refresh');
-                container.find("li.gane_recompensa").find(".ui-icon-arrow-r").css("top","30%");
                 
                 container.find("li:last img").load(function() {
                     //ocultamos loading
@@ -940,27 +925,24 @@ function getValidarDeviceUuid(parent_id, device_uuid){
 function getMiPerfil(parent_id){
     var parent = $("#"+parent_id);
     var container = parent.find(".content_details");
-    var form_configurar_alertas = parent.find("#form_configurar_alertas")
     var recibir_alertas = 0;
     
     if(isLogin()){
         var user = COOKIE;
         recibir_alertas = user.recibir_alertas;
-        var puntos_acumulados = user.puntos_acumulados;
-        var puntos = user.Puntos;
         
         if($.trim(user.email) == ""){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
-        //llenamos los puntos
-        container.find(".mis_puntos").find("b.total").html(puntos_acumulados);
-        container.find(".mis_puntos").find(".ui-collapsible-content").html("");
-        if(puntos.length && parseInt(puntos_acumulados)){
-            $(puntos).each(function(index,item){
-                container.find(".mis_puntos").find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
-            });
-        }
+        var puntos_acumulados = user.puntos_acumulados; 
+        container.find(".puntos b").html(puntos_acumulados);
+        var numero_items = puntos_acumulados/10;
+        container.find(".content_puntos span").each(function(index){
+            if(index < numero_items){
+                $(this).addClass("active");
+            }
+        });
         
         //establecemos los datos y evento para el form
         var form = container.find("form#form_change_email");
