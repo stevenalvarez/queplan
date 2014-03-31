@@ -956,13 +956,15 @@ function getMiPerfil(parent_id){
         }
         
         //llenamos los puntos
-        /*container.find(".mis_puntos").find("b.total").html(puntos_acumulados);
+        container.find(".mis_puntos").find("b.total").html(puntos_acumulados);
         container.find(".mis_puntos").find(".ui-collapsible-content").html("");
         if(puntos.length && parseInt(puntos_acumulados)){
             $(puntos).each(function(index,item){
-                container.find(".mis_puntos").find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
+                if(item.Punto.local_title != undefined && item.Punto.cantidad != undefined){
+                    container.find(".mis_puntos").find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
+                }
             });
-        }*/
+        }
         
         //establecemos los datos y evento para el form
         var form = container.find("form#form_change_email");
