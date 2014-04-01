@@ -946,20 +946,24 @@ function getMiPerfil(parent_id){
         var user = COOKIE;
         recibir_alertas = user.recibir_alertas;
         var puntos_acumulados = user.puntos_acumulados;
-        var puntos = user.Puntos;
+        var puntos = '';
+        if(user.Puntos != undefined) puntos = user.Puntos;
         
         if($.trim(user.email) == ""){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
         //llenamos los puntos
-        /*container.find(".mis_puntos").find("b.total").html(puntos_acumulados);
-        container.find(".mis_puntos").find(".ui-collapsible-content").html("");
-        if(puntos.length && parseInt(puntos_acumulados)){
+        var element = container.find(".mis_puntos");
+        element.find("b.total").html(puntos_acumulados);
+        element.find(".ui-collapsible-content").html("");
+        if(puntos != '' && puntos.length > 0 && parseInt(puntos_acumulados)){
             $(puntos).each(function(index,item){
-                container.find(".mis_puntos").find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
+                if(item.Punto.local_title != undefined && item.Punto.cantidad != undefined){
+                    element.find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
+                }
             });
-        }*/
+        }
         
         //establecemos los datos y evento para el form
         var form = container.find("form#form_change_email");
