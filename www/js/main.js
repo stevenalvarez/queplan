@@ -15,7 +15,10 @@ $(document).bind('pagecreate', function(event){
 
 $(document).bind('pageinit', function(event){
     var page_id = event.target.id;
-    if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i)) {
+});
+
+$( document ).on( "pageinit", function( event ) {
+    if (navigator.userAgent.match(/(iPad.*|iPhone.*|iPod.*);.*CPU.*OS 7_\d/i)){
         $("body").addClass("ios7");
         $('body').append('<div id="ios7statusbar"/>');
     }
@@ -177,6 +180,7 @@ function getCategorias(parent_id) {
                 clone.find(".ui-icon").css("background-size","35px");
                 clone.find(".ui-icon").css("padding-left","5px");
                 clone.find(".ui-icon").css("margin-top","-18px");
+                clone.find(".ui-btn-inner").append('<span style="display:none;background:url('+BASE_URL_APP+"img/categorias/"+imagen+')  no-repeat scroll top center transparent)"></span>');
                 clone.attr("lang",imagen);
                 clone.css("display","block");
                 clone.addClass("clone");
@@ -191,8 +195,13 @@ function getCategorias(parent_id) {
                 parent.find(".ui-content").fadeIn("slow");
                 
                 //al momento de touch cambiamos su imagen a color rosa
-                container.find("a").unbind("touchstart").bind("touchstart", function(){
+                container.find("a").hover(
+                function(){
                     $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
+                    $(this).find(".ui-icon").css("background-size","35px");
+                },
+                function(){
+                    $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
                     $(this).find(".ui-icon").css("background-size","35px");
                 });
             });
@@ -946,22 +955,19 @@ function getMiPerfil(parent_id){
         var user = COOKIE;
         recibir_alertas = user.recibir_alertas;
         var puntos_acumulados = user.puntos_acumulados;
-        var puntos = '';
-        if(user.Puntos != undefined) puntos = user.Puntos;
+        var puntos = user.Puntos;
         
         if($.trim(user.email) == ""){
             showAlert("Hemos detectado que no tienes un email asociado a tu cuenta. Para poder seguir por favor debes rellenar tu email, as\u00ED cuando ganes una recompensa podremos estar en contacto. Gracias","Aviso","Aceptar");
         }
         
         //llenamos los puntos
-        var element = container.find(".mis_puntos");
+        var element = container.find(".mis_puntos");                
         element.find("b.total").html(puntos_acumulados);
         element.find(".ui-collapsible-content").html("");
-        if(puntos != '' && puntos.length > 0 && parseInt(puntos_acumulados)){
+        if(parseInt(puntos_acumulados)){
             $(puntos).each(function(index,item){
-                if(item.Punto.local_title != undefined && item.Punto.cantidad != undefined){
-                    element.find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
-                }
+                element.find(".ui-collapsible-content").append('<div class="item"><div class="left"><i>'+item.Punto.local_title+'</i></div><div class="right puntos"><b>'+item.Punto.cantidad+'</b> puntos</div></div>');
             });
         }
         
@@ -1153,7 +1159,9 @@ function getZonas(parent_id){
                 //colocamos su background
                 var nav_custom = parent.find(".nav-custom.zonas");
                 $.each(items, function(index, item) {
-                    nav_custom.find("a#zona_"+item.Zona.id).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/zonas/"+item.Zona.imagen+"')  no-repeat scroll top center transparent").css("background-size","30px 23px");
+                    if(item.Zona.imagen != undefined && item.Zona.imagen != ""){
+                        nav_custom.find("a#zona_"+item.Zona.id).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/zonas/"+item.Zona.imagen+"')  no-repeat scroll top center transparent").css("background-size","30px 23px");
+                    }
                 });
                 
                 var page = $("#" + $.mobile.activePage.attr('id'));
