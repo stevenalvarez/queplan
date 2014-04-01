@@ -53,7 +53,7 @@
     <icon src="res/icon/ios/icon-72-2x.png" gap:platform="ios" width="114" height="114" />
     
     <gap:splash src="res/screen/ios/screen-iphone-portrait.png" />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="480" />
+    <gap:splash src="res/screen/ios/screen-iphone-portrait.png" gap:platform="ios" width="320" height="500" />
     
     <!-- facebookconnect -->
     <gap:plugin name="com.phonegap.plugins.facebookconnect">
