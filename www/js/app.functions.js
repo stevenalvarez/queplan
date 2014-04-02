@@ -645,6 +645,9 @@ function login_email(container, formulario){
     	        createCookie("user", JSON.stringify(usuario), 365);
                 //mandamos directo al home si es que la cookie se creo correctamente
                 if(isLogin()){
+                    document.getElementById("form_registro_email").reset();
+                    container.find(".registrarse").hide();
+                    container.find(".codigovalidacion").hide();
                     $.mobile.changePage('#home');
                 }
             }else{
