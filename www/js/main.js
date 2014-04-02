@@ -1188,13 +1188,16 @@ function getZonas(parent_id){
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 
+                //numero de zonas
+                var numero_zonas = container.find(".nav-custom.zonas").find("li").length;
+                
                 //aplicamos el slider carrousel
                 container.promise().done(function() {
                     //iniciamos el carrousel
                     container.find(".nav-custom.zonas").owlCarousel({
                         pagination : false,
-                        items : 4,
-                        itemsMobile : [479,4],
+                        items : numero_zonas,
+                        itemsMobile : [479,numero_zonas],
                         responsive: false,
                     });
                     container.find(".nav-custom.zonas").find("li").css("width","100%");
