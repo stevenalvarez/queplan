@@ -301,17 +301,19 @@ function callbackOrientationChange(orientation, page_id){
             itemsMobile : [479,6]
         });
     }
+    
+    var numero_zonas = $(".zonas.owl-carousel").find(".owl-item").length;
     if(orientation == "landscape"){
         var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
         owlfooter.reinit({
-            items : 5,
-            itemsMobile : [479,5]
+            items : parseInt(numero_zonas),
+            itemsMobile : [479,parseInt(numero_zonas)]
         });
     }else if(orientation == "portrait"){
         var owlfooter = $(".zonas.owl-carousel").data('owlCarousel');
         owlfooter.reinit({
-            items : 4,
-            itemsMobile : [479,4]
+            items : parseInt(numero_zonas),
+            itemsMobile : [479,parseInt(numero_zonas)]
         });
     }
     
