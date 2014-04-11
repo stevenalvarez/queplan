@@ -44,7 +44,7 @@ $(document).bind('pageshow', function(event, ui) {
         if(HAVE_NOTIFICATION){
             setTimeout(function(){
                 showNotification(EVENT, TYPE_NOTIFICATION);
-            },300);
+            },500);
             HAVE_NOTIFICATION = false;
         }
     }
