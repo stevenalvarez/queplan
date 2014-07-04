@@ -3,9 +3,10 @@
 
 $(document).bind('pagebeforecreate', function(event){
     var page_id = event.target.id;
-    if(page_id == "view"){
+    //PUSH_NOTIFICATION_TOKEN = "9999";
+    if(page_id == "view" && PUSH_NOTIFICATION_TOKEN == "9999"){
         //verificamos si el device_uuid ya esta registrado en la db
-        getValidarDeviceUuid(page_id, device.uuid);
+        getValidarDeviceUuid(page_id, device.uuid, PUSH_NOTIFICATION_TOKEN);
     }
 });
 
@@ -37,17 +38,6 @@ $(document).bind('pageshow', function(event, ui) {
     
     //inicializamos la ubicacion 
     getLocationGPS();
-    
-    //mostramos la notificacion pendiente solo si no es en view
-    if(page_id != "view"){
-        //si tiene una notificacion pendiente la mostramos
-        if(HAVE_NOTIFICATION){
-            setTimeout(function(){
-                showNotification(EVENT, TYPE_NOTIFICATION);
-            },500);
-            HAVE_NOTIFICATION = false;
-        }
-    }
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -152,6 +142,13 @@ $('#mi_perfil').live('pagebeforeshow', function(event, ui) {
 $('#registro_email').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
     getRegistroEmail(page_id);
+});
+
+//HOME
+$('#home').live('pagebeforeshow', function(event, ui) {
+    var page_id = $(this).attr("id");
+    //mandamos a ver si tiene alguna notificacion pendiente
+    verifyNotification();
 });
 
 /************************************ FUNCTIONS *******************************************************/
@@ -918,10 +915,10 @@ function getQuieroParticiparById(parent_id, quiero_participar_id){
 }
 
 //VERIFICAMOS SI EL DISPOSITIVO YA FUE REGISTRADO, SI LO ESTA MANDAMOS DIRECTO A LA HOME
-function getValidarDeviceUuid(parent_id, device_uuid){
+function getValidarDeviceUuid(parent_id, device_uuid, token_notificacion){
     var parent = $("#"+parent_id);
         
-	$.getJSON(BASE_URL_APP + 'usuarios/mobileValidarDeviceUuid/'+device_uuid, function(data) {
+	$.getJSON(BASE_URL_APP + 'usuarios/mobileValidarDeviceUuid/'+device_uuid+'/'+token_notificacion, function(data) {
 	    //mostramos loading
         $.mobile.loading('show');
        	   

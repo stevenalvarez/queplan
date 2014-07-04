@@ -91,6 +91,10 @@ var app = {
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
         if(PUSH_NOTIFICATION_TOKEN == 0){
             PUSH_NOTIFICATION_TOKEN = result;
+            //mandamos a guardar el token para las notificaciones solo si no se guardo antes
+            if(!APP_INITIALIZED){
+                getValidarDeviceUuid("view", device.uuid, PUSH_NOTIFICATION_TOKEN);
+            }
         }
         //console.log("Regid " + result);
         //alert('Callback Success! Result = '+result);
@@ -105,6 +109,11 @@ var app = {
                     PUSH_NOTIFICATION_TOKEN = e.regid;
                     //console.log("Regid " + e.regid);
                     //alert('registration id = '+e.regid);
+                    
+                    //mandamos a guardar el token para las notificaciones solo si no se guardo antes
+                    if(!APP_INITIALIZED){
+                        getValidarDeviceUuid("view", device.uuid, PUSH_NOTIFICATION_TOKEN);
+                    }
                 }
             break;
  
@@ -130,8 +139,6 @@ var app = {
         }
     },
     onNotificationAPN: function(event) {
-        var pushNotification = window.plugins.pushNotification;
-        
         if (event.alert) {
             if(APP_INITIALIZED){
                 showNotification(event,'ios');
@@ -141,13 +148,15 @@ var app = {
                 EVENT = event;
             }
         }
+        /*
         if (event.badge) {
-            pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
+            window.plugins.pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
         }
         if (event.sound) {
             var snd = new Media(event.sound);
             snd.play();
         }
+        */
     },
     onPause: function(){
         app.stopIntervalNotificacion();

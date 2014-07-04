@@ -538,6 +538,17 @@ function mobileCheckDistance(){
     }
 }
 
+//verificamos si hay notificaciones pendiente de mostrar
+function verifyNotification(){
+    //si tiene una notificacion pendiente la mostramos
+    if(HAVE_NOTIFICATION){
+        setTimeout(function(){
+            showNotification(EVENT, TYPE_NOTIFICATION);
+        },800);
+        HAVE_NOTIFICATION = false;
+    }
+}
+
 //showNotification
 function showNotification(event, type){
     var message = type == "android" ? event.message : event.alert;
