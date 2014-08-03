@@ -67,7 +67,14 @@ var app = {
         console.log('Received Event: ' + id);
         
         setTimeout(function(){
-            navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: false, timeout: 2*1000, maximumAge: 0 });
+            navigator.geolocation.getCurrentPosition( 
+            function(location){
+                alert(location.coords.latitude);
+                alert(location.coords.longitude);
+            },
+            function(){
+                showAlert("No se puede obtener la localizacion", "Error", "Aceptar");
+            }, {enableHighAccuracy:true} );
         },2000);
     }
 };
