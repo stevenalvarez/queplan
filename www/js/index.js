@@ -66,6 +66,6 @@ var app = {
 
         console.log('Received Event: ' + id);
         
-        navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: 10000, enableHighAccuracy: true});
+        navigator.geolocation.getCurrentPosition(onSuccess, onError, {maximumAge: 0, timeout: 10000, enableHighAccuracy:true});
     }
 };
