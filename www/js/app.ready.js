@@ -94,6 +94,7 @@ var app = {
             //alert(PUSH_NOTIFICATION_TOKEN);
             //mandamos a guardar el token para las notificaciones solo si no se guardo antes
             if(!APP_INITIALIZED){
+                alert("1");
                 getValidarDeviceUuid("view", device.uuid, PUSH_NOTIFICATION_TOKEN);
             }
         }
