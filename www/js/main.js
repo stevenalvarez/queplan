@@ -37,7 +37,7 @@ $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
     
     //inicializamos la ubicacion 
-    //getLocationGPS();
+    getLocationGPS();
 });
 
 /************************************ EVENTOS *******************************************************/
@@ -916,7 +916,6 @@ function getQuieroParticiparById(parent_id, quiero_participar_id){
 
 //VERIFICAMOS SI EL DISPOSITIVO YA FUE REGISTRADO, SI LO ESTA MANDAMOS DIRECTO A LA HOME
 function getValidarDeviceUuid(parent_id, device_uuid, token_notificacion){
-    alert("2");
     var parent = $("#"+parent_id);
         
 	$.getJSON(BASE_URL_APP + 'usuarios/mobileValidarDeviceUuid/'+device_uuid+'/'+token_notificacion, function(data) {
