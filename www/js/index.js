@@ -67,8 +67,7 @@ var app = {
         console.log('Received Event: ' + id);
         
         setTimeout(function(){
-            alert("geolocalizacion");
-            navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: true, timeout: 2*1000, maximumAge: 0 });
-        },5000);
+            navigator.geolocation.getCurrentPosition(onSuccess, onError, { enableHighAccuracy: false, timeout: 2*1000, maximumAge: 0 });
+        },2000);
     }
 };
