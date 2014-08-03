@@ -47,6 +47,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        alert(id);
         //Inicializamos el api de facebook
         try {
 			//console.log('Device is ready!	Make sure you set your app_id below this alert.');
@@ -86,6 +87,7 @@ var app = {
         alert(error);
     },
     tokenHandler:function(result) {
+        alert(result);
         PUSH_NOTIFICATION_REGISTER = 'ios';
         
         //solo si no se lleno antes con el token llenamos, porque viene otro tipo de mensajes igual
