@@ -58,7 +58,6 @@
     <gap:plugin name="org.apache.cordova.file" />
     <gap:plugin name="org.apache.cordova.file-transfer" />
     <gap:plugin name="org.apache.cordova.geolocation" />
-    <gap:plugin name="org.apache.cordova.geolocation.GeoBroker" />
     <gap:plugin name="org.apache.cordova.globalization" />
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.media" />
@@ -72,7 +71,6 @@
     <!--
         <gap:plugin name="com.phonegap.plugins.barcodescanner" />
     -->
-    <plugin name="Geolocation" value="org.apache.cordova.GeoBroker" />
 
     <!-- Define app icon for each platform. -->
     <icon src="icon.png" />
@@ -113,10 +111,10 @@
     -->
     <access origin="*"/>
     <access origin="http://127.0.0.1*"/>
-<access origin="*.googleapis.com"/>
-<access origin="*.google.com"/>
-<access origin="*.gstatic.com"/>
-<access origin="*.emaildatabases.co.uk"/>
+    <access origin="*.googleapis.com"/>
+    <access origin="*.google.com"/>
+    <access origin="*.gstatic.com"/>
+    <access origin="*.emaildatabases.co.uk"/>
     <!--
         <access origin="http://phonegap.com" />                    - allow any secure requests to http://phonegap.com/
         <access origin="http://phonegap.com" subdomains="true" />  - same as above, but including subdomains, such as http://build.phonegap.com/
