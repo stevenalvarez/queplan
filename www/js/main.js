@@ -37,7 +37,7 @@ $(document).bind('pageshow', function(event, ui) {
     var page_id = event.target.id;
     
     //inicializamos la ubicacion 
-    getLocationGPS();
+    //getLocationGPS();
 });
 
 /************************************ EVENTOS *******************************************************/
