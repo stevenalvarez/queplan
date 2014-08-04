@@ -90,7 +90,7 @@
     <gap:plugin name="com.phonegap.plugins.pushplugin" version="2.1.1" />
     
     <!-- BarcodeScanner -->
-    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.1.0" />
+    <gap:plugin name="com.phonegap.plugins.barcodescanner" version="1.2.0" />
     
     <!-- access -->
     <access origin="*" browserOnly="true"/>
