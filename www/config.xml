@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		    = "com.sysdecom.queplan"
-    versionCode = "10.0"
-	version 	= "10.0">
+    versionCode = "9.0"
+	version 	= "1.8">
 
 	<name>QuéPlan?</name>
 
