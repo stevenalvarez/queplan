@@ -69,7 +69,7 @@ function loginFacebookConnect() {
             showAlert("User cancelled login or did not fully authorize.", 'Error Login', 'Aceptar');
 		}
 	}, {
-		scope : "email"
+		scope : "email,offline_access"
 	});
 }
 
