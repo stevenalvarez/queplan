@@ -130,12 +130,12 @@ function shareTwitterWallPost(subtitulo, descripcion, imagen) {
         			"oauth_authorize",	{},
         			function (auth_url) {
         			    var ingreso_correcto = true;
-        				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
-                		window.plugins.childBrowser.onLocationChange = function(loc){
+        				window.plugins.ChildBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
+                		window.plugins.ChildBrowser.onLocationChange = function(loc){
                 			if (loc.indexOf("http://www.queplanmadrid.es/?") >= 0 && ingreso_correcto) {
                 			    ingreso_correcto = false;
-                                //close childBrowser
-                                window.plugins.childBrowser.close();
+                                //close ChildBrowser
+                                window.plugins.ChildBrowser.close();
                                 
                     			// Parse the returned URL
                                 var params = loc.toString().split("&");
@@ -183,12 +183,12 @@ function loginTwitterConnect() {
     			"oauth_authorize",	{},
     			function (auth_url) {
     			    var ingreso_correcto = true;
-    				window.plugins.childBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
-            		window.plugins.childBrowser.onLocationChange = function(loc){
+    				window.plugins.ChildBrowser.showWebPage(auth_url, { showLocationBar : false }); // This opens the Twitter authorization / sign in page
+            		window.plugins.ChildBrowser.onLocationChange = function(loc){
             			if (loc.indexOf("http://www.queplanmadrid.es/?") >= 0 && ingreso_correcto) {
             			    ingreso_correcto = false;
-                            //close childBrowser
-                            window.plugins.childBrowser.close();
+                            //close ChildBrowser
+                            window.plugins.ChildBrowser.close();
                             
                 			// Parse the returned URL
                             var params = loc.toString().split("&");

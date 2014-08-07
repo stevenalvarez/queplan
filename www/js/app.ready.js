@@ -47,6 +47,9 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+        //Hide the statusbar
+        StatusBar.hide();
+                
         //Inicializamos el api de facebook
         try {
 			//console.log('Device is ready!	Make sure you set your app_id below this alert.');
