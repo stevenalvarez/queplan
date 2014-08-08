@@ -1,106 +1,17 @@
 /************************************ FUNCTIONS APP *******************************************************/
-
-/* REGISTRO FACEBOOK FUNCTION */
-//getLoginStatusFacebook
-function getLoginStatusFacebook() {
-    var connected = false;
-    FB.getLoginStatus(function(response) {
-        if (response.status == 'connected') {
-            connected = true;
-        }
-    });
-    
-    return connected;
-}
-
 //loginFacebookConnect
 function loginFacebookConnect() {
-	FB.login(function(response) {
-		if (response.authResponse) {
-		  
-            FB_LOGIN_SUCCESS = true;
-            
-            //llenamos los datos
-            FB.api('/me', {
-                fields: 'id, name, first_name, last_name, username, email, picture, gender'
-            },function(response) {
-                if (response.error) { 
-                   showAlert('get user datas failed ' + JSON.stringify(response.error));
-                }else{
-                    var user = response;
-                    var app_id = user.id;
-                    var first_name = user.first_name;
-                    var last_name = user.last_name;
-                    var username = user.username;
-                    var nombre = user.name;
-                    var email = user.email;
-                    var genero = user.gender;
-                    var imagen = user.picture.data.url;
-                    
-            	    //mostramos loading
-                    showLoadingCustom('Validando datos...');
-                    
-                    //verificamos si este usuario no se logeo con anterioridad, si no lo hizo lo creamos como nuevo, si lo hizo solo actualizamos su estado logeado a 1
-                	$.getJSON(BASE_URL_APP + 'usuarios/mobileGetUsuarioByAppId/'+app_id+'/'+email+'/'+device.uuid+'/'+device.platform+'/'+PUSH_NOTIFICATION_TOKEN, function(data) {
-                        //ocultamos el loading
-                        $.mobile.loading( 'hide' );
-                	    if(data.success){
-                	        var usuario = data.usuario.Usuario;
-                            //guardamos los datos en la COOKIE
-                	        createCookie("user", JSON.stringify(usuario), 365);
-                            //mandamos directo al home si es que la cookie se creo correctamente
-                            if(isLogin()){
-                                $.mobile.changePage('#home');
-                            }
-                        }else{
-                            if(data.email_registrado){
-                                showAlert(data.mensaje, 'Error Login', 'Aceptar');
-                            }else{
-                                //registramos los datos
-                                registrar_datos(app_id,email,'facebook',username,nombre,imagen,genero);
-                                //registrar_datos(100000614903708, "steven.alvarez.v@gmail.com",'facebook',"johsteven","Jhonny Esteban Alvarez Villazante","http://profile.ak.fbcdn.net/hprofile-ak-ash2/371352_100000614903708_518504752_q.jpg","male");
-                            }
-                        }
-                	});
-                }
-            });
-            
-		} else {
-            showAlert("User cancelled login or did not fully authorize.", 'Error Login', 'Aceptar');
-		}
-	}, {
-		scope : "email,offline_access"
-	});
+    alert('Facebook Login');
 }
 
 //logoutFacebookConnect
 function logoutFacebookConnect() {
-    FB.logout(function(response) {
-        FB_LOGIN_SUCCESS = false;
-    });
+    alert('Facebook Logout');
 }
 
 //shareFacebookWallPost
 function shareFacebookWallPost(subtitulo, descripcion, imagen) {
-    var params = {
-        method: 'feed',
-        name: "QuePlan?",
-        caption: subtitulo,
-        description: descripcion,
-        link: 'http://www.queplanmadrid.es/',
-        picture: imagen,
-        actions: [
-            { name: 'QuePlan?', link: 'http://www.queplanmadrid.es/' }
-        ],
-        user_message_prompt: 'Comparte tu opinion sobre QuePlan?'
-    };
-    FB.ui(params, function(response) {
-        if (response && response.post_id) {
-            showAlert("Se ha publicado tu Post!.", "Enhorabuena", "Aceptar");
-        } else {
-            showAlert("Lo sentimos no se publico tu Post!.", "Error", "Aceptar");
-        }
-    });
+    alert('Facebook Share');
 }
 
 //shareTwitterWallPost

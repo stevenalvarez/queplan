@@ -50,6 +50,7 @@
     <gap:plugin name="org.apache.cordova.geolocation" />
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.li8.inappbrowser" version="0.1" />
     <!-- StatusBar -->
     <gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
 
@@ -77,16 +78,6 @@
     <gap:splash src="res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"           gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"          gap:platform="ios"     width="1024" height="768" />
-    
-    <!-- facebookconnect -->
-    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
-        <param name="APP_ID" value="537875786305519" />
-        <param name="APP_NAME" value="QuePlan?" />
-    </gap:plugin>
-    
-    <!-- inappbrowser -->
-    <plugin name="InAppBrowser" value="CDVInAppBrowser" />
-    <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
     
     <!-- childbrowser -->
     <gap:plugin name="com.phonegap.plugins.childbrowser" version="5.0.0" />

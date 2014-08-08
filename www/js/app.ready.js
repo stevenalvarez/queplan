@@ -51,17 +51,6 @@ var app = {
         StatusBar.hide();
                 
         //Inicializamos el api de facebook
-        try {
-			//console.log('Device is ready!	Make sure you set your app_id below this alert.');
-			FB.init({
-				appId : "537875786305519",
-				nativeInterface : CDV.FB,
-				useCachedDialogs : false
-			});
-			document.getElementById('data_loading_fb').innerHTML = "FB inicializado...";
-		} catch (e) {
-		      console.log("Error al inicializar con facebook");
-		}
         
         //Inicializamos el api de twitter
         cb.setConsumerKey(consumer_key, consumer_secret);
