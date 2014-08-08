@@ -51,6 +51,7 @@ var app = {
         StatusBar.hide();
                 
         //Inicializamos el api de facebook
+        openFB.init({appId: '537875786305519'});
         
         //Inicializamos el api de twitter
         cb.setConsumerKey(consumer_key, consumer_secret);

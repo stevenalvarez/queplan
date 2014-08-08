@@ -271,3 +271,7 @@ function init() {
     // document.addEventListener("touchmove", preventBehavior, false);
     document.addEventListener("deviceready", deviceInfo, true);
 }
+
+function errorHandler(error) {
+    alert(error.message);
+}
