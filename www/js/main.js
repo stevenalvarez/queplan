@@ -748,7 +748,7 @@ function getRecompensas(parent_id) {
     }
     
     //obtenemos todas las recompensas
-	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas/'+usuario_id, function(data) {
+	$.getJSON(BASE_URL_APP + 'recompensas/mobileGetRecompensas/'+usuario_id + "/" + CIUDAD_ID, function(data) {
         
         if(data.items){
             //mostramos loading
