@@ -340,9 +340,11 @@ function checkIn(urlamigable){
                         data.mensaje,           // message
                         function(){
                             if(user.registrado_mediante == "facebook"){
+                                /*
                                 setTimeout(function(){
                                     shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
                                 },500);
+                                */
                             }else if(user.registrado_mediante == "twitter"){
                                 setTimeout(function(){
                                     shareTwitterWallPost(data.subtitulo, data.descripcion, imagen);
@@ -425,9 +427,11 @@ function comprarRecompensa(local_id, recompensa_id){
                         data.mensaje,           // message
                         function(){
                             if(user.registrado_mediante == "facebook"){
+                                /*
                                 setTimeout(function(){
                                     shareFacebookWallPost(data.subtitulo, data.descripcion, imagen);
                                 },500);
+                                */
                             }else if(user.registrado_mediante == "twitter"){
                                 setTimeout(function(){
                                     shareTwitterWallPost(data.subtitulo, data.descripcion, imagen);
