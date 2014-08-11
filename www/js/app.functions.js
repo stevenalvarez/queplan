@@ -583,6 +583,8 @@ function goHome(ciudad_id){
             if(data){
                 if(data.success){
                     //showAlert(data.mensaje, "Aviso", "Aceptar");
+                    //re-escribimos la cookie con la nueva ciudad
+                    reWriteCookie("user","ciudad_id",data.ciudad_id);
                 }else{
                     //showAlert(data.mensaje, "Error", "Aceptar");
                 }
