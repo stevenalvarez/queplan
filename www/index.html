@@ -94,6 +94,23 @@
     
     </div><!-- /page -->
     
+    <!-- CIUDADES -->
+    
+    <div data-role="page" id="ciudades" data-theme="a">
+    
+    	<div class="ui-bar-inherit" data-role="header" data-tap-toggle="false">
+    		<h1 class="logo">
+                <img src="img/logo.png"/>
+            </h1>
+            <p class="text">elige tu ciudad</p>
+    	</div><!-- /header -->
+        
+    	<div data-role="content">
+            <div class="owl-carousel">
+            </div>
+    	</div><!-- /content -->
+    </div><!-- /page -->
+    
     <!-- HOME -->
     
     <div data-role="page" id="home" data-theme="a">
@@ -265,30 +282,41 @@
     	<div data-role="content">
             <h2 class="ui-li-heading">M&iacute; Perfil</h2>
             <div class="content_details">
-                <p style="margin-bottom: 8px;">Actualmente tiene acumulado.</p>
-                <div class="mis_puntos" data-role="collapsible" data-mini="true" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right">
-                    <h4>Mis Puntos .......................... <b class="total" style="font-size: 14px;float: right;color: #df086f;">0</b></h4>
-                </div>
                 <div data-role="fieldcontain">
+                    <p style="margin-bottom: 8px; color: #df086f;">Actualmente tiene acumulado.</p>
+                    <div class="mis_puntos" data-role="collapsible" data-mini="true" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u" data-iconpos="right">
+                        <h4>Mis Puntos .......................... <b class="total" style="font-size: 14px;float: right;color: #df086f;">0</b></h4>
+                    </div>
+                    
+                    <div class="content_options">
+                        <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Facebook</a>
+                        <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Twitter</a>
+                        <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Google</a>
+                        <a class="ui-btn-submit ui-btn-orange ui-btn-email" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Email</a>
+                        <a class="recibir_alertas ui-btn-submit ui-btn-purple" href="javascript:void(0)" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas</a>
+                    </div>
+                    
                     <form id="form_change_email">
-                        <input class="user_id" name="user_id" type="hidden" />
+                        <p style="margin-bottom: 8px; color: #df086f;">Esta registrado con el email:</p>
+                        <input type="hidden" name="user_id" class="user_id" value="" />
                         <input class="user_email" name="user_email" placeholder="Email..." autocomplete="off" autocapitalize="off" style="text-transform:lowercase;" type="email" data-mini="true" data-theme="c"/>
-                        <a class="cambiar_email" type="submit" data-role="button" data-mini="true">Cambiar</a>
+                        <a class="guardar_email ui-btn-submit ui-btn-green" type="submit" data-role="button" data-mini="true">Guardar</a>
+                    </form>
+                    
+                    <form id="form_ciudad">
+                        <p style="margin-bottom: 8px; color: #df086f;">Ciudad actual:</p>
+                        <input type="hidden" name="usuario_id" class="usuario_id" value="" />
+                        <div class="lista_ciudades"></div>
+                        <a class="guardar_ciudad ui-btn-submit ui-btn-green" type="submit" data-role="button" data-mini="true">Guardar</a>
+                    </form>
+                    
+                    <form id="form_configurar_alertas">
+                        <p style="margin-bottom: 8px;color: #df086f;">Seleccione las zonas de las cuales quiere recibir alertas</p>
+                        <input type="hidden" name="usuario_id" class="usuario_id" value="" />
+                        <div class="lista_zonas"></div>
+                        <a class="guardar_config_alertas ui-btn-submit ui-btn-green" type="submit" data-role="button" data-mini="true">Guardar</a>
                     </form>
                 </div>
-                <div class="content_options" style="clear: both">
-                    <a class="ui-btn-submit ui-btn-facebook" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Facebook</a>
-                    <a class="ui-btn-submit ui-btn-twitter" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Twitter</a>
-                    <a class="ui-btn-submit ui-btn-google" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Google</a>
-                    <a class="ui-btn-submit ui-btn-orange ui-btn-email" href="javascript:void(0)" onclick="logout()" data-role="button" data-icon="none" data-iconpos="left">Desconectar del Email</a>
-                    <a class="recibir_alertas ui-btn-submit ui-btn-purple" href="javascript:void(0)" data-role="button" data-icon="none" data-iconpos="left">Dejar de recibir alertas</a>
-                </div>
-                <form id="form_configurar_alertas">
-                    <input type="hidden" name="usuario_id" class="usuario_id" value="" />
-                    <p style="margin-bottom: 0;color: #df086f;">Selecciona las zonas de las que quieres recibir alertas</p>
-                    <div class="lista_zonas"></div>
-                    <a class="guardar_config_alertas ui-btn-submit ui-btn-green" type="submit" data-role="button">Guardar configuraci&oacute;n</a>
-                </form>
             </div>
         
     	</div><!-- /content -->

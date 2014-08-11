@@ -326,7 +326,7 @@
 #mi_perfil .ui-btn-submit.ui-btn-facebook .ui-btn-text{background-position: 92%;}
 #mi_perfil .ui-btn-submit.ui-btn-twitter .ui-btn-text, #mi_perfil .ui-btn-submit.ui-btn-purple .ui-btn-text{background-position: 80%;}
 #mi_perfil .ui-btn-submit.ui-btn-google .ui-btn-text{background-position: 85%;}
-#mi_perfil .ui-field-contain{padding-top: 0;}
+#mi_perfil .ui-field-contain{padding-top: 0;padding-bottom: 0;}
 #mi_perfil .cambiar_email .ui-btn-text{font-family: 'century_gothicregular';}
 #mi_perfil .recibir_alertas.si .ui-btn-text{padding-left: 42px;background-position: 60%;}
 #mi_perfil .lista_zonas .ui-btn-text{font-family: 'century_gothicregular';font-size: 14px;}
@@ -366,6 +366,15 @@
 .validar_recompensa a{color: #fff;font-size: 15px;font-family: 'century_gothicregular';font-weight: normal;}
 .validar_recompensa a span{display: block;text-align: center; text-shadow: 0 0 0;line-height: 15px;}
 .validar_recompensa a span.titulo{font-size: 20px;}
+
+/* CIUDADES */
+#ciudades .owl-carousel{height: 100%;position: absolute;top: 0;}
+#ciudades .owl-wrapper-outer{height: 100%;}
+#ciudades .owl-carousel .ciudad{padding-top: 408px;padding-bottom: 20px;}
+#ciudades .owl-carousel .ciudad span{text-align: center;text-shadow: 0 0 0;color: #fc039b;font-size: 35px;letter-spacing: 1px;display: block;font-weight: normal;font-family: 'century_gothicregular';}
+#ciudades .owl-theme .owl-controls{position: relative;margin-top: -30px;}
+#ciudades .ui-header.ui-bar-inherit{background: transparent;border: none;overflow: hidden;z-index: 10;}
+#ciudades.ui-page p.text {text-align: center;text-shadow: 0 0 0;color: #fff;font-weight: normal;font-family: 'century_gothicregular';font-size: 21px;letter-spacing: 1px;
 
 /* HOME IPAD AND MOBILE*/
 /* #Mobile (Landscape)

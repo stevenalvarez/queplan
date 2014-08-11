@@ -567,6 +567,29 @@ function redirectToPage(seccion, id){
 
 function loginInvitado(){
     LOGIN_INVITADO = true;
+    $.mobile.changePage('#ciudades');
+}
+
+function goHome(ciudad_id){
+    CIUDAD_ID = ciudad_id;
+    
+    //se guarda la ciudad
+    if(isLogin()){
+        var user = COOKIE;
+        var me = user.id;
+        
+    	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetCiudad/'+me+"/"+CIUDAD_ID, function(data) {
+            
+            if(data){
+                if(data.success){
+                    //showAlert(data.mensaje, "Aviso", "Aceptar");
+                }else{
+                    //showAlert(data.mensaje, "Error", "Aceptar");
+                }
+            }
+    	});
+    }
+    
     $.mobile.changePage('#home');
 }
 

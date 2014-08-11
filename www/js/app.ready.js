@@ -10,6 +10,7 @@ var PUSH_NOTIFICATION_REGISTER = '';
 var PUSH_NOTIFICATION_TOKEN = 0;
 var INTERVAL;
 var LOGIN_INVITADO = false;
+var CIUDAD_ID = 0; //NADA;
 
 /* notificacion */
 var HAVE_NOTIFICATION = false;

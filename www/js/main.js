@@ -35,6 +35,12 @@ $(document).bind('pageshow', function(event, ui) {
 
 /************************************ EVENTOS *******************************************************/
 
+//CIUDADES
+$("#ciudades").live("pagebeforeshow",function(event){
+    var page_id = $(this).attr("id");
+    getCiudades(page_id);
+});
+
 //GUIA
 $('#guia').live('pagebeforeshow', function(event, ui) {
     var page_id = $(this).attr("id");
@@ -145,6 +151,71 @@ $('#home').live('pagebeforeshow', function(event, ui) {
 });
 
 /************************************ FUNCTIONS *******************************************************/
+
+//CIUDADES
+function getCiudades(parent_id){
+    var parent = $("#"+parent_id);
+    var container = parent.find(".owl-carousel");
+    parent.find(".ui-content").hide();
+    
+	$.getJSON(BASE_URL_APP + 'ciudads/mobileGetCiudades', function(data) {
+        
+        if(data.items){
+            
+            //mostramos loading
+            $.mobile.loading('show');           
+            
+    		var items = data.items;
+                        
+            if(items.length){
+        		$.each(items, function(index, item) {
+                    
+                    var id = item.Ciudad.id;
+                    var title = item.Ciudad.title;
+                    var imagen_fondo = item.Ciudad.imagen_fondo!=""?item.Ciudad.imagen_fondo:"default.png";
+                    
+                    var html='<a href="javascript:goHome(\''+id+'\')""><div class="ciudad" style="background: url('+BASE_URL_APP+'img/ciudades/'+imagen_fondo+');background-size: 100%;">' +
+                        '<span>'+title+'</span>' +
+                        '</div></a>';
+        		    
+                    container.append(html);
+        		});
+                
+                container.promise().done(function() {
+                    $('<img>').attr('src',function(){
+                        var imgUrl = container.find(".ciudad:first").css('background-image');
+                        imgUrl = imgUrl.substring(4, imgUrl.length-1);
+                        return imgUrl;
+                    }).load(function(){
+                        
+                        /* carrousel */
+                        container.owlCarousel({
+                            pagination : true,
+                            items : 1,
+                            itemsDesktop : false,
+                            itemsDesktopSmall : false,
+                            itemsTablet: false,
+                            itemsMobile : false
+                        });
+                        
+                        setTimeout(function(){
+                            container.find(".ciudad").css("padding-top",(parent.height()-65)+'px');
+                        },100);
+                        
+                        //ocultamos loading
+                        $.mobile.loading( 'hide' );
+                        parent.find(".ui-content").fadeIn("slow");
+                        $('<img>').removeAttr("src");
+                    });
+                });
+            }else{
+                //ocultamos loading
+                $.mobile.loading( 'hide' );
+                parent.find(".ui-content").fadeIn("slow");
+            }
+        }
+	});
+}
 
 //OBTENEMOS LAS CATEGORIAS
 function getCategorias(parent_id) {
@@ -282,7 +353,7 @@ function getPlanes(parent_id){
     
     parent.find(".ui-content").hide();
     
-	$.getJSON(BASE_URL_APP + 'promocions/mobileGetPlanes', function(data) {
+	$.getJSON(BASE_URL_APP + 'promocions/mobileGetPlanes'+"/"+CIUDAD_ID, function(data) {
         
         if(data.items){
             //mostramos loading
@@ -423,7 +494,7 @@ function getLocalesById(parent_id, categoria_id){
     
     parent.find(".ui-content").hide();
     
-	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocales/'+LATITUDE+"/"+LONGITUDE, function(data) {
+	$.getJSON(BASE_URL_APP + 'locals/mobileGetLocales/'+LATITUDE+"/"+LONGITUDE+"/"+CIUDAD_ID, function(data) {
         
         if(data.items){
             //mostramos loading
@@ -920,10 +991,17 @@ function getValidarDeviceUuid(parent_id, device_uuid, token_notificacion){
 	        var usuario = data.usuario.Usuario;
             //guardamos los datos en la COOKIE
 	        createCookie("user", JSON.stringify(usuario), 365);
-            //mandamos directo al home si es que la cookie se creo correctamente
+            //mandamos directo al home si es que la cookie se creo correctamente y tiene ciudad_id seleccionada
             //sino le pedimos que se logee con fb o tw
-            if(isLogin()){
-                $.mobile.changePage('#home');
+            //recuperamos los datos de ciudad
+            var usuario_ciudad = data.usuario.Usuario.ciudad_id;
+            if(usuario_ciudad){
+                CIUDAD_ID = usuario_ciudad;
+                if(isLogin()){
+                    $.mobile.changePage('#home');
+                }
+            }else{
+                $.mobile.changePage('#ciudades');
             }
         }else{
             //ocultamos loading
@@ -967,7 +1045,7 @@ function getMiPerfil(parent_id){
         form.find(".user_id").val(user.id);
         form.find(".user_email").val(user.email);
         
-        form.find(".cambiar_email").unbind("touchstart").bind("touchstart", function(){
+        form.find(".guardar_email").unbind("touchstart").bind("touchstart", function(){
             var email = $.trim(form.find(".user_email").val()); 
             if(valEmail(email)){
                 showLoadingCustom('Guardando datos...');
@@ -1004,9 +1082,7 @@ function getMiPerfil(parent_id){
                         if(buttonIndex == 1){
                             showLoadingCustom('Espere por favor...');
                             
-                            var me = user.id;
-                            
-                        	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetAlerta/'+me, function(data) {
+                        	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetAlerta/'+user.id, function(data) {
                                 
                                 if(data){
                                     //ocultamos loading
@@ -1033,9 +1109,7 @@ function getMiPerfil(parent_id){
             }else{
                 showLoadingCustom('Espere por favor...');
                 
-                var me = user.id;
-                
-            	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetAlerta/'+me, function(data) {
+            	$.getJSON(BASE_URL_APP + 'usuarios/mobileSetAlerta/'+user.id, function(data) {
                     
                     if(data){
                         //ocultamos loading
@@ -1115,6 +1189,48 @@ function getMiPerfil(parent_id){
             });
           return false;
         });
+        
+        //guardar ciudad
+        var form_ciudad = container.find("form#form_ciudad");
+        
+        //obtenemos las ciudades
+        $.getJSON(BASE_URL_APP + 'ciudads/mobileGetCiudades', function(data) {
+    		var items = data.items;
+            if(items.length){
+                form_ciudad.find(".lista_ciudades").find("select").remove();
+                var select = '<select name="ciudad_id">';
+        		$.each(items, function(index, item) {        		  
+                    var selected = "";
+                    if(user.ciudad_id == item.Ciudad.id){
+                        selected = "selected=selected";
+                    }
+                    select+='<option value="'+item.Ciudad.id+'" '+selected+'>'+item.Ciudad.title+'</option>';
+        		});
+                select+='</select>';
+                
+                //append
+                form_ciudad.find(".lista_ciudades").append(select);
+                form_ciudad.trigger("create");
+            }
+        });
+                        
+        form_ciudad.find(".usuario_id").val(user.id);
+        form_ciudad.find(".guardar_ciudad").unbind("touchstart").bind("touchstart", function(){
+            showLoadingCustom('Guardando datos...');
+            $.post(BASE_URL_APP + 'usuarios/mobileChangeCiudad', form_ciudad.serialize()).done(function(data) {
+                data = $.parseJSON(data);
+                $.mobile.loading( 'hide' );
+                if(data.success){
+                    showAlert(data.mensaje, "Aviso", "Aceptar");
+                    CIUDAD_ID = data.ciudad_id;
+                    //re-escribimos la cookie con la nueva ciudad
+                    reWriteCookie("user","ciudad_id",data.ciudad_id);
+                }else{
+                    showAlert(data.mensaje, "Error", "Aceptar");
+                }
+            });
+        });
+        
     }else if(LOGIN_INVITADO){
         alertaInvitado();
     }
@@ -1135,24 +1251,37 @@ function getZonas(parent_id){
             $.mobile.loading( 'show' );
             
     		items = data.items;
+            var zonas = 0;
             if(items.length){
                 var html = '<div data-role="navbar" data-corners="false"><ul class="nav-custom zonas">';
         		$.each(items, function(index, item) {
-        		    html+= '<li><a id="zona_'+item.Zona.id+'" href="#'+item.Zona.id+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
+        		    var bool = false;
+        		    if(CIUDAD_ID == 0){
+                        bool = true;
+                    }else if(CIUDAD_ID != 0 && item.Zona.ciudad_id == CIUDAD_ID){
+                        bool = true;
+                    }
+                    if(bool){
+                        zonas++;
+                        html+= '<li><a id="zona_'+item.Zona.id+'" href="#'+item.Zona.id+'" data-icon="none" data-iconpos="top">'+(item.Zona.title).split(' ').join('<br>')+'</a></li>';
+                    }
         		});
                 html+='</ul></div>';
                 container.find(".ui-navbar").remove();
                 container.append(html);
-                //refresh
-        		container.trigger("create");
                 
-                //colocamos su background
-                var nav_custom = parent.find(".nav-custom.zonas");
-                $.each(items, function(index, item) {
-                    if(item.Zona.imagen != undefined && item.Zona.imagen != ""){
-                        nav_custom.find("a#zona_"+item.Zona.id).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/zonas/"+item.Zona.imagen+"')  no-repeat scroll top center transparent").css("background-size","30px 23px");
-                    }
-                });
+                if(zonas){   
+                    //refresh
+            		container.trigger("create");
+                
+                    //colocamos su background
+                    var nav_custom = parent.find(".nav-custom.zonas");
+                    $.each(items, function(index, item) {
+                        if(item.Zona.imagen != undefined && item.Zona.imagen != ""){
+                            nav_custom.find("a#zona_"+item.Zona.id).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/zonas/"+item.Zona.imagen+"')  no-repeat scroll top center transparent").css("background-size","30px 23px");
+                        }
+                    });
+                }
                 
                 var page = $("#" + $.mobile.activePage.attr('id'));
                 page.find(".zonas").find("a").unbind("touchstart").bind("touchstart", function(){
