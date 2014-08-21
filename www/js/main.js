@@ -199,7 +199,7 @@ function getCiudades(parent_id){
                         });
                         
                         setTimeout(function(){
-                            container.find(".ciudad").css("padding-top",(parent.height()-65)+'px');
+                            container.find(".ciudad").css("padding-top",(parent.height()-60)+'px');
                         },100);
                         
                         //ocultamos loading
