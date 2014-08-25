@@ -232,40 +232,47 @@ function getCategorias(parent_id) {
             $.mobile.loading('show');
             
     		items = data.items;
-    		$.each(items, function(index, item) {
-    		    var imagen = item.Categoria.imagen!=""?item.Categoria.imagen:"default.png";
-                var clone = container.find('a:first').clone(true);
-                clone.attr("href", "locales.html?id=" + item.Categoria.id);
-                clone.find(".ui-btn-text").html(item.Categoria.title);
-                clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+imagen+"')  no-repeat scroll top center transparent");
-                clone.find(".ui-icon").css("background-size","35px");
-                clone.find(".ui-icon").css("padding-left","5px");
-                clone.find(".ui-icon").css("margin-top","-18px");
-                clone.find(".ui-btn-inner").append('<span style="display:none;background:url('+BASE_URL_APP+"img/categorias/"+imagen+')  no-repeat scroll top center transparent)"></span>');
-                clone.attr("lang",imagen);
-                clone.css("display","block");
-                clone.addClass("clone");
+            if(items.length){
+        		$.each(items, function(index, item) {
+        		    var imagen = item.Categoria.imagen!=""?item.Categoria.imagen:"default.png";
+                    var clone = container.find('a:first').clone(true);
+                    clone.attr("href", "locales.html?id=" + item.Categoria.id);
+                    clone.find(".ui-btn-text").html(item.Categoria.title);
+                    clone.find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+imagen+"')  no-repeat scroll top center transparent");
+                    clone.find(".ui-icon").css("background-size","35px");
+                    clone.find(".ui-icon").css("padding-left","5px");
+                    clone.find(".ui-icon").css("margin-top","-18px");
+                    clone.find(".ui-btn-inner").append('<span style="display:none;background:url('+BASE_URL_APP+"img/categorias/"+imagen+')  no-repeat scroll top center transparent)"></span>');
+                    clone.attr("lang",imagen);
+                    clone.css("display","block");
+                    clone.addClass("clone");
+                    
+                    //append container
+                    container.append(clone);
+        		});
                 
-                //append container
-                container.append(clone);
-    		});
-            
-            container.promise().done(function() {
+                container.promise().done(function() {
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    parent.find(".ui-content").fadeIn("slow");
+                    
+                    //al momento de touch cambiamos su imagen a color rosa
+                    container.find("a").hover(
+                    function(){
+                        $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
+                        $(this).find(".ui-icon").css("background-size","35px");
+                    },
+                    function(){
+                        $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
+                        $(this).find(".ui-icon").css("background-size","35px");
+                    });
+                });                
+            }else{
+                container.append("<p class='ningun_plan'>ACTUALMENTE NO HAY CATEGORIAS DISPONIBLES.</p>");
                 //ocultamos loading
                 $.mobile.loading( 'hide' );
                 parent.find(".ui-content").fadeIn("slow");
-                
-                //al momento de touch cambiamos su imagen a color rosa
-                container.find("a").hover(
-                function(){
-                    $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/rosa/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
-                    $(this).find(".ui-icon").css("background-size","35px");
-                },
-                function(){
-                    $(this).find(".ui-icon").css("background","url('"+BASE_URL_APP+"img/categorias/"+$(this).attr("lang")+"')  no-repeat scroll top center transparent");
-                    $(this).find(".ui-icon").css("background-size","35px");
-                });
-            });
+            }
         }
 	});
 }
