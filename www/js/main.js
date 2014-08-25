@@ -199,7 +199,7 @@ function getCiudades(parent_id){
                         });
                         
                         setTimeout(function(){
-                            container.find(".ciudad").css("padding-top",(parent.height()-65)+'px');
+                            container.find(".ciudad").css("padding-top",(parent.height()-60)+'px');
                         },100);
                         
                         //ocultamos loading
@@ -1134,7 +1134,7 @@ function getMiPerfil(parent_id){
         container.find(".ui-btn-"+user.registrado_mediante).css("display","block");
         
         //obtenemos las zonas
-    	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas/'+user.id, function(data) {
+    	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas/'+user.id+'/'+CIUDAD_ID, function(data) {
             if(data.items){
                 //mostramos loading
                 $.mobile.loading( 'show' );
@@ -1157,9 +1157,18 @@ function getMiPerfil(parent_id){
                     $.mobile.loading( 'hide' );
                     
                     //refresh
+                    form_configurar_alertas.show();
                     form_configurar_alertas.find(".lista_zonas").html('');
                     form_configurar_alertas.find(".lista_zonas").append('<fieldset data-role="controlgroup">'+html+'</fieldset>');
                     form_configurar_alertas.trigger("create");
+                
+                }else{
+                    //ocultamos loading
+                    $.mobile.loading( 'hide' );
+                    
+                    //ocultamos ya que no hay zonas
+                    form_configurar_alertas.hide();
+                    
                 }
             }
     	});
@@ -1222,9 +1231,50 @@ function getMiPerfil(parent_id){
                 $.mobile.loading( 'hide' );
                 if(data.success){
                     showAlert(data.mensaje, "Aviso", "Aceptar");
+                    //alert(data.mensaje);
                     CIUDAD_ID = data.ciudad_id;
                     //re-escribimos la cookie con la nueva ciudad
                     reWriteCookie("user","ciudad_id",data.ciudad_id);
+                    
+                    //obtenemos las zonas
+                	$.getJSON(BASE_URL_APP + 'zonas/mobileGetZonas/'+user.id+'/'+CIUDAD_ID, function(data) {
+                        if(data.items){
+                            //mostramos loading
+                            $.mobile.loading( 'show' );
+                    		items = data.items;
+                            var alertas = data.alertas;
+                            var html = "";
+                            if(items.length){
+                                form_configurar_alertas.find(".usuario_id").val(user.id);
+                        		$.each(items, function(index, item) {
+                        		    var checked=''
+                        		    if(alertas == false){
+                        		      checked='checked="checked"';
+                        		    }else if(item.Zona.recibir){
+                        		      checked='checked="checked"';
+                        		    }
+                        		    html+= '<input name="zonas[]" id="alerta_'+item.Zona.id+'" type="checkbox" value="'+item.Zona.id+'" '+checked+' /><label for="alerta_'+item.Zona.id+'">'+item.Zona.title+'</label>';
+                        		});
+                                
+                                //ocultamos loading
+                                $.mobile.loading( 'hide' );
+                                
+                                //refresh
+                                form_configurar_alertas.show();
+                                form_configurar_alertas.find(".lista_zonas").html('');
+                                form_configurar_alertas.find(".lista_zonas").append('<fieldset data-role="controlgroup">'+html+'</fieldset>');
+                                form_configurar_alertas.trigger("create");
+                            
+                            }else{
+                                //ocultamos loading
+                                $.mobile.loading( 'hide' );
+                                
+                                //ocultamos ya que no hay zonas
+                                form_configurar_alertas.hide();
+                                
+                            }
+                        }
+                	});                    
                 }else{
                     showAlert(data.mensaje, "Error", "Aceptar");
                 }
