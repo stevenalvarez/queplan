@@ -225,7 +225,7 @@ function getCategorias(parent_id) {
     
     parent.find(".ui-content").hide();
 	
-    $.getJSON(BASE_URL_APP + 'categorias/mobileGetCategorias', function(data) {
+    $.getJSON(BASE_URL_APP + 'categorias/mobileGetCategorias'+'/'+CIUDAD_ID, function(data) {
         if(data){
             
             //mostramos loading
@@ -277,7 +277,7 @@ function getCategoriasByCarrousel(parent_id, categoria_id){
     container.find('li').remove();
     container.hide();
     
-    $.getJSON(BASE_URL_APP + 'categorias/mobileGetCategorias', function(data) {
+    $.getJSON(BASE_URL_APP + 'categorias/mobileGetCategorias'+'/'+CIUDAD_ID, function(data) {
         if(data){
             
     		items = data.items;
